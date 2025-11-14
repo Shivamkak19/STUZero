@@ -1,0 +1,173 @@
+# Spectral EfficientZero Configuration for Atari
+# Tests hypothesis: Spectral filtering can outperform standard EfficientZero
+# by better handling long-range temporal dependencies
+
+# agent
+agent_name: spectral_atari_agent
+
+# env setting
+env:
+  env: Atari
+  game: Pong  # Change this to test different games
+  base_seed: 0
+  n_skip: 4
+  n_stack: 4
+  max_episode_steps: 3000 # 27000 for final test
+  gray_scale: False
+  image_based: True
+  clip_reward: True
+  obs_shape: [3, 96, 96]
+  episodic: True
+
+rl:
+  discount: 0.997
+  unroll_steps: 5   # Used for spectral sequence length
+  td_steps: 5
+  auto_td_steps: 30000
+  td_lambda: 0.95
+
+# optimizer
+optimizer:
+  type: SGD
+  lr: 0.2
+  lr_decay_type: none
+  lr_warm_up: 0.01
+  lr_decay_rate: 0.1
+  lr_decay_steps: 100000
+  weight_decay: 1e-4
+  momentum: 0.9
+
+# priority of data
+priority:
+  use_priority: True
+  priority_prob_alpha: 1.0
+  priority_prob_beta: 1.0
+  min_prior: 0.000001
+
+# training
+train:
+  load_model_path: ''
+  batch_size: 256
+  training_steps: 100000        # 100 * 1000
+  offline_training_steps: 20000 # 20 * 1000
+  start_transitions: 2000       # 2 * 1000
+
+  eval_n_episode: 10
+  eval_interval: 10000
+
+  self_play_update_interval: 100
+  reanalyze_update_interval: 200
+  save_ckpt_interval: 10000
+
+  mini_batch_size: 256
+  reanalyze_ratio: 1.0
+
+  reward_loss_coeff: 1.0
+  value_loss_coeff: 0.5
+  policy_loss_coeff: 1.0
+  consistency_coeff: 5.0
+  decorrelation_coeff: 0.01
+  off_diag_coeff: 5e-3
+  entropy_coeff: 5e-3
+
+  max_grad_norm: 5
+  change_temperature: True
+
+  periodic_reset: False
+  value_reanalyze: False
+  path_consistency: False
+  use_decorrelation: False
+  value_policy_detach: False
+  optimal_Q: False
+  v_num: 1
+  value_target: 'mixed'   # sarsa or search or mixed or max
+  use_IQL: False
+  IQL_weight: 0.7
+  start_use_mix_training_steps: 3e4
+  mixed_value_threshold: 5e3
+
+# self-play data collection
+data:
+  num_envs: 4
+  buffer_size: 1000000      # 1 * 1000 * 1000
+  total_transitions: 100000 # 100 * 1000
+  top_transitions: 2e5
+  trajectory_size: 400
+  save_video: False
+  save_as_dataset: False
+
+# MCTS
+mcts:
+  language: cython
+  num_simulations: 16
+  num_top_actions: 4
+  c_visit: 50
+  c_scale: 0.1
+  c_base: 19652
+  c_init: 1.25
+  dirichlet_alpha: 0.3
+  explore_frac: 0.25
+  value_minmax_delta: 0.01
+  vis: ['print']
+  mpc_horizon: 1
+  use_gumbel: True
+
+# model architecture
+model:
+  # Spectral filtering parameters
+  use_spectral: True  # Enable spectral filtering
+  num_spectral_filters: 16  # Number of spectral filters K (from paper: 16-24)
+                             # Higher K = more expressive but slower
+                             # Theoretically: K = O(log(L) * log(1/epsilon))
+
+  # Standard EfficientZero parameters
+  noisy_net: False
+  action_embedding: True
+  action_embedding_dim: 16
+  down_sample: True
+  state_norm: False
+  value_prefix: True
+  value_target: bootstrapped # bootstrapped or GAE
+  GAE_max_steps: 15
+  init_zero: True
+  num_blocks: 1
+  num_channels: 64
+  reduced_channels: 16
+
+  projection_layers: [1024, 1024]
+  prjection_head_layers: [256, 1024]
+
+  fc_layers: [32]
+  lstm_hidden_size: 512
+  lstm_horizon_len: 5
+  policy_loss_type: reanalyze
+
+  reward_support:
+    range: [-300, 300]
+    scale: 1
+    env: Atari
+    bins: 51
+    type: support
+  value_support:
+    range: [-300, 300]
+    scale: 1
+    env: Atari
+    bins: 51
+    type: support
+
+# worker process allocation
+actors:
+  data_worker: 1
+  batch_worker: 8
+
+# wandb
+wandb:
+  project: 'stu-efficientzero'
+  tag: 'Atari-Spectral'
+
+# Ablation study configurations (set use_spectral: False for baseline)
+# To run ablation:
+# 1. Baseline (no spectral): set use_spectral: False
+# 2. Spectral with K=8: set use_spectral: True, num_spectral_filters: 8
+# 3. Spectral with K=16: set use_spectral: True, num_spectral_filters: 16
+# 4. Spectral with K=24: set use_spectral: True, num_spectral_filters: 24
