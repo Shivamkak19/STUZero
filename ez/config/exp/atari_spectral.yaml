@@ -116,7 +116,7 @@ mcts:
 model:
   # Spectral filtering parameters
   use_spectral: True  # Enable spectral filtering
-  num_spectral_filters: 16  # Number of spectral filters K (from paper: 16-24)
+  num_spectral_filters: 6  # Number of spectral filters K (from paper: 16-24)
                              # Higher K = more expressive but slower
                              # Theoretically: K = O(log(L) * log(1/epsilon))
 

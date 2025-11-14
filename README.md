@@ -140,3 +140,12 @@ If you find our work useful, please consider citing:
   year={2024}
 }
 ```
+
+```
+ python ez/train.py exp_config=ez/config/exp/atari_spectral.yaml \
+      train.training_steps=10000 \
+      train.offline_training_steps=2000 \
+      data.total_transitions=10000 \
+      data.buffer_size=100000 \
+      train.eval_interval=5000
+```

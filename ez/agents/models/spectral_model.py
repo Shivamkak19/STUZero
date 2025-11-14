@@ -108,7 +108,9 @@ class SpectralEfficientZero(nn.Module):
             B, C, H, W = state.shape
             self.state_sequence = state.unsqueeze(1)  # [B, 1, C, H, W]
 
-        values, policy = self.do_value_policy_prediction(state, self.state_sequence if self.use_spectral else None)
+        # Don't use spectral filtering for initial inference (only 1 state, not enough for sequence)
+        # Spectral filtering will be used in recurrent_inference where we have multiple states
+        values, policy = self.do_value_policy_prediction(state, state_sequence=None)
 
         if training:
             return state, values, policy
@@ -135,6 +137,7 @@ class SpectralEfficientZero(nn.Module):
         value_prefix, reward_hidden = self.do_reward_prediction(next_state, reward_hidden)
 
         # Update state sequence for spectral filtering
+        state_seq_for_prediction = None
         if self.use_spectral and self.state_sequence is not None:
             B, L, C, H, W = self.state_sequence.shape
             # Append new state
@@ -146,7 +149,11 @@ class SpectralEfficientZero(nn.Module):
             if self.state_sequence.shape[1] > max_seq_len:
                 self.state_sequence = self.state_sequence[:, -max_seq_len:, :, :, :]
 
-        values, policy = self.do_value_policy_prediction(next_state, self.state_sequence if self.use_spectral else None)
+            # Only use spectral filtering if we have enough states
+            if self.state_sequence.shape[1] >= max_seq_len:
+                state_seq_for_prediction = self.state_sequence
+
+        values, policy = self.do_value_policy_prediction(next_state, state_seq_for_prediction)
 
         if training:
             return next_state, value_prefix, values, policy, reward_hidden

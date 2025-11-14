@@ -12,6 +12,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
+from typing import Tuple
 
 
 def nearest_power_of_two(x: int, round_up: bool = False) -> int:
@@ -55,7 +56,7 @@ def convolve(
     v: torch.Tensor,
     n: int,
     K: int
-) -> tuple[torch.Tensor, torch.Tensor]:
+) -> Tuple[torch.Tensor, torch.Tensor]:
     """
     Convolve input with filters using FFT.
 
@@ -72,7 +73,8 @@ def convolve(
     sgn = torch.full((1, seq_len, 1), 1, device=u.device)
     sgn[:, 1::2] *= -1
 
-    v = v.view(1, -1, K, 1).to(torch.float32).contiguous()
+    v = v.view(1, v.shape[0], v.shape[1], 1).to(torch.float32).contiguous()
+    assert v.shape[2] == K, f"v.shape[2] ({v.shape[2]}) != K ({K})"
     sgn = sgn.unsqueeze(-1)
 
     # Expand u to match v dimensions: [bsz, seq_len, K, d_in]
@@ -114,23 +116,26 @@ class MiniSTU(nn.Module):
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         # Spectral filters: shape [L, K]. Register as buffer so moves with .to(device)
+        # IMPORTANT: Initialize on CPU to avoid Ray serialization issues with CUDA tensors
+        # The buffer will automatically move to CUDA when model.cuda() is called
         if default_filters is not None:
-            phi = default_filters.to(self.device, self.dtype)
+            phi = default_filters.to('cpu', self.dtype)
         else:
-            phi = get_spectral_filters(seq_len, num_filters, use_hankel_L, self.device, self.dtype)
+            phi = get_spectral_filters(seq_len, num_filters, use_hankel_L, torch.device('cpu'), self.dtype)
         self.register_buffer("phi", phi, persistent=False)
 
         # FFT length
         self.n = nearest_power_of_two(seq_len * 2 - 1, round_up=True)
 
         # Learnable projections Φ⁺, Φ⁻ : [K, I, O]
+        # IMPORTANT: Initialize on CPU to avoid Ray serialization issues
         scale = (num_filters * input_dim) ** -0.5
         self.M_phi_plus = nn.Parameter(
-            torch.randn(num_filters, input_dim, output_dim, dtype=dtype, device=self.device) * scale
+            torch.randn(num_filters, input_dim, output_dim, dtype=dtype) * scale
         )
         if not use_hankel_L:
             self.M_phi_minus = nn.Parameter(
-                torch.randn(num_filters, input_dim, output_dim, dtype=dtype, device=self.device) * scale
+                torch.randn(num_filters, input_dim, output_dim, dtype=dtype) * scale
             )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -152,6 +157,9 @@ class MiniSTU(nn.Module):
         if self.use_hankel_L:
             return spectral_plus
         spectral_minus = torch.einsum('blki,kio->blo', U_minus, self.M_phi_minus)
+
+        print("MiniSTU input x.shape:", x.shape)
+
         return spectral_plus + spectral_minus
 
 
