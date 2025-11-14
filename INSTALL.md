@@ -31,7 +31,7 @@ cd -
 
 3. Install `reference` version 0.31.0 (version 0.30.2 fails to import `referencing.jsonschema`):
    ```bash
-   pip install reference==0.31.0
+   pip install referencing==0.31.0
    ```
 
 4. Install `dmc2gym` from GitHub:
