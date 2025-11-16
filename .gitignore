@@ -17,3 +17,7 @@ __pycache__/
 /test*
 
 spectral_papers/
+
+*.ipynb_checkpoints/
+wandb/
+*.cpp
