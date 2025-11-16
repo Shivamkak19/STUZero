@@ -124,6 +124,10 @@ model:
   num_channels: 64
   reduced_channels: 16
 
+  # STU-specific parameters for spectral filtering in value network
+  stu_seq_len: 16        # Sequence length for STU spectral filtering
+  stu_num_filters: 8     # Number of spectral filters (K) in STU
+
   projection_layers: [1024, 1024]     # hidden dim, output dim
   prjection_head_layers: [256, 1024]  # hidden dim, output dim
 

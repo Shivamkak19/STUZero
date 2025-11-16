@@ -8,6 +8,7 @@ import math
 import torch.nn as nn
 import numpy as np
 from .layer import ResidualBlock, conv3x3, mlp
+from .stu_layer import MiniSTU
 
 
 # Down_sample observations before representation network (See paper appendix Network Architecture)
@@ -292,3 +293,111 @@ class ProjectionHeadNetwork(nn.Module):
 
     def forward(self, x):
         return self.layer(x)
+
+
+class ValuePolicyNetworkWithSTU(nn.Module):
+    """
+    ValuePolicyNetwork enhanced with Spectral Transform Unit (STU) for value prediction.
+
+    This network applies spectral filtering to value predictions to potentially capture
+    long-range dependencies in the value function more effectively.
+    """
+    def __init__(self, num_blocks, num_channels, reduced_channels, flatten_size, fc_layers, value_output_size,
+                 policy_output_size, init_zero, is_continuous=False, policy_distribution='beta',
+                 stu_seq_len=16, stu_num_filters=8, **kwargs):
+        super().__init__()
+        self.v_num = kwargs.get('v_num')
+        self.stu_seq_len = stu_seq_len
+        self.stu_num_filters = stu_num_filters
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+        # Value heads with STU integration
+        self.conv1x1_values = nn.ModuleList([nn.Conv2d(num_channels, reduced_channels, 1) for _ in range(self.v_num)])
+        self.bn_values = nn.ModuleList([nn.BatchNorm2d(reduced_channels) for _ in range(self.v_num)])
+
+        # Policy head (unchanged)
+        self.conv1x1_policy = nn.Conv2d(num_channels, reduced_channels, 1)
+        self.bn_policy = nn.BatchNorm2d(reduced_channels)
+
+        self.block_output_size_value = flatten_size
+        self.block_output_size_policy = flatten_size
+
+        # STU layers for each value head
+        # The STU processes sequences of value features
+        # We treat the flattened spatial features as a sequence
+        self.stu_layers = nn.ModuleList([
+            MiniSTU(
+                seq_len=stu_seq_len,
+                num_filters=stu_num_filters,
+                input_dim=self.block_output_size_value // stu_seq_len,
+                output_dim=self.block_output_size_value // stu_seq_len,
+                use_hankel_L=False,
+                dtype=torch.float32,
+                device=None
+            ) for _ in range(self.v_num)
+        ])
+
+        # Final FC layers for value (after STU processing)
+        self.fc_values = nn.ModuleList([
+            mlp(self.block_output_size_value, fc_layers, value_output_size,
+                init_zero=False if is_continuous else init_zero)
+            for _ in range(self.v_num)
+        ])
+
+        # Policy FC layer (unchanged)
+        self.fc_policy = mlp(self.block_output_size_policy, fc_layers if not is_continuous else [64],
+                             policy_output_size, init_zero=init_zero)
+
+        self.is_continuous = is_continuous
+        self.init_std = 1.0
+        self.min_std = 0.1
+
+    def forward(self, x):
+        # Shared resblocks
+        for block in self.resblocks:
+            x = block(x)
+
+        values = []
+        for i in range(self.v_num):
+            # Value processing
+            value = self.conv1x1_values[i](x)
+            value = self.bn_values[i](value)
+            value = nn.functional.relu(value)
+            value = value.reshape(-1, self.block_output_size_value)
+
+            # Apply STU for spectral filtering
+            # Reshape to [B, L, I] where L is seq_len and I is feature_dim_per_step
+            batch_size = value.shape[0]
+            feature_dim_per_step = self.block_output_size_value // self.stu_seq_len
+
+            # Reshape: [B, flatten_size] -> [B, seq_len, feature_dim]
+            value_seq = value.reshape(batch_size, self.stu_seq_len, feature_dim_per_step)
+
+            # Apply STU: [B, seq_len, feature_dim] -> [B, seq_len, feature_dim]
+            value_seq = self.stu_layers[i](value_seq)
+
+            # Reshape back: [B, seq_len, feature_dim] -> [B, flatten_size]
+            value = value_seq.reshape(batch_size, -1)
+
+            # Final FC layer
+            value = self.fc_values[i](value)
+            values.append(value)
+
+        # Policy processing (unchanged)
+        policy = self.conv1x1_policy(x)
+        policy = self.bn_policy(policy)
+        policy = nn.functional.relu(policy)
+        policy = policy.reshape(-1, self.block_output_size_policy)
+        policy = self.fc_policy(policy)
+
+        if self.is_continuous:
+            action_space_size = policy.shape[-1] // 2
+            policy[:, :action_space_size] = 5 * torch.tanh(policy[:, :action_space_size] / 5)
+            policy[:, action_space_size:] = (
+                torch.nn.functional.softplus(policy[:, action_space_size:] + self.init_std) + self.min_std
+            )
+
+        return torch.stack(values), policy
