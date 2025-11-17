@@ -35,8 +35,10 @@ class EZAtariAgent(Agent):
         self.value_policy_detach = config.train.value_policy_detach
 
         # STU-specific hyperparameters
-        self.stu_seq_len = config.model.get('stu_seq_len', 16)
-        self.stu_num_filters = config.model.get('stu_num_filters', 8)
+        self.value_stu_seq_len = config.model.get('value_stu_seq_len', 16)
+        self.value_stu_num_filters = config.model.get('value_stu_num_filters', 8)
+        self.policy_stu_seq_len = config.model.get('policy_stu_seq_len', 16)
+        self.policy_stu_num_filters = config.model.get('policy_stu_num_filters', 8)
 
     def update_config(self):
         assert not self._update
@@ -75,7 +77,8 @@ class EZAtariAgent(Agent):
                 self.config.mcts.num_simulations = 50
             print(f'env={self.config.env.env}, game={self.config.env.game}, |A|={action_space_size}, '
                   f'top_m={self.config.mcts.num_top_actions}, N={self.config.mcts.num_simulations}')
-            print(f'STU config: seq_len={self.stu_seq_len}, num_filters={self.stu_num_filters}')
+            print(f'STU config: value_seq_len={self.value_stu_seq_len}, value_num_filters={self.value_stu_num_filters}, '
+                  f'policy_seq_len={self.policy_stu_seq_len}, policy_num_filters={self.policy_stu_num_filters}')
             self.config.save_path += tag
 
         self.obs_shape = copy.deepcopy(self.config.env.obs_shape)
@@ -99,18 +102,29 @@ class EZAtariAgent(Agent):
         dynamics_model = DynamicsNetwork(self.num_blocks, self.num_channels, self.action_space_size,
                                          action_embedding=self.action_embedding, action_embedding_dim=self.action_embedding_dim)
 
-        # Option 1: ValuePolicyNetwork with Spectral Transform Unit (STU) for enhanced value prediction
-        # Uncomment this to use STU-enhanced value network
+        # Option 1: ValuePolicyNetwork with STU for value prediction only
         # value_policy_model = ValuePolicyNetworkWithSTU(
         #     self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
         #     self.fc_layers, self.config.model.value_support.size,
         #     self.action_space_size, self.init_zero,
-        #     stu_seq_len=self.stu_seq_len,
-        #     stu_num_filters=self.stu_num_filters,
+        #     value_stu_seq_len=self.value_stu_seq_len,
+        #     value_stu_num_filters=self.value_stu_num_filters,
         #     v_num=self.config.train.v_num
         # )
 
-        # Option 2: Standard ValuePolicyNetwork (default)
+        # Option 2: ValuePolicyNetwork with STU for BOTH value and policy prediction
+        # value_policy_model = ValuePolicyNetworkWithSTU2(
+        #     self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
+        #     self.fc_layers, self.config.model.value_support.size,
+        #     self.action_space_size, self.init_zero,
+        #     value_stu_seq_len=self.value_stu_seq_len,
+        #     value_stu_num_filters=self.value_stu_num_filters,
+        #     policy_stu_seq_len=self.policy_stu_seq_len,
+        #     policy_stu_num_filters=self.policy_stu_num_filters,
+        #     v_num=self.config.train.v_num
+        # )
+
+        # Option 3: Standard ValuePolicyNetwork (default - currently active)
         value_policy_model = ValuePolicyNetwork(self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
                                                      self.fc_layers, self.config.model.value_support.size,
                                                      self.action_space_size, self.init_zero,
