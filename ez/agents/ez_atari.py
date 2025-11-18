@@ -103,14 +103,14 @@ class EZAtariAgent(Agent):
                                          action_embedding=self.action_embedding, action_embedding_dim=self.action_embedding_dim)
 
         # Option 1: ValuePolicyNetwork with STU for value prediction only
-        # value_policy_model = ValuePolicyNetworkWithSTU(
-        #     self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
-        #     self.fc_layers, self.config.model.value_support.size,
-        #     self.action_space_size, self.init_zero,
-        #     value_stu_seq_len=self.value_stu_seq_len,
-        #     value_stu_num_filters=self.value_stu_num_filters,
-        #     v_num=self.config.train.v_num
-        # )
+        value_policy_model = ValuePolicyNetworkWithSTU(
+            self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
+            self.fc_layers, self.config.model.value_support.size,
+            self.action_space_size, self.init_zero,
+            value_stu_seq_len=self.value_stu_seq_len,
+            value_stu_num_filters=self.value_stu_num_filters,
+            v_num=self.config.train.v_num
+        )
 
         # Option 2: ValuePolicyNetwork with STU for BOTH value and policy prediction
         # value_policy_model = ValuePolicyNetworkWithSTU2(
@@ -125,11 +125,11 @@ class EZAtariAgent(Agent):
         # )
 
         # Option 3: Standard ValuePolicyNetwork (default - currently active)
-        value_policy_model = ValuePolicyNetwork(self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
-                                                     self.fc_layers, self.config.model.value_support.size,
-                                                     self.action_space_size, self.init_zero,
-                                                     value_policy_detach=self.value_policy_detach,
-                                                     v_num=self.config.train.v_num)
+        # value_policy_model = ValuePolicyNetwork(self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
+        #                                              self.fc_layers, self.config.model.value_support.size,
+        #                                              self.action_space_size, self.init_zero,
+        #                                              value_policy_detach=self.value_policy_detach,
+        #                                              v_num=self.config.train.v_num)
 
         reward_output_size = self.config.model.reward_support.size
         if self.value_prefix:
