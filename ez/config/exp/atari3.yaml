@@ -159,4 +159,4 @@ actors:
 # wandb
 wandb:
   project: 'ez-v2-release'
-  tag: 'Atari-lr=0.02'
+  tag: 'Atari-weight_decay=5e-4'
