@@ -64,6 +64,7 @@ def start_ddp_trainer(rank, config):
             wandb_name = config.env.game + '-' + config.wandb.tag
             print(f'wandb_name={wandb_name}')
             logger = wandb.init(
+                mode="offline",
                 name=wandb_name,
                 project=config.wandb.project,
                 # config=config,
