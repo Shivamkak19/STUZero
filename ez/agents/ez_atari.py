@@ -20,6 +20,12 @@ class EZAtariAgent(Agent):
     def __init__(self, config):
         super().__init__(config)
 
+        # STU-specific hyperparameters
+        self.value_stu_seq_len = config.model.get('value_stu_seq_len', 16)
+        self.value_stu_num_filters = config.model.get('value_stu_num_filters', 8)
+        self.policy_stu_seq_len = config.model.get('policy_stu_seq_len', 16)
+        self.policy_stu_num_filters = config.model.get('policy_stu_num_filters', 8)
+        
         self.update_config()
 
         self.num_blocks = config.model.num_blocks
@@ -34,11 +40,6 @@ class EZAtariAgent(Agent):
         self.action_embedding_dim = config.model.action_embedding_dim
         self.value_policy_detach = config.train.value_policy_detach
 
-        # STU-specific hyperparameters
-        self.value_stu_seq_len = config.model.get('value_stu_seq_len', 16)
-        self.value_stu_num_filters = config.model.get('value_stu_num_filters', 8)
-        self.policy_stu_seq_len = config.model.get('policy_stu_seq_len', 16)
-        self.policy_stu_num_filters = config.model.get('policy_stu_num_filters', 8)
 
     def update_config(self):
         assert not self._update
