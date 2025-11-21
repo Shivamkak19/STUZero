@@ -79,10 +79,14 @@ def join_workers(worker_lst, server_lst):
 
     # wait for all workers to finish
     for data_worker in data_workers:
-        data_worker.join()
+        if data_worker is not None:
+            data_worker.join()
     for batch_worker in batch_workers:
-        batch_worker.join()
-    eval_worker.join()
+        if batch_worker is not None:
+            batch_worker.join()
+    for worker in eval_worker:
+        if worker is not None:
+            worker.join()
     print(f'[main process] All workers have stopped.')
 
     # stop servers
