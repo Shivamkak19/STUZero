@@ -5,24 +5,20 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=24:00:00
-#SBATCH --mail-type=begin
 #SBATCH --mail-type=end
 #SBATCH --mail-user=sk3686@princeton.edu
 #SBATCH --gres=gpu:1
-#SBATCH --partition=pli
-#SBATCH --account=eladgroup
+#SBATCH --constraint=gpu80
 
 # Check if config file argument is provided
 if [ -z "$1" ]; then
     echo "ERROR: Config file not provided!"
-    echo "Usage: sbatch run_atari.sh <config_file>"
-    echo "Example: sbatch run_atari.sh ez/config/exp/atari.yaml"
+    echo "Usage: sbatch run_atari_80.sh <config_file>"
     exit 1
 fi
 
 CONFIG_FILE=$1
 
-# Check if the config file exists
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "ERROR: Config file '$CONFIG_FILE' does not exist!"
     exit 1
