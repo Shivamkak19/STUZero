@@ -63,8 +63,7 @@ def convolve(
         _, d_out = v.shape
         v = v.view(1, -1, d_out, 1).to(torch.float32).contiguous()
     else:
-        # Comment 
-        # v has shape [seq_len, K]; K is already defined above
+        _, K = v.shape
         sgn = sgn.unsqueeze(-1)
         v = v.view(1, -1, K, 1, 1).to(torch.float32).contiguous()
 
@@ -133,6 +132,12 @@ class MiniSTU(nn.Module):
             x = x.unsqueeze(0)  # -> [1, L, I]
         assert x.dim() == 3, f"Expected x with shape [B, L, I] or [L, I]; got {tuple(x.shape)}"
         B, L, I = x.shape
+        
+        # Validate sequence length matches filter dimension
+        assert L == self.seq_len, (
+            f"Input sequence length {L} must match seq_len {self.seq_len} used to initialize filters. "
+            f"Check that HistoryConcat history_length matches MiniSTU seq_len."
+        )
 
         x = x.to(self.M_phi_plus.dtype)
         U_plus, U_minus = convolve(x, self.phi, self.n, use_approx=False) # type: ignore
@@ -170,33 +175,30 @@ class HistoryMiniSTU(nn.Module):
             default_filters
         )
         # Track per-batch history of latent features (time kept separate)
-        self.history = HistoryConcat((input_dim,), seq_len, concat_channels=False)
+        self.history = HistoryConcat(input_dim, seq_len)
 
-    def reset(self, batch_size: int, device=None, dtype=None) -> None:
+    def reset(self) -> None:
         """Reset history buffer for new episode/batch."""
-        self.history.reset(batch_size, device=device, dtype=dtype)
+        self.history.reset()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Spectral filter latent state.
+        # Expecting x: [B, C, H, W] or [C, H, W]
 
-        x: [B, C, H, W]  (C must equal input_dim)
-        returns: [B, C, H, W]
-        """
-        assert x.dim() == 4, f"Expected x with shape [B, C, H, W]; got {tuple(x.shape)}"
-        B, C, H, W = x.shape
-        # Reduce spatial dims to per-channel features: [B, C]
-        # Using global average pooling keeps code simple and stable.
-        feat = x.mean(dim=(2, 3))  # [B, C]
+        if x.dim() == 3:
+            x = x.unsqueeze(0)  # -> [1, C, H, W]
+        
+        # From [B, C, H, W] to [B, C*H*W]
 
-        # Build temporal sequence: [B, L, C]
-        seq = self.history(feat)  # [B, L, C]
+        bsz, c, h, w = x.shape
+        x_flat = x.view(bsz, c * h * w)
 
-        # Apply STU over time: [B, L, C]
-        seq_filt = self.stu(seq)  # [B, L, C]
+        # Get history-augmented input: [B, seq_len, C*H*W]
+        x_hist = self.history(x_flat)
 
-        # Use the latest filtered features for current frame: [B, C]
-        last = seq_filt[:, -1, :]
 
-        # Broadcast back to spatial shape: [B, C, H, W]
-        return last.view(B, C, 1, 1).expand(B, C, H, W)
+        # Apply MiniSTU: [B, seq_len, C*H*W] -> [B, seq_len, output_dim]
+        y_hist = self.stu(x_hist)  # [B, seq_len, output
+
+        # Return only the last time step's output: [B, output_dim]
+        y = y_hist[:, -1, :]
+        return y
