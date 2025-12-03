@@ -58,6 +58,8 @@ def convolve(
     sgn[:, 1::2] *= -1
 
     if use_approx:
+        # v expected shape [L, K] in general; when using approx, we still need K
+        _, K = v.shape
         _, d_out = v.shape
         v = v.view(1, -1, d_out, 1).to(torch.float32).contiguous()
     else:
@@ -144,21 +146,6 @@ class MiniSTU(nn.Module):
         return spectral_plus + spectral_minus
 
 class HistoryMiniSTU(nn.Module):
-    """
-    Applies MiniSTU to temporal history only, regardless of input dimensionality.
-    
-    For spatial inputs [B, C, H, W]:
-    - Uses HistoryConcat to get [B, C*seq_len, H, W]
-    - Reshapes to [B, H, W, seq_len, C] to treat history as the sequence dimension
-    - Applies STU along the history dimension
-    - Reshapes back to [B, output_dim, H, W]
-    
-    For 2D inputs [B, D]:
-    - Uses HistoryConcat to get [B, D*seq_len]
-    - Reshapes to [B, seq_len, D]
-    - Applies STU along the history dimension
-    - Reshapes back to [B, output_dim]
-    """
     def __init__(
         self,
         seq_len: int,
@@ -171,15 +158,11 @@ class HistoryMiniSTU(nn.Module):
         default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
-        self.seq_len = seq_len
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-        
-        # MiniSTU operates on [B, seq_len, input_dim]
+        # MiniSTU expects input_dim * seq_len as input after history concatenation
         self.stu = MiniSTU(
             seq_len,
             num_filters,
-            input_dim,  # Each timestep has input_dim features
+            input_dim * seq_len,  # Adjusted for concatenated history
             output_dim,
             use_hankel_L,
             dtype,
@@ -189,50 +172,29 @@ class HistoryMiniSTU(nn.Module):
         self.history = HistoryConcat(input_dim, seq_len)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        x: [B, C, H, W] for spatial or [B, D] for flat features
-        returns: [B, output_dim, H, W] for spatial or [B, output_dim] for flat
-        """
+        # x: [B, C, H, W] for spatial or [B, L, I] for sequence
+        original_shape = x.shape
         is_spatial = x.dim() == 4
         
         if is_spatial:
-            # Spatial case: [B, C, H, W]
-            B, C, H, W = x.shape
-            
-            # History concat: [B, C, H, W] -> [B, C*seq_len, H, W]
+            # For 4D input [B, C, H, W], history concat gives [B, C*seq_len, H, W]
+            # We must interpret seq_len as temporal length, not H*W.
+            # Build a sequence tensor [B, seq_len, C*H*W] for MiniSTU.
             x_hist = self.history.forward(x)
-            
-            # Reshape to [B, H, W, seq_len, C]
-            x_hist = x_hist.view(B, self.seq_len, C, H, W)
-            x_hist = x_hist.permute(0, 3, 4, 1, 2)  # [B, H, W, seq_len, C]
-            
-            # Flatten spatial dimensions: [B*H*W, seq_len, C]
-            x_hist = x_hist.reshape(B * H * W, self.seq_len, C)
-            
-            # Apply STU along history dimension: [B*H*W, seq_len, output_dim]
-            out = self.stu.forward(x_hist)
-            
-            # Take only the last timestep (present): [B*H*W, output_dim]
-            out = out[:, -1, :]
-            
-            # Reshape back to spatial: [B, H, W, output_dim] -> [B, output_dim, H, W]
-            out = out.view(B, H, W, self.output_dim)
-            out = out.permute(0, 3, 1, 2)
-            
+            B, C_hist, H, W = x_hist.shape
+            C = C_hist // self.history.history_length
+            # [B, C*seq_len, H, W] -> [B, seq_len, C, H, W]
+            x_seq = x_hist.view(B, self.history.history_length, C, H, W)
+            # -> [B, seq_len, C*H*W]
+            x_seq = x_seq.view(B, self.history.history_length, C * H * W)
+            # Apply STU over temporal dimension (length = seq_len)
+            y_seq = self.stu.forward(x_seq)  # [B, seq_len, output_dim]
+            # Take the last time step as current output and expand back to spatial map
+            y = y_seq[:, -1, :]  # [B, output_dim]
+            out = y.view(B, -1, 1, 1).expand(B, y.shape[-1], H, W)
         else:
-            # Flat case: [B, D]
-            B, D = x.shape
-            
-            # History concat: [B, D] -> [B, D*seq_len]
+            # For 2D/3D input, use as-is
             x_hist = self.history.forward(x)
-            
-            # Reshape to [B, seq_len, D]
-            x_hist = x_hist.view(B, self.seq_len, D)
-            
-            # Apply STU along history dimension: [B, seq_len, output_dim]
             out = self.stu.forward(x_hist)
-            
-            # Take only the last timestep (present): [B, output_dim]
-            out = out[:, -1, :]
         
         return out
