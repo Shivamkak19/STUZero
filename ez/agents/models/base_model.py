@@ -8,7 +8,7 @@ import math
 import torch.nn as nn
 import numpy as np
 from .layer import ResidualBlock, conv3x3, mlp
-from .stu_layer import MiniSTU
+from .stu_layer import MiniSTU, HistoryMiniSTU
 
 
 # Down_sample observations before representation network (See paper appendix Network Architecture)
@@ -129,7 +129,19 @@ class DynamicsNetwork(nn.Module):
             [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
         )
 
+        self.stu = HistoryMiniSTU(
+            seq_len=30,
+            num_filters=24,
+            input_dim=num_channels,
+            output_dim=num_channels,
+            use_hankel_L=False,
+            dtype=torch.float32,
+            device=None
+        )
+
     def forward(self, state, action):
+        state = self.stu(state) # Spectral Filtering of input latent state
+
         # encode action
         if not self.is_continuous:
             action_place = torch.ones((
@@ -328,8 +340,9 @@ class ValuePolicyNetworkWithSTU(nn.Module):
         # STU layers for each value head
         # The STU processes sequences of value features
         # We treat the flattened spatial features as a sequence
+
         self.stu_layers = nn.ModuleList([
-            MiniSTU(
+            HistoryMiniSTU(
                 seq_len=value_stu_seq_len,
                 num_filters=value_stu_num_filters,
                 input_dim=self.block_output_size_value // value_stu_seq_len,
@@ -440,7 +453,7 @@ class ValuePolicyNetworkWithSTU2(nn.Module):
 
         # STU layers for each value head
         self.stu_layers = nn.ModuleList([
-            MiniSTU(
+            HistoryMiniSTU(
                 seq_len=value_stu_seq_len,
                 num_filters=value_stu_num_filters,
                 input_dim=self.block_output_size_value // value_stu_seq_len,
@@ -452,7 +465,7 @@ class ValuePolicyNetworkWithSTU2(nn.Module):
         ])
 
         # STU layer for policy head
-        self.policy_stu = MiniSTU(
+        self.policy_stu = HistoryMiniSTU(
             seq_len=self.policy_stu_seq_len,
             num_filters=self.policy_stu_num_filters,
             input_dim=self.block_output_size_policy // self.policy_stu_seq_len,
@@ -537,3 +550,9 @@ class ValuePolicyNetworkWithSTU2(nn.Module):
             )
 
         return torch.stack(values), policy
+
+
+# Questions for Elad
+# 1. Should we spectral filter the input or the output of the Dynamics network?
+# 2. Does the spectral filtering need to keep track of a history of past inputs?
+# 3. Liane -- where would it be useful to use a residual connection 

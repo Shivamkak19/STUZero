@@ -8,6 +8,8 @@ import torch
 import torch.nn as nn
 import math
 
+from ez.agents.models.history_layer import HistoryConcat
+
 
 def nearest_power_of_two(x: int, round_up: bool = False) -> int:
     """Find the nearest power of 2 to x."""
@@ -34,7 +36,7 @@ def get_spectral_filters(
     seq_len: int,
     K: int,
     use_hankel_L: bool = False,
-    device: torch.device = None,
+    device: torch.device | None = None,
     dtype: torch.dtype = torch.float32
 ) -> torch.Tensor:
     """Generate spectral filters using Hankel matrix eigendecomposition."""
@@ -86,8 +88,8 @@ class MiniSTU(nn.Module):
         output_dim: int,
         use_hankel_L: bool = False,
         dtype: torch.dtype = torch.float32,
-        device: torch.device = None,
-        default_filters: torch.Tensor = None,
+        device: torch.device | None = None,
+        default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
         self.seq_len = seq_len
@@ -130,7 +132,7 @@ class MiniSTU(nn.Module):
         B, L, I = x.shape
 
         x = x.to(self.M_phi_plus.dtype)
-        U_plus, U_minus = convolve(x, self.phi, self.n, use_approx=False)
+        U_plus, U_minus = convolve(x, self.phi, self.n, use_approx=False) # type: ignore
 
         # Contract over K and I: [B, L, K, I] ⊗ [K, I, O] -> [B, L, O]
         spectral_plus = torch.einsum('blki,kio->blo', U_plus, self.M_phi_plus)
@@ -140,3 +142,32 @@ class MiniSTU(nn.Module):
 
         spectral_minus = torch.einsum('blki,kio->blo', U_minus, self.M_phi_minus)
         return spectral_plus + spectral_minus
+
+class HistoryMiniSTU(nn.Module):
+    def __init__(
+        self,
+        seq_len: int,
+        num_filters: int,
+        input_dim: int,
+        output_dim: int,
+        use_hankel_L: bool = False,
+        dtype: torch.dtype = torch.float32,
+        device: torch.device | None = None,
+        default_filters: torch.Tensor | None = None,
+    ):
+        super().__init__()
+        self.stu = MiniSTU(
+            seq_len,
+            num_filters,
+            input_dim,
+            output_dim,
+            use_hankel_L,
+            dtype,
+            device,
+            default_filters
+        )
+        self.history = HistoryConcat(input_dim, seq_len)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x_hist = self.history.forward(x)
+        return self.stu.forward(x_hist)
