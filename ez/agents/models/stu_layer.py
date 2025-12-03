@@ -63,7 +63,7 @@ def convolve(
         _, d_out = v.shape
         v = v.view(1, -1, d_out, 1).to(torch.float32).contiguous()
     else:
-        _, K = v.shape
+        # v has shape [seq_len, K]; K is already defined above
         sgn = sgn.unsqueeze(-1)
         v = v.view(1, -1, K, 1, 1).to(torch.float32).contiguous()
 
