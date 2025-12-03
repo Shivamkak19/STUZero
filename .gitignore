@@ -21,3 +21,5 @@ spectral_papers/
 *.ipynb_checkpoints/
 wandb/
 *.cpp
+
+*.DS_Store
