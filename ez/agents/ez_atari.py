@@ -102,7 +102,7 @@ class EZAtariAgent(Agent):
 
         representation_model = RepresentationNetwork(self.input_shape, self.num_blocks, self.num_channels, self.down_sample)
 
-        dynamics_model = DynamicsNetwork(self.num_blocks, self.num_channels, self.action_space_size,
+        dynamics_model = DynamicsNetworkWithSTU(self.num_blocks, self.num_channels, self.action_space_size,
                                          seq_len=self.dynamics_stu_seq_len, num_filters=self.dynamics_stu_num_filters,
                                          action_embedding=self.action_embedding, action_embedding_dim=self.action_embedding_dim)
 
