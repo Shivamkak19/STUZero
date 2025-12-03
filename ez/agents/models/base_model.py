@@ -101,7 +101,6 @@ class RepresentationNetwork(nn.Module):
         return x
 
 
-# Predict next hidden states given current states and actions
 class DynamicsNetwork(nn.Module):
     def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False, action_embedding=False, action_embedding_dim=32):
         """
@@ -129,15 +128,77 @@ class DynamicsNetwork(nn.Module):
             [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
         )
 
+    def forward(self, state, action):
+        # encode action
+        if not self.is_continuous:
+            action_place = torch.ones((
+                state.shape[0],
+                1,
+                state.shape[2],
+                state.shape[3],
+            )).cuda().float()
+
+            action_place = (
+                    action[:, :, None, None] * action_place / self.action_space_size
+            )
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, state.shape[-2], state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += state
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        state = x
+        return state
+
+# Predict next hidden states given current states and actions
+class DynamicsNetworkWithSTU(nn.Module):
+    def __init__(self, num_blocks, num_channels, action_space_size, seq_len, num_filters, is_continuous=False, action_embedding=False, action_embedding_dim=32):
+        """
+        Dynamics network
+        :param num_blocks: int, number of res blocks
+        :param num_channels: int, channels of hidden states
+        :param action_space_size: int, action space size
+        """
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.action_space_size = action_space_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
         self.stu = HistoryMiniSTU(
-            seq_len=30,
-            num_filters=24,
+            seq_len=seq_len,
+            num_filters=num_filters,
             input_dim=num_channels,
             output_dim=num_channels,
             use_hankel_L=False,
             dtype=torch.float32,
             device=None
         )
+
+        #self.num_channels = self.stu.output_dim
 
     def forward(self, state, action):
         state = self.stu(state) # Spectral Filtering of input latent state
@@ -342,7 +403,7 @@ class ValuePolicyNetworkWithSTU(nn.Module):
         # We treat the flattened spatial features as a sequence
 
         self.stu_layers = nn.ModuleList([
-            HistoryMiniSTU(
+            MiniSTU(
                 seq_len=value_stu_seq_len,
                 num_filters=value_stu_num_filters,
                 input_dim=self.block_output_size_value // value_stu_seq_len,
@@ -453,7 +514,7 @@ class ValuePolicyNetworkWithSTU2(nn.Module):
 
         # STU layers for each value head
         self.stu_layers = nn.ModuleList([
-            HistoryMiniSTU(
+            MiniSTU(
                 seq_len=value_stu_seq_len,
                 num_filters=value_stu_num_filters,
                 input_dim=self.block_output_size_value // value_stu_seq_len,
@@ -465,7 +526,7 @@ class ValuePolicyNetworkWithSTU2(nn.Module):
         ])
 
         # STU layer for policy head
-        self.policy_stu = HistoryMiniSTU(
+        self.policy_stu = MiniSTU(
             seq_len=self.policy_stu_seq_len,
             num_filters=self.policy_stu_num_filters,
             input_dim=self.block_output_size_policy // self.policy_stu_seq_len,

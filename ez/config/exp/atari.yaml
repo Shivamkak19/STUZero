@@ -129,6 +129,8 @@ model:
   value_stu_num_filters: 8     # Number of spectral filters (K) for value STU
   policy_stu_seq_len: 16       # Sequence length for policy STU
   policy_stu_num_filters: 8    # Number of spectral filters (K) for policy STU
+  dynamics_stu_num_filters: 24 # Number of spectral filters (K) for dynamics STU
+  dynamics_stu_seq_len: 30     # Sequence length for dynamics STU
 
   projection_layers: [1024, 1024]     # hidden dim, output dim
   prjection_head_layers: [256, 1024]  # hidden dim, output dim
