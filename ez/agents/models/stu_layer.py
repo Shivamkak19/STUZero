@@ -156,10 +156,11 @@ class HistoryMiniSTU(nn.Module):
         default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
+        # MiniSTU expects input_dim * seq_len as input after history concatenation
         self.stu = MiniSTU(
             seq_len,
             num_filters,
-            input_dim,
+            input_dim * seq_len,  # Adjusted for concatenated history
             output_dim,
             use_hankel_L,
             dtype,
@@ -169,5 +170,23 @@ class HistoryMiniSTU(nn.Module):
         self.history = HistoryConcat(input_dim, seq_len)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x_hist = self.history.forward(x)
-        return self.stu.forward(x_hist)
+        # x: [B, C, H, W] for spatial or [B, L, I] for sequence
+        original_shape = x.shape
+        is_spatial = x.dim() == 4
+        
+        if is_spatial:
+            # For 4D input [B, C, H, W], history concat gives [B, C*seq_len, H, W]
+            x_hist = self.history.forward(x)
+            B, C_hist, H, W = x_hist.shape
+            # Reshape to [B, H*W, C_hist] for MiniSTU which expects [B, L, I]
+            x_hist = x_hist.permute(0, 2, 3, 1).reshape(B, H * W, C_hist)
+            # Apply STU: [B, H*W, output_dim]
+            out = self.stu.forward(x_hist)
+            # Reshape back to [B, output_dim, H, W]
+            out = out.reshape(B, H, W, -1).permute(0, 3, 1, 2)
+        else:
+            # For 2D/3D input, use as-is
+            x_hist = self.history.forward(x)
+            out = self.stu.forward(x_hist)
+        
+        return out
