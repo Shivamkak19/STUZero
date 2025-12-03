@@ -133,7 +133,10 @@ class MiniSTU(nn.Module):
         assert x.dim() == 3, f"Expected x with shape [B, L, I] or [L, I]; got {tuple(x.shape)}"
         B, L, I = x.shape
 
-        x = x.to(self.M_phi_plus.dtype)
+        # Ensure buffers and inputs are on the same device/dtype
+        if self.phi.device != x.device:
+            self.phi = self.phi.to(x.device)
+        x = x.to(self.M_phi_plus.dtype).to(self.M_phi_plus.device)
         U_plus, U_minus = convolve(x, self.phi, self.n, use_approx=False) # type: ignore
 
         # Contract over K and I: [B, L, K, I] ⊗ [K, I, O] -> [B, L, O]
@@ -197,7 +200,7 @@ class HistoryMiniSTU(nn.Module):
                     self.output_dim,
                     self.use_hankel_L,
                     self.dtype,
-                    self.device,
+                    x.device,
                     self.default_filters,
                 )
             # Apply STU over temporal dimension (length = seq_len)
@@ -217,7 +220,7 @@ class HistoryMiniSTU(nn.Module):
                     self.output_dim,
                     self.use_hankel_L,
                     self.dtype,
-                    self.device,
+                    x.device,
                     self.default_filters,
                 )
             out = self.stu.forward(x_hist)
