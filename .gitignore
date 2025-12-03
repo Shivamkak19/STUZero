@@ -22,4 +22,4 @@ spectral_papers/
 wandb/
 *.cpp
 
-*.DS_Store
+.DS_Store
