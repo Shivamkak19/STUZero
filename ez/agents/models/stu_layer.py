@@ -158,17 +158,18 @@ class HistoryMiniSTU(nn.Module):
         default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
-        # MiniSTU expects per-frame feature dimension as input_dim; temporal length is seq_len
-        self.stu = MiniSTU(
-            seq_len,
-            num_filters,
-            input_dim,  # per-frame feature size (e.g., C*H*W)
-            output_dim,
-            use_hankel_L,
-            dtype,
-            device,
-            default_filters
-        )
+        # Defer STU parameter initialization until spatial size (H, W) is known.
+        # For non-spatial sequence inputs, input_dim is the per-step feature size.
+        self.seq_len = seq_len
+        self.num_filters = num_filters
+        self.output_dim = output_dim
+        self.use_hankel_L = use_hankel_L
+        self.dtype = dtype
+        self.device = device
+        self.default_filters = default_filters
+
+        self.stu: MiniSTU | None = None
+        # HistoryConcat operates on the channel/feature dimension of the raw input (e.g., C for images).
         self.history = HistoryConcat(input_dim, seq_len)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -187,6 +188,18 @@ class HistoryMiniSTU(nn.Module):
             x_seq = x_hist.view(B, self.history.history_length, C, H, W)
             # -> [B, seq_len, C*H*W]
             x_seq = x_seq.view(B, self.history.history_length, C * H * W)
+            # Lazy-init STU with correct per-frame feature size (C*H*W)
+            if (self.stu is None) or (self.stu.input_dim != C * H * W):
+                self.stu = MiniSTU(
+                    self.seq_len,
+                    self.num_filters,
+                    C * H * W,
+                    self.output_dim,
+                    self.use_hankel_L,
+                    self.dtype,
+                    self.device,
+                    self.default_filters,
+                )
             # Apply STU over temporal dimension (length = seq_len)
             y_seq = self.stu.forward(x_seq)  # [B, seq_len, output_dim]
             # Take the last time step as current output and expand back to spatial map
@@ -195,6 +208,18 @@ class HistoryMiniSTU(nn.Module):
         else:
             # For 2D/3D input, use as-is
             x_hist = self.history.forward(x)
+            # For non-spatial input, initialize STU with given per-step feature size if needed
+            if (self.stu is None) or (self.stu.input_dim != x_hist.shape[-1]):
+                self.stu = MiniSTU(
+                    self.seq_len,
+                    self.num_filters,
+                    x_hist.shape[-1],
+                    self.output_dim,
+                    self.use_hankel_L,
+                    self.dtype,
+                    self.device,
+                    self.default_filters,
+                )
             out = self.stu.forward(x_hist)
         
         return out
