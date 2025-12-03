@@ -19,7 +19,8 @@ class HistoryConcat(nn.Module):
         self.detach_past = bool(detach_past)
 
         # Registered buffer is created lazily when batch size is known.
-        self.register_buffer("buffer", torch.empty(0), persistent=True)
+        # Set persistent=False so it's not saved in state_dict (avoids shape mismatch on load)
+        self.register_buffer("buffer", torch.empty(0), persistent=False)
 
     def reset(self, batch_size: int, device=None, dtype=None) -> None:
         """Reset the buffer to zeros for a new episode or batch.
