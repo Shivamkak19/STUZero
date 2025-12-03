@@ -158,11 +158,11 @@ class HistoryMiniSTU(nn.Module):
         default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
-        # MiniSTU expects input_dim * seq_len as input after history concatenation
+        # MiniSTU expects per-frame feature dimension as input_dim; temporal length is seq_len
         self.stu = MiniSTU(
             seq_len,
             num_filters,
-            input_dim * seq_len,  # Adjusted for concatenated history
+            input_dim,  # per-frame feature size (e.g., C*H*W)
             output_dim,
             use_hankel_L,
             dtype,
