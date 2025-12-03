@@ -54,12 +54,12 @@ def convolve(
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Convolve input with filters using FFT."""
     bsz, seq_len, d_in = u.shape
+    # Ensure K is defined for both branches to satisfy analyzers
+    K = v.shape[-1]
     sgn = torch.full((1, seq_len, 1), 1, device=u.device)
     sgn[:, 1::2] *= -1
 
     if use_approx:
-        # v expected shape [L, K] in general; when using approx, we still need K
-        _, K = v.shape
         _, d_out = v.shape
         v = v.view(1, -1, d_out, 1).to(torch.float32).contiguous()
     else:
@@ -133,10 +133,7 @@ class MiniSTU(nn.Module):
         assert x.dim() == 3, f"Expected x with shape [B, L, I] or [L, I]; got {tuple(x.shape)}"
         B, L, I = x.shape
 
-        # Ensure buffers and inputs are on the same device/dtype
-        if self.phi.device != x.device:
-            self.phi = self.phi.to(x.device)
-        x = x.to(self.M_phi_plus.dtype).to(self.M_phi_plus.device)
+        x = x.to(self.M_phi_plus.dtype)
         U_plus, U_minus = convolve(x, self.phi, self.n, use_approx=False) # type: ignore
 
         # Contract over K and I: [B, L, K, I] ⊗ [K, I, O] -> [B, L, O]
@@ -161,68 +158,44 @@ class HistoryMiniSTU(nn.Module):
         default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
-        # Defer STU parameter initialization until spatial size (H, W) is known.
-        # For non-spatial sequence inputs, input_dim is the per-step feature size.
-        self.seq_len = seq_len
-        self.num_filters = num_filters
-        self.output_dim = output_dim
-        self.use_hankel_L = use_hankel_L
-        self.dtype = dtype
-        self.device = device
-        self.default_filters = default_filters
+        self.stu = MiniSTU(
+            seq_len,
+            num_filters,
+            input_dim,
+            output_dim,
+            use_hankel_L,
+            dtype,
+            device,
+            default_filters
+        )
+        # Track per-batch history of latent features (time kept separate)
+        self.history = HistoryConcat((input_dim,), seq_len, concat_channels=False)
 
-        self.stu: MiniSTU | None = None
-        # HistoryConcat operates on the channel/feature dimension of the raw input (e.g., C for images).
-        self.history = HistoryConcat(input_dim, seq_len)
+    def reset(self, batch_size: int, device=None, dtype=None) -> None:
+        """Reset history buffer for new episode/batch."""
+        self.history.reset(batch_size, device=device, dtype=dtype)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # x: [B, C, H, W] for spatial or [B, L, I] for sequence
-        original_shape = x.shape
-        is_spatial = x.dim() == 4
-        
-        if is_spatial:
-            # For 4D input [B, C, H, W], history concat gives [B, C*seq_len, H, W]
-            # We must interpret seq_len as temporal length, not H*W.
-            # Build a sequence tensor [B, seq_len, C*H*W] for MiniSTU.
-            x_hist = self.history.forward(x)
-            B, C_hist, H, W = x_hist.shape
-            C = C_hist // self.history.history_length
-            # [B, C*seq_len, H, W] -> [B, seq_len, C, H, W]
-            x_seq = x_hist.view(B, self.history.history_length, C, H, W)
-            # -> [B, seq_len, C*H*W]
-            x_seq = x_seq.view(B, self.history.history_length, C * H * W)
-            # Lazy-init STU with correct per-frame feature size (C*H*W)
-            if (self.stu is None) or (self.stu.input_dim != C * H * W):
-                self.stu = MiniSTU(
-                    self.seq_len,
-                    self.num_filters,
-                    C * H * W,
-                    self.output_dim,
-                    self.use_hankel_L,
-                    self.dtype,
-                    x.device,
-                    self.default_filters,
-                )
-            # Apply STU over temporal dimension (length = seq_len)
-            y_seq = self.stu.forward(x_seq)  # [B, seq_len, output_dim]
-            # Take the last time step as current output and expand back to spatial map
-            y = y_seq[:, -1, :]  # [B, output_dim]
-            out = y.view(B, -1, 1, 1).expand(B, y.shape[-1], H, W)
-        else:
-            # For 2D/3D input, use as-is
-            x_hist = self.history.forward(x)
-            # For non-spatial input, initialize STU with given per-step feature size if needed
-            if (self.stu is None) or (self.stu.input_dim != x_hist.shape[-1]):
-                self.stu = MiniSTU(
-                    self.seq_len,
-                    self.num_filters,
-                    x_hist.shape[-1],
-                    self.output_dim,
-                    self.use_hankel_L,
-                    self.dtype,
-                    x.device,
-                    self.default_filters,
-                )
-            out = self.stu.forward(x_hist)
-        
-        return out
+        """
+        Spectral filter latent state.
+
+        x: [B, C, H, W]  (C must equal input_dim)
+        returns: [B, C, H, W]
+        """
+        assert x.dim() == 4, f"Expected x with shape [B, C, H, W]; got {tuple(x.shape)}"
+        B, C, H, W = x.shape
+        # Reduce spatial dims to per-channel features: [B, C]
+        # Using global average pooling keeps code simple and stable.
+        feat = x.mean(dim=(2, 3))  # [B, C]
+
+        # Build temporal sequence: [B, L, C]
+        seq = self.history(feat)  # [B, L, C]
+
+        # Apply STU over time: [B, L, C]
+        seq_filt = self.stu(seq)  # [B, L, C]
+
+        # Use the latest filtered features for current frame: [B, C]
+        last = seq_filt[:, -1, :]
+
+        # Broadcast back to spatial shape: [B, C, H, W]
+        return last.view(B, C, 1, 1).expand(B, C, H, W)
