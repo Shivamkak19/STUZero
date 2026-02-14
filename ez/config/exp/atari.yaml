@@ -4,7 +4,7 @@ agent_name: atari_agent
 # env setting
 env:
   env: Atari
-  game: Pong
+  game: Asterix
   base_seed: 0
   n_skip: 4
   n_stack: 4
@@ -123,15 +123,6 @@ model:
   num_blocks: 1   # prev 1
   num_channels: 64
   reduced_channels: 16
-
-  # STU-specific parameters for spectral filtering
-  value_stu_seq_len: 16        # Sequence length for value STU
-  value_stu_num_filters: 8     # Number of spectral filters (K) for value STU
-  policy_stu_seq_len: 16       # Sequence length for policy STU
-  policy_stu_num_filters: 8    # Number of spectral filters (K) for policy STU
-  dynamics_stu_seq_len: 36     # Sequence length for dynamics STU (MUST match H*W after downsampling, 6*6=36)
-  dynamics_stu_num_filters: 2  # Number of spectral filters (K) for dynamics STU - reduced to 2 to save memory (was 8)
-  use_dynamics_stu: false      # Set to true to use DynamicsNetworkWithSTU
 
   projection_layers: [1024, 1024]     # hidden dim, output dim
   prjection_head_layers: [256, 1024]  # hidden dim, output dim

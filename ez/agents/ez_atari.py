@@ -43,7 +43,6 @@ class EZAtariAgent(Agent):
         self.action_embedding_dim = config.model.action_embedding_dim
         self.value_policy_detach = config.train.value_policy_detach
 
-
     def update_config(self):
         assert not self._update
 
@@ -119,29 +118,7 @@ class EZAtariAgent(Agent):
                 action_embedding_dim=self.action_embedding_dim
             )
 
-        # Option 1: ValuePolicyNetwork with STU for value prediction only
-        # value_policy_model = ValuePolicyNetworkWithSTU(
-        #     self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
-        #     self.fc_layers, self.config.model.value_support.size,
-        #     self.action_space_size, self.init_zero,
-        #     value_stu_seq_len=self.value_stu_seq_len,
-        #     value_stu_num_filters=self.value_stu_num_filters,
-        #     v_num=self.config.train.v_num
-        # )
-
-        # Option 2: ValuePolicyNetwork with STU for BOTH value and policy prediction
-        # value_policy_model = ValuePolicyNetworkWithSTU2(
-        #     self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
-        #     self.fc_layers, self.config.model.value_support.size,
-        #     self.action_space_size, self.init_zero,
-        #     value_stu_seq_len=self.value_stu_seq_len,
-        #     value_stu_num_filters=self.value_stu_num_filters,
-        #     policy_stu_seq_len=self.policy_stu_seq_len,
-        #     policy_stu_num_filters=self.policy_stu_num_filters,
-        #     v_num=self.config.train.v_num
-        # )
-
-        # Option 3: Standard ValuePolicyNetwork (default - currently active)
+        # default value policy model
         value_policy_model = ValuePolicyNetwork(self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
                                                      self.fc_layers, self.config.model.value_support.size,
                                                      self.action_space_size, self.init_zero,

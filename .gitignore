@@ -24,3 +24,7 @@ wandb/
 
 .DS_Store
 **/._.DS_Store
+
+# Offline data
+dynamics_checkpoints/
+dynamics_dataset/
