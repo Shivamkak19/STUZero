@@ -135,7 +135,7 @@ class OSFPredictor(nn.Module):
             nn.init.normal_(param, std=1e-3)
     
     def _compute_hankel_eigenpairs(self, size, k):
-       if size < 1:
+        if size < 1:
             return torch.ones(k), torch.ones(k, max(size, 1))
         
         idx = torch.arange(1, size + 1, dtype=torch.float64)
