@@ -8,9 +8,6 @@ import torch
 import torch.nn as nn
 import math
 
-from ez.agents.models.history_layer import HistoryConcat
-
-
 def nearest_power_of_two(x: int, round_up: bool = False) -> int:
     """Find the nearest power of 2 to x."""
     if not round_up:
@@ -142,61 +139,3 @@ class MiniSTU(nn.Module):
 
         spectral_minus = torch.einsum('blki,kio->blo', U_minus, self.M_phi_minus)
         return spectral_plus + spectral_minus
-
-class HistoryMiniSTU(nn.Module):
-    def __init__(
-        self,
-        seq_len: int,
-        num_filters: int,
-        input_dim: int,
-        output_dim: int,
-        use_hankel_L: bool = False,
-        dtype: torch.dtype = torch.float32,
-        device: torch.device | None = None,
-        default_filters: torch.Tensor | None = None,
-    ):
-        super().__init__()
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-        self.stu = MiniSTU(
-            seq_len,
-            num_filters,
-            input_dim,  # This should match C
-            output_dim,
-            use_hankel_L,
-            dtype,
-            device,
-            default_filters
-        )
-        # Track per-batch history of latent features (time kept separate)
-        self.history = HistoryConcat((input_dim,), seq_len, concat_channels=False)
-
-    def reset(self, batch_size: int, device=None, dtype=None) -> None:
-        """Reset history buffer for new episode/batch."""
-        self.history.reset(batch_size, device=device, dtype=dtype)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Spectral filter latent state.
-
-        x: [B, C, H, W]  (C must equal input_dim)
-        returns: [B, C, H, W]
-        """
-        assert x.dim() == 4, f"Expected x with shape [B, C, H, W]; got {tuple(x.shape)}"
-        B, C, H, W = x.shape
-        assert C == self.input_dim, f"Channel dim {C} must match input_dim {self.input_dim}"
-        
-        # Reduce spatial dims to per-channel features: [B, C]
-        feat = x.mean(dim=(2, 3))  # [B, C]
-
-        # Build temporal sequence: [B, L, C]
-        seq = self.history(feat)  # [B, L, C]
-
-        # Apply STU over time: [B, L, C]
-        seq_filt = self.stu(seq)  # [B, L, C]
-
-        # Use the latest filtered features for current frame: [B, C]
-        last = seq_filt[:, -1, :]
-
-        # Broadcast back to spatial shape: [B, C, H, W]
-        return last.view(B, C, 1, 1).expand(B, C, H, W)
