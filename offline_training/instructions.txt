@@ -11,4 +11,4 @@ huggingface-cli download Shivamkak/STUZero-Pong-Dynamics --repo-type dataset --l
 python train_dynamics_offline.py --data_dir dynamics_dataset --checkpoint model_100000.p --num_blocks 2 --epochs 80 --batch_size 256 --lr 1e-3 --rollout_len 50
 
 4. Run dynamics training with use_stu flag:
-python train_dynamics_offline.py --data_dir dynamics_dataset --checkpoint model_100000.p --num_blocks 2 --epochs 80 --batch_size 256 --lr 1e-3 --rollout_len 50 --use_stu
+python train_dynamics_offline.py --data_dir dynamics_dataset --checkpoint model_100000.p --epochs 80 --batch_size 256 --lr 1e-3 --use_stu --rollout_len 50
