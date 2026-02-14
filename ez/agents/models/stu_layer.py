@@ -54,8 +54,6 @@ def convolve(
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Convolve input with filters using FFT."""
     bsz, seq_len, d_in = u.shape
-    # Ensure K is defined for both branches to satisfy analyzers
-    K = v.shape[-1]
     sgn = torch.full((1, seq_len, 1), 1, device=u.device)
     sgn[:, 1::2] *= -1
 
@@ -63,8 +61,7 @@ def convolve(
         _, d_out = v.shape
         v = v.view(1, -1, d_out, 1).to(torch.float32).contiguous()
     else:
-        # Comment 
-        # v has shape [seq_len, K]; K is already defined above
+        _, K = v.shape
         sgn = sgn.unsqueeze(-1)
         v = v.view(1, -1, K, 1, 1).to(torch.float32).contiguous()
 
@@ -159,10 +156,12 @@ class HistoryMiniSTU(nn.Module):
         default_filters: torch.Tensor | None = None,
     ):
         super().__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
         self.stu = MiniSTU(
             seq_len,
             num_filters,
-            input_dim,
+            input_dim,  # This should match C
             output_dim,
             use_hankel_L,
             dtype,
@@ -185,8 +184,9 @@ class HistoryMiniSTU(nn.Module):
         """
         assert x.dim() == 4, f"Expected x with shape [B, C, H, W]; got {tuple(x.shape)}"
         B, C, H, W = x.shape
+        assert C == self.input_dim, f"Channel dim {C} must match input_dim {self.input_dim}"
+        
         # Reduce spatial dims to per-channel features: [B, C]
-        # Using global average pooling keeps code simple and stable.
         feat = x.mean(dim=(2, 3))  # [B, C]
 
         # Build temporal sequence: [B, L, C]

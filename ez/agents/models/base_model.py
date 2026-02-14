@@ -8,7 +8,7 @@ import math
 import torch.nn as nn
 import numpy as np
 from .layer import ResidualBlock, conv3x3, mlp
-from .stu_layer import MiniSTU, HistoryMiniSTU
+from .stu_layer import MiniSTU
 
 
 # Down_sample observations before representation network (See paper appendix Network Architecture)
@@ -101,6 +101,7 @@ class RepresentationNetwork(nn.Module):
         return x
 
 
+# Predict next hidden states given current states and actions
 class DynamicsNetwork(nn.Module):
     def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False, action_embedding=False, action_embedding_dim=32):
         """
@@ -159,22 +160,36 @@ class DynamicsNetwork(nn.Module):
         for block in self.resblocks:
             x = block(x)
         state = x
+
         return state
 
-# Predict next hidden states given current states and actions
+
 class DynamicsNetworkWithSTU(nn.Module):
-    def __init__(self, num_blocks, num_channels, action_space_size, seq_len, num_filters, is_continuous=False, action_embedding=False, action_embedding_dim=32):
+    """
+    DynamicsNetwork enhanced with Spectral Transform Unit (STU) and residual connections.
+
+    This network applies spectral filtering to the dynamics model to potentially capture
+    long-range dependencies in state transitions more effectively.
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False,
+                 action_embedding=False, action_embedding_dim=32,
+                 dynamics_stu_seq_len=36, dynamics_stu_num_filters=8):
         """
-        Dynamics network
+        Dynamics network with STU
         :param num_blocks: int, number of res blocks
         :param num_channels: int, channels of hidden states
         :param action_space_size: int, action space size
+        :param dynamics_stu_seq_len: int, sequence length for STU (should divide H*W)
+        :param dynamics_stu_num_filters: int, number of spectral filters
         """
         super().__init__()
         self.is_continuous = is_continuous
         self.action_embedding = action_embedding
         self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
         self.action_space_size = action_space_size
+        self.dynamics_stu_seq_len = dynamics_stu_seq_len
+        self.dynamics_stu_num_filters = dynamics_stu_num_filters
 
         if action_embedding:
             self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
@@ -184,13 +199,22 @@ class DynamicsNetworkWithSTU(nn.Module):
             self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
 
         self.bn = nn.BatchNorm2d(num_channels)
-        self.resblocks = nn.ModuleList(
-            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
-        )
 
-        self.stu = HistoryMiniSTU(
-            seq_len=seq_len,
-            num_filters=num_filters,
+        # STU layer for state processing with residual connection
+        # We'll reshape the state to [B, seq_len, feature_dim]
+        # Assuming state is [B, num_channels, H, W], we'll treat H*W as sequence
+        # The feature dimension will be num_channels
+        # However, STU works best with fixed sequence length, so we reshape differently
+        # We'll treat the channel dimension as part of the feature, and spatial as sequence
+
+        # For 6x6 spatial (common after downsampling), seq_len=36, feature_dim=num_channels
+        self.spatial_size = 36  # This will be H*W, typically 6*6=36 for Atari after downsampling
+
+        # STU: processes [B, seq_len, feature_dim] -> [B, seq_len, feature_dim]
+        # We set input_dim = output_dim = num_channels to maintain dimensions
+        self.stu = MiniSTU(
+            seq_len=dynamics_stu_seq_len,
+            num_filters=dynamics_stu_num_filters,
             input_dim=num_channels,
             output_dim=num_channels,
             use_hankel_L=False,
@@ -198,12 +222,12 @@ class DynamicsNetworkWithSTU(nn.Module):
             device=None
         )
 
-        #self.num_channels = self.stu.output_dim
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
 
     def forward(self, state, action):
-        state = self.stu(state) # Spectral Filtering of input latent state
-
-        # encode action
+        # Encode action (same as original DynamicsNetwork)
         if not self.is_continuous:
             action_place = torch.ones((
                 state.shape[0],
@@ -223,13 +247,45 @@ class DynamicsNetworkWithSTU(nn.Module):
             action_place = self.ln(action_place)
             action_place = nn.functional.relu(action_place)
 
+        # Concatenate state with action encoding
         x = torch.cat((state, action_place), dim=1)
         x = self.conv(x)
         x = self.bn(x)
 
+        # Add residual connection to original state
         x += state
         x = nn.functional.relu(x)
 
+        # Apply STU with residual connection
+        # Save for residual
+        residual = x
+
+        # Reshape for STU: [B, C, H, W] -> [B, H*W, C]
+        # where H*W should equal dynamics_stu_seq_len
+        batch_size, num_channels, H, W = x.shape
+        spatial_size = H * W
+
+        # Only apply STU if spatial size matches seq_len
+        # Otherwise skip STU processing (graceful fallback)
+        if spatial_size == self.dynamics_stu_seq_len:
+            # Reshape: [B, C, H, W] -> [B, H*W, C]
+            x_seq = x.permute(0, 2, 3, 1).reshape(batch_size, spatial_size, num_channels)
+
+            # Apply STU: [B, seq_len, feature_dim] -> [B, seq_len, feature_dim]
+            x_seq = self.stu(x_seq)
+
+            # Reshape back: [B, H*W, C] -> [B, C, H, W]
+            x = x_seq.reshape(batch_size, H, W, num_channels).permute(0, 3, 1, 2)
+
+            # Add residual connection
+            x = x + residual
+            x = nn.functional.relu(x)
+        else:
+            # Skip STU if dimensions don't match
+            # Just use the input (residual acts as identity)
+            x = residual
+
+        # Apply residual blocks
         for block in self.resblocks:
             x = block(x)
         state = x
@@ -366,254 +422,3 @@ class ProjectionHeadNetwork(nn.Module):
 
     def forward(self, x):
         return self.layer(x)
-
-
-class ValuePolicyNetworkWithSTU(nn.Module):
-    """
-    ValuePolicyNetwork enhanced with Spectral Transform Unit (STU) for value prediction.
-
-    This network applies spectral filtering to value predictions to potentially capture
-    long-range dependencies in the value function more effectively.
-    """
-    def __init__(self, num_blocks, num_channels, reduced_channels, flatten_size, fc_layers, value_output_size,
-                 policy_output_size, init_zero, is_continuous=False, policy_distribution='beta',
-                 value_stu_seq_len=16, value_stu_num_filters=8, **kwargs):
-        super().__init__()
-        self.v_num = kwargs.get('v_num')
-        self.value_stu_seq_len = value_stu_seq_len
-        self.value_stu_num_filters = value_stu_num_filters
-
-        self.resblocks = nn.ModuleList(
-            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
-        )
-
-        # Value heads with STU integration
-        self.conv1x1_values = nn.ModuleList([nn.Conv2d(num_channels, reduced_channels, 1) for _ in range(self.v_num)])
-        self.bn_values = nn.ModuleList([nn.BatchNorm2d(reduced_channels) for _ in range(self.v_num)])
-
-        # Policy head (unchanged)
-        self.conv1x1_policy = nn.Conv2d(num_channels, reduced_channels, 1)
-        self.bn_policy = nn.BatchNorm2d(reduced_channels)
-
-        self.block_output_size_value = flatten_size
-        self.block_output_size_policy = flatten_size
-
-        # STU layers for each value head
-        # The STU processes sequences of value features
-        # We treat the flattened spatial features as a sequence
-
-        self.stu_layers = nn.ModuleList([
-            MiniSTU(
-                seq_len=value_stu_seq_len,
-                num_filters=value_stu_num_filters,
-                input_dim=self.block_output_size_value // value_stu_seq_len,
-                output_dim=self.block_output_size_value // value_stu_seq_len,
-                use_hankel_L=False,
-                dtype=torch.float32,
-                device=None
-            ) for _ in range(self.v_num)
-        ])
-
-        # Final FC layers for value (after STU processing)
-        self.fc_values = nn.ModuleList([
-            mlp(self.block_output_size_value, fc_layers, value_output_size,
-                init_zero=False if is_continuous else init_zero)
-            for _ in range(self.v_num)
-        ])
-
-        # Policy FC layer (unchanged)
-        self.fc_policy = mlp(self.block_output_size_policy, fc_layers if not is_continuous else [64],
-                             policy_output_size, init_zero=init_zero)
-
-        self.is_continuous = is_continuous
-        self.init_std = 1.0
-        self.min_std = 0.1
-
-    def forward(self, x):
-        # Shared resblocks
-        for block in self.resblocks:
-            x = block(x)
-
-        values = []
-        for i in range(self.v_num):
-            # Value processing
-            value = self.conv1x1_values[i](x)
-            value = self.bn_values[i](value)
-            value = nn.functional.relu(value)
-            value = value.reshape(-1, self.block_output_size_value)
-
-            # Apply STU for spectral filtering
-            # Reshape to [B, L, I] where L is seq_len and I is feature_dim_per_step
-            batch_size = value.shape[0]
-            feature_dim_per_step = self.block_output_size_value // self.value_stu_seq_len
-
-            # Reshape: [B, flatten_size] -> [B, seq_len, feature_dim]
-            value_seq = value.reshape(batch_size, self.value_stu_seq_len, feature_dim_per_step)
-
-            # Apply STU: [B, seq_len, feature_dim] -> [B, seq_len, feature_dim]
-            value_seq = self.stu_layers[i](value_seq)
-
-            # Reshape back: [B, seq_len, feature_dim] -> [B, flatten_size]
-            value = value_seq.reshape(batch_size, -1)
-
-            # Final FC layer
-            value = self.fc_values[i](value)
-            values.append(value)
-
-        # Policy processing (unchanged)
-        policy = self.conv1x1_policy(x)
-        policy = self.bn_policy(policy)
-        policy = nn.functional.relu(policy)
-        policy = policy.reshape(-1, self.block_output_size_policy)
-        policy = self.fc_policy(policy)
-
-        if self.is_continuous:
-            action_space_size = policy.shape[-1] // 2
-            policy[:, :action_space_size] = 5 * torch.tanh(policy[:, :action_space_size] / 5)
-            policy[:, action_space_size:] = (
-                torch.nn.functional.softplus(policy[:, action_space_size:] + self.init_std) + self.min_std
-            )
-
-        return torch.stack(values), policy
-
-
-class ValuePolicyNetworkWithSTU2(nn.Module):
-    """
-    ValuePolicyNetwork enhanced with Spectral Transform Unit (STU) for BOTH value and policy prediction.
-
-    This network applies spectral filtering to both value and policy predictions to potentially capture
-    long-range dependencies more effectively in both the value function and policy.
-    """
-    def __init__(self, num_blocks, num_channels, reduced_channels, flatten_size, fc_layers, value_output_size,
-                 policy_output_size, init_zero, is_continuous=False, policy_distribution='beta',
-                 value_stu_seq_len=16, value_stu_num_filters=8,
-                 policy_stu_seq_len=16, policy_stu_num_filters=8, **kwargs):
-        super().__init__()
-        self.v_num = kwargs.get('v_num')
-        self.value_stu_seq_len = value_stu_seq_len
-        self.value_stu_num_filters = value_stu_num_filters
-
-        # Policy STU parameters (can be different from value STU)
-        self.policy_stu_seq_len = policy_stu_seq_len
-        self.policy_stu_num_filters = policy_stu_num_filters
-
-        self.resblocks = nn.ModuleList(
-            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
-        )
-
-        # Value heads with STU integration
-        self.conv1x1_values = nn.ModuleList([nn.Conv2d(num_channels, reduced_channels, 1) for _ in range(self.v_num)])
-        self.bn_values = nn.ModuleList([nn.BatchNorm2d(reduced_channels) for _ in range(self.v_num)])
-
-        # Policy head with STU integration
-        self.conv1x1_policy = nn.Conv2d(num_channels, reduced_channels, 1)
-        self.bn_policy = nn.BatchNorm2d(reduced_channels)
-
-        self.block_output_size_value = flatten_size
-        self.block_output_size_policy = flatten_size
-
-        # STU layers for each value head
-        self.stu_layers = nn.ModuleList([
-            MiniSTU(
-                seq_len=value_stu_seq_len,
-                num_filters=value_stu_num_filters,
-                input_dim=self.block_output_size_value // value_stu_seq_len,
-                output_dim=self.block_output_size_value // value_stu_seq_len,
-                use_hankel_L=False,
-                dtype=torch.float32,
-                device=None
-            ) for _ in range(self.v_num)
-        ])
-
-        # STU layer for policy head
-        self.policy_stu = MiniSTU(
-            seq_len=self.policy_stu_seq_len,
-            num_filters=self.policy_stu_num_filters,
-            input_dim=self.block_output_size_policy // self.policy_stu_seq_len,
-            output_dim=self.block_output_size_policy // self.policy_stu_seq_len,
-            use_hankel_L=False,
-            dtype=torch.float32,
-            device=None
-        )
-
-        # Final FC layers for value (after STU processing)
-        self.fc_values = nn.ModuleList([
-            mlp(self.block_output_size_value, fc_layers, value_output_size,
-                init_zero=False if is_continuous else init_zero)
-            for _ in range(self.v_num)
-        ])
-
-        # Policy FC layer (after STU processing)
-        self.fc_policy = mlp(self.block_output_size_policy, fc_layers if not is_continuous else [64],
-                             policy_output_size, init_zero=init_zero)
-
-        self.is_continuous = is_continuous
-        self.init_std = 1.0
-        self.min_std = 0.1
-
-    def forward(self, x):
-        # Shared resblocks
-        for block in self.resblocks:
-            x = block(x)
-
-        # Value processing with STU
-        values = []
-        for i in range(self.v_num):
-            value = self.conv1x1_values[i](x)
-            value = self.bn_values[i](value)
-            value = nn.functional.relu(value)
-            value = value.reshape(-1, self.block_output_size_value)
-
-            # Apply STU for spectral filtering
-            batch_size = value.shape[0]
-            feature_dim_per_step = self.block_output_size_value // self.value_stu_seq_len
-
-            # Reshape: [B, flatten_size] -> [B, seq_len, feature_dim]
-            value_seq = value.reshape(batch_size, self.value_stu_seq_len, feature_dim_per_step)
-
-            # Apply STU: [B, seq_len, feature_dim] -> [B, seq_len, feature_dim]
-            value_seq = self.stu_layers[i](value_seq)
-
-            # Reshape back: [B, seq_len, feature_dim] -> [B, flatten_size]
-            value = value_seq.reshape(batch_size, -1)
-
-            # Final FC layer
-            value = self.fc_values[i](value)
-            values.append(value)
-
-        # Policy processing with STU
-        policy = self.conv1x1_policy(x)
-        policy = self.bn_policy(policy)
-        policy = nn.functional.relu(policy)
-        policy = policy.reshape(-1, self.block_output_size_policy)
-
-        # Apply STU for spectral filtering on policy
-        batch_size = policy.shape[0]
-        policy_feature_dim_per_step = self.block_output_size_policy // self.policy_stu_seq_len
-
-        # Reshape: [B, flatten_size] -> [B, seq_len, feature_dim]
-        policy_seq = policy.reshape(batch_size, self.policy_stu_seq_len, policy_feature_dim_per_step)
-
-        # Apply STU: [B, seq_len, feature_dim] -> [B, seq_len, feature_dim]
-        policy_seq = self.policy_stu(policy_seq)
-
-        # Reshape back: [B, seq_len, feature_dim] -> [B, flatten_size]
-        policy = policy_seq.reshape(batch_size, -1)
-
-        # Final FC layer
-        policy = self.fc_policy(policy)
-
-        if self.is_continuous:
-            action_space_size = policy.shape[-1] // 2
-            policy[:, :action_space_size] = 5 * torch.tanh(policy[:, :action_space_size] / 5)
-            policy[:, action_space_size:] = (
-                torch.nn.functional.softplus(policy[:, action_space_size:] + self.init_std) + self.min_std
-            )
-
-        return torch.stack(values), policy
-
-
-# Questions for Elad
-# 1. Should we spectral filter the input or the output of the Dynamics network?
-# 2. Does the spectral filtering need to keep track of a history of past inputs?
-# 3. Liane -- where would it be useful to use a residual connection 

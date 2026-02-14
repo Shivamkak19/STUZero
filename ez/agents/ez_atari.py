@@ -25,8 +25,9 @@ class EZAtariAgent(Agent):
         self.value_stu_num_filters = config.model.get('value_stu_num_filters', 8)
         self.policy_stu_seq_len = config.model.get('policy_stu_seq_len', 16)
         self.policy_stu_num_filters = config.model.get('policy_stu_num_filters', 8)
-        self.dynamics_stu_seq_len = config.model.get('dynamics_stu_seq_len', 30)
-        self.dynamics_stu_num_filters = config.model.get('dynamics_stu_num_filters', 24)
+        self.dynamics_stu_seq_len = config.model.get('dynamics_stu_seq_len', 36)
+        self.dynamics_stu_num_filters = config.model.get('dynamics_stu_num_filters', 2)
+        self.use_dynamics_stu = config.model.get('use_dynamics_stu', False)
         
         self.update_config()
 
@@ -81,7 +82,8 @@ class EZAtariAgent(Agent):
             print(f'env={self.config.env.env}, game={self.config.env.game}, |A|={action_space_size}, '
                   f'top_m={self.config.mcts.num_top_actions}, N={self.config.mcts.num_simulations}')
             print(f'STU config: value_seq_len={self.value_stu_seq_len}, value_num_filters={self.value_stu_num_filters}, '
-                  f'policy_seq_len={self.policy_stu_seq_len}, policy_num_filters={self.policy_stu_num_filters}')
+                  f'policy_seq_len={self.policy_stu_seq_len}, policy_num_filters={self.policy_stu_num_filters}, '
+                  f'dynamics_seq_len={self.dynamics_stu_seq_len}, dynamics_num_filters={self.dynamics_stu_num_filters}')
             self.config.save_path += tag
 
         self.obs_shape = copy.deepcopy(self.config.env.obs_shape)
@@ -102,9 +104,20 @@ class EZAtariAgent(Agent):
 
         representation_model = RepresentationNetwork(self.input_shape, self.num_blocks, self.num_channels, self.down_sample)
 
-        dynamics_model = DynamicsNetworkWithSTU(self.num_blocks, self.num_channels, self.action_space_size,
-                                         seq_len=self.dynamics_stu_seq_len, num_filters=self.dynamics_stu_num_filters,
-                                         action_embedding=self.action_embedding, action_embedding_dim=self.action_embedding_dim)
+        if self.use_dynamics_stu:
+            dynamics_model = DynamicsNetworkWithSTU(
+                self.num_blocks, self.num_channels, self.action_space_size,
+                action_embedding=self.action_embedding,
+                action_embedding_dim=self.action_embedding_dim,
+                dynamics_stu_seq_len=self.dynamics_stu_seq_len,
+                dynamics_stu_num_filters=self.dynamics_stu_num_filters
+            )
+        else:
+            dynamics_model = DynamicsNetwork(
+                self.num_blocks, self.num_channels, self.action_space_size,
+                action_embedding=self.action_embedding,
+                action_embedding_dim=self.action_embedding_dim
+            )
 
         # Option 1: ValuePolicyNetwork with STU for value prediction only
         # value_policy_model = ValuePolicyNetworkWithSTU(
