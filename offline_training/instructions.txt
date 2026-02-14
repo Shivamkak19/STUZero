@@ -1,0 +1,14 @@
+To run the offline training, follow these steps:
+
+1. Make sure ezv2 environment is configured as instructed in INSTALL.md.
+2. Download dataset into offline_training/ folder from Hugging Face
+
+pip install huggingface_hub                                                                
+huggingface-cli download Shivamkak/STUZero-Pong-Dynamics --repo-type dataset --local-dir dynamics_dataset
+
+3. Run dynamics training with baseline:
+
+python train_dynamics_offline.py --data_dir dynamics_dataset --checkpoint model_100000.p --num_blocks 2 --epochs 80 --batch_size 256 --lr 1e-3 --rollout_len 50
+
+4. Run dynamics training with use_stu flag:
+python train_dynamics_offline.py --data_dir dynamics_dataset --checkpoint model_100000.p --num_blocks 2 --epochs 80 --batch_size 256 --lr 1e-3 --rollout_len 50 --use_stu
