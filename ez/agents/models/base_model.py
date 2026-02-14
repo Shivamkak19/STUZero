@@ -126,36 +126,36 @@ class DynamicsNetwork(nn.Module):
         else:
             self.spectral_predictor = OSFPredictor(self.seq_len, num_filters, num_ar, (action_space_size if is_continuous else 1) * 6 * 6, self.num_channels * 6 * 6)
 
-    def forward(self, states, actions):
-        assert self.seq_len == actions.shape[1], f"Action sequence length {actions.shape[1]} does not match the expected {self.seq_len}"
-        assert self.seq_len == states.shape[1], f"State sequence length {states.shape[1]} does not match the expected {self.seq_len}"
+    def forward(self, state_history, action_history):
+        assert self.seq_len == action_history.shape[1], f"Action sequence length {action_history.shape[1]} does not match the expected {self.seq_len}"
+        assert self.seq_len == state_history.shape[1], f"State sequence length {state_history.shape[1]} does not match the expected {self.seq_len}"
 
         # encode action
         if not self.is_continuous:
             actions_place = torch.ones((
-                states.shape[0],
+                state_history.shape[0],
                 self.seq_len,
                 1,
-                states.shape[-2],
-                states.shape[-1],
+                state_history.shape[-2],
+                state_history.shape[-1],
             )).cuda().float()
 
             actions_place = (
-                    actions[:, :, :, None, None] * action_place / self.action_space_size
+                    action_history[:, :, :, None, None] * actions_place / self.action_space_size
             )
         else:
-            actions_place = actions.reshape(*actions.shape, 1, 1).repeat(1, 1, 1, states.shape[-2], states.shape[-1])
+            actions_place = action_history.reshape(*action_history.shape, 1, 1).repeat(1, 1, 1, state_history.shape[-2], state_history.shape[-1])
 
         if self.action_embedding:
-            actions_place = action_place.view(-1, *(action_place.shape[2:]))
-            actions_place = self.conv1x1(action_place)
+            actions_place = actions_place.view(-1, *(actions_place.shape[2:]))
+            actions_place = self.conv1x1(actions_place)
             actions_place = self.ln(actions_place)
             actions_place = nn.functional.relu(actions_place)
             actions_place = actions_place.view(-1, self.seq_len, self.action_embedding_dim * actions_place.shape[-2] * actions_place.shape[-1])
         else:
             actions_place = actions_place.view(-1, self.seq_len, actions_place.shape[2] * actions_place.shape[-2] * actions_place.shape[-1])
     
-        states_place = states.view(*(states.shape[:2]), -1)
+        states_place = state_history.view(*(state_history.shape[:2]), -1)
         
         assert states_place.shape == (actions_place.shape[0], self.seq_len, self.num_channels * 6 * 6), f"State shape {states_place.shape} does not match the expected {(actions_place.shape[0], self.seq_len, self.num_channels * 6 * 6)}"
         assert actions_place.shape == (states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6), f"Action shape {actions_place.shape} does not match the expected {(states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6)}"
