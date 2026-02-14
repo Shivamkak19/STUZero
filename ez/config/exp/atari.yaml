@@ -114,6 +114,9 @@ model:
   noisy_net: False
   action_embedding: True
   action_embedding_dim: 16
+  num_filters: 24
+  num_ar: 1
+  seq_len: 5
   down_sample: True
   state_norm: False
   value_prefix: True

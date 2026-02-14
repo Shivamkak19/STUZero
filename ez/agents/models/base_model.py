@@ -7,7 +7,7 @@ import torch
 import math
 import torch.nn as nn
 import numpy as np
-from .layer import ResidualBlock, conv3x3, mlp
+from .layer import ResidualBlock, conv3x3, mlp, OSFPredictor
 
 
 # Down_sample observations before representation network (See paper appendix Network Architecture)
@@ -102,12 +102,14 @@ class RepresentationNetwork(nn.Module):
 
 # Predict next hidden states given current states and actions
 class DynamicsNetwork(nn.Module):
-    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False, action_embedding=False, action_embedding_dim=32):
+    def __init__(self, num_channels, action_space_size, seq_len, num_filters, num_ar, is_continuous=False, action_embedding=False, action_embedding_dim=32):
         """
         Dynamics network
-        :param num_blocks: int, number of res blocks
         :param num_channels: int, channels of hidden states
         :param action_space_size: int, action space size
+        :param seq_len: int, sequence length for history-conditioned dynamics network
+        :param num_filters: int, number of spectral filters
+        :param num_ar: int, number of autoregressive terms
         """
         super().__init__()
         self.is_continuous = is_continuous
@@ -115,51 +117,50 @@ class DynamicsNetwork(nn.Module):
         self.action_embedding_dim = action_embedding_dim
         self.num_channels = num_channels
         self.action_space_size = action_space_size
+        self.seq_len = seq_len
 
         if action_embedding:
             self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
             self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
-            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+            self.spectral_predictor = OSFPredictor(self.seq_len, num_filters, num_ar, self.action_embedding_dim * 6 * 6, self.num_channels * 6 * 6)
         else:
-            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+            self.spectral_predictor = OSFPredictor(self.seq_len, num_filters, num_ar, (action_space_size if is_continuous else 1) * 6 * 6, self.num_channels * 6 * 6)
 
-        self.bn = nn.BatchNorm2d(num_channels)
-        self.resblocks = nn.ModuleList(
-            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
-        )
+    def forward(self, states, actions):
+        assert self.seq_len == action.shape[1], f"Action sequence length {action.shape[1]} does not match the expected {self.seq_len}"
+        assert self.seq_len == state.shape[1], f"State sequence length {state.shape[1]} does not match the expected {self.seq_len}"
 
-    def forward(self, state, action):
         # encode action
         if not self.is_continuous:
             action_place = torch.ones((
                 state.shape[0],
+                self.seq_len,
                 1,
-                state.shape[2],
-                state.shape[3],
+                state.shape[-2],
+                state.shape[-1],
             )).cuda().float()
 
             action_place = (
-                    action[:, :, None, None] * action_place / self.action_space_size
+                    action[:, :, :, None, None] * action_place / self.action_space_size
             )
         else:
-            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, state.shape[-2], state.shape[-1])
+            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, 1, state.shape[-2], state.shape[-1])
 
         if self.action_embedding:
+            action_place = action_place.view(-1, *(action_place.shape[2:]))
             action_place = self.conv1x1(action_place)
             action_place = self.ln(action_place)
             action_place = nn.functional.relu(action_place)
+            action_place = action_place.view(-1, self.seq_len, self.action_embedding_dim * 6 * 6)
 
-        x = torch.cat((state, action_place), dim=1)
-        x = self.conv(x)
-        x = self.bn(x)
-
-        x += state
-        x = nn.functional.relu(x)
-
-        for block in self.resblocks:
-            x = block(x)
-        state = x
-
+        states_place = states.view(*(states.shape[:2]), -1)
+        
+        assert states_place.shape == (action_place.shape[0], self.seq_len, self.num_channels * 6 * 6), f"State shape {states_place.shape} does not match the expected {(action_place.shape[0], self.seq_len, self.num_channels * 6 * 6)}"
+        assert action_place.shape == (states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6), f"Action shape {action_place.shape} does not match the expected {(states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6)}"
+        
+        state = self.spectral_predictor(action_place, states_place)
+        state = state.view(-1, self.num_channels, 6, 6)
+        
         return state
 
 

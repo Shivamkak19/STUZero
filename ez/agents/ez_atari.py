@@ -33,6 +33,9 @@ class EZAtariAgent(Agent):
         self.action_embedding = config.model.action_embedding
         self.action_embedding_dim = config.model.action_embedding_dim
         self.value_policy_detach = config.train.value_policy_detach
+        self.num_filters = config.model.num_filters
+        self.num_ar = config.model.num_ar
+        self.seq_len = config.model.seq_len
 
     def update_config(self):
         assert not self._update
@@ -91,7 +94,7 @@ class EZAtariAgent(Agent):
 
         representation_model = RepresentationNetwork(self.input_shape, self.num_blocks, self.num_channels, self.down_sample)
 
-        dynamics_model = DynamicsNetwork(self.num_blocks, self.num_channels, self.action_space_size,
+        dynamics_model = DynamicsNetwork(self.num_channels, self.action_space_size, self.seq_len, self.num_filters, self.num_ar,
                                          action_embedding=self.action_embedding, action_embedding_dim=self.action_embedding_dim)
 
         value_policy_model = ValuePolicyNetwork(self.num_blocks, self.num_channels, self.reduced_channels, flatten_size,
