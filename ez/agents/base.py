@@ -382,6 +382,7 @@ class Agent:
             action_batch = torch.from_numpy(action_batch).float().cuda()
         else:
             action_batch = torch.from_numpy(action_batch).cuda().unsqueeze(-1).long()
+
         mask_batch = torch.from_numpy(mask_batch).cuda().float()
         weights = torch.from_numpy(weights_lst).cuda().float()
 
@@ -401,7 +402,9 @@ class Agent:
         target_value_prefixes_support = DiscreteSupport.scalar_to_vector(target_value_prefixes, **self.config.model.reward_support)
 
         with autocast():
-            states, values, policies = model.initial_inference(obs_batch, training=True)
+            # initializing state_history buffer
+            states, states_history, values, policies = model.initial_inference(obs_batch, training=True)
+            assert states_history.shape == (batch_size, self.seq_len, states.shape[1], states.shape[2], states.shape[3]), f"State history shape {states_history.shape} does not match the expected {(batch_size, self.seq_len, states.shape[1], states.shape[2], states.shape[3])}"
 
         if self.config.model.value_support.type == 'symlog':
             scaled_value = symexp(values).min(0)[0]
@@ -459,11 +462,21 @@ class Agent:
         policy_entropy_loss -= entropy_loss
 
         prev_value_prefixes = torch.zeros_like(policy_loss)
+
+        # initialize action_history buffer
+        action_history = torch.zeros(batch_size, self.seq_len, *(action_batch.shape[1:]), device=action_batch.device, dtype=action_batch.dtype)
+        
         # unroll k steps recurrently
         with autocast():
             for step_i in range(unroll_steps):
                 mask = mask_batch[:, step_i]
-                states, value_prefixes, values, policies, reward_hidden = model.recurrent_inference(states, action_batch[:, step_i], reward_hidden, training=True)
+
+                # update action history buffer
+                action_history = torch.roll(action_history, shifts=-1, dims=1)
+                action_history[:, -1] = action_batch[:, step_i]
+
+                # use state_history and action_history to recurrently infer next state -> next state_history
+                states, states_history, value_prefixes, values, policies, reward_hidden = model.recurrent_inference((states_history, action_history), reward_hidden, training=True)
 
                 beg_index = image_channel * step_i
                 end_index = image_channel * (step_i + n_stack)
