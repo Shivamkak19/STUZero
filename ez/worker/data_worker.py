@@ -67,6 +67,11 @@ class DataWorker(Worker):
         stack_obs_windows, game_trajs = self.agent.init_envs(envs, max_steps=self.config.data.trajectory_size)
         prev_game_trajs = [None for _ in range(num_envs)]  # previous game trajectories (split a full game trajectory into several sub trajectories)
 
+        # history buffers for each env: maintained across steps within an episode
+        seq_len = self.config.model.seq_len
+        state_histories = [None for _ in range(num_envs)]  # initialized on first initial_inference (need latent shape)
+        action_histories = [torch.zeros(seq_len, 1, dtype=torch.long, device='cuda') for _ in range(num_envs)]
+
         # log data
         episode_return = [0. for _ in range(num_envs)]
 
@@ -104,7 +109,18 @@ class DataWorker(Worker):
             current_stacked_obs = formalize_obs_lst(stack_obs_windows, image_based=config.env.image_based)
             # obtain the statistics at current steps
             with autocast():
-                states, values, policies = self.model.initial_inference(current_stacked_obs)
+                states, _, values, policies = self.model.initial_inference(current_stacked_obs)
+
+            # update running state histories with the new encoded states
+            for i in range(num_envs):
+                if state_histories[i] is None:
+                    state_histories[i] = torch.zeros(seq_len, *states.shape[1:], device=states.device)
+                state_histories[i] = torch.roll(state_histories[i], shifts=-1, dims=0)
+                state_histories[i][-1] = states[i].detach()
+
+            # stack per-env histories into batched tensors for tree search
+            batched_state_histories = torch.stack(state_histories)    # (num_envs, seq_len, C, H, W)
+            batched_action_histories = torch.stack(action_histories)  # (num_envs, seq_len, 1)
 
             # process outputs
             values = values.detach().cpu().numpy().flatten()
@@ -129,11 +145,15 @@ class DataWorker(Worker):
             )
             if self.config.env.env == 'Atari':
                 if self.config.mcts.use_gumbel:
-                    r_values, r_policies, best_actions, _ = tree.search(self.model, num_envs, states, values, policies,
+                    r_values, r_policies, best_actions, _ = tree.search(self.model, num_envs, states,
+                                                                        batched_state_histories, batched_action_histories,
+                                                                        values, policies,
                                                                         # use_gumble_noise=False, # for test search
                                                                         temperature=temperature)
                 else:
-                    r_values, r_policies, best_actions, _ = tree.search_ori_mcts(self.model, num_envs, states, values, policies,
+                    r_values, r_policies, best_actions, _ = tree.search_ori_mcts(self.model, num_envs, states,
+                                                                                    batched_state_histories, batched_action_histories,
+                                                                                    values, policies,
                                                                                     use_noise=True, temperature=temperature)
             else:
                 r_values, r_policies, best_actions, sampled_actions, best_indexes, mcts_info = tree.search_continuous(
@@ -149,6 +169,10 @@ class DataWorker(Worker):
                 dones[i] = done
                 traj_len[i] += 1
                 episode_return[i] += info['raw_reward']
+
+                # update running action history with the chosen action
+                action_histories[i] = torch.roll(action_histories[i], shifts=-1, dims=0)
+                action_histories[i][-1] = action
 
                 # save data to trajectory buffer
                 game_trajs[i].store_search_results(values[i], r_values[i], r_policies[i])
@@ -207,6 +231,10 @@ class DataWorker(Worker):
                     stack_obs_windows[i] = stacked_obs
                     game_trajs[i] = traj
                     prev_game_trajs[i] = None
+
+                    # reset history buffers for new episode
+                    state_histories[i] = torch.zeros(seq_len, *states.shape[1:], device=states.device)
+                    action_histories[i] = torch.zeros(seq_len, 1, dtype=torch.long, device='cuda')
 
                     traj_len[i] = 0
                     episode_return[i] = 0
