@@ -61,6 +61,7 @@ class BatchWorker(Worker):
         self.mixed_value_threshold = self.config.train.mixed_value_threshold
         self.lstm_hidden_size = self.config.model.lstm_hidden_size
         self.cnt = 0
+        self.seq_len = self.config.model.seq_len
 
     def concat_trajs(self, items):
         obs_lsts, reward_lsts, policy_lsts, action_lsts, pred_value_lsts, search_value_lsts, \
@@ -803,16 +804,27 @@ class BatchWorker(Worker):
             **self.config.mcts,  # pass mcts related params
             **self.config.model,  # pass the value and reward support params
         )
+        # Fabricate zero-padded histories for reanalysis (Option A: no stored latent history)
+        # state_histories: zeros except last position holds the re-encoded state
+        state_histories = torch.zeros(batch_size, self.seq_len, *state_lst.shape[1:],
+                                      device=state_lst.device, dtype=state_lst.dtype)
+        state_histories[:, -1] = state_lst
+        # action_histories: all zeros (no preceding actions known for reanalysis)
+        action_histories = torch.zeros(batch_size, self.seq_len, 1,
+                                       device=state_lst.device, dtype=torch.long)
+
         if self.env == 'Atari':
             if self.config.mcts.use_gumbel:
                 r_values, r_policies, best_actions, _ = tree.search(
                     self.model,
                     # self.latest_model,
-                    batch_size, state_lst, value_lst, policy_lst, use_gumble_noise=True, temperature=temperature
+                    batch_size, state_lst, state_histories, action_histories,
+                    value_lst, policy_lst, use_gumble_noise=True, temperature=temperature
                 )
             else:
                 r_values, r_policies, best_actions, _ = tree.search_ori_mcts(
-                    self.model, batch_size, state_lst, value_lst, policy_lst, use_noise=True, temperature=temperature, is_reanalyze=True
+                    self.model, batch_size, state_lst, state_histories, action_histories,
+                    value_lst, policy_lst, use_noise=True, temperature=temperature, is_reanalyze=True
                 )
             sampled_actions = best_actions
             search_best_indexes = best_actions
@@ -823,10 +835,10 @@ class BatchWorker(Worker):
                     batch_size, state_lst, value_lst, policy_lst, temperature=temperature,
             ) 
 
-        if self.config.train.optimal_Q:
-            r_values = self.efficient_recurrent(state_lst, policy_lst)
-            r_values = r_values.reshape(-1) * np.array(policy_mask)
-            r_values = r_values.tolist()
+        # if self.config.train.optimal_Q:
+        #     r_values = self.efficient_recurrent(state_lst, policy_lst)
+        #     r_values = r_values.reshape(-1) * np.array(policy_mask)
+        #     r_values = r_values.tolist()
 
         # concat policy
         policy_index = 0
@@ -870,104 +882,104 @@ class BatchWorker(Worker):
         policy_masks = np.asarray(policy_masks)
         return batch_policies, sampled_actions, best_actions, reanalyzed_values, (state_lst, value_lst, policy_lst, policy_mask), policy_masks
 
-    @torch.no_grad()
-    def imagine_episodes(self, pre_lst, traj_lst, transition_pos_lst, trained_steps, policy='search'):
-        length = 1
-        times = 3
+    # @torch.no_grad()
+    # def imagine_episodes(self, pre_lst, traj_lst, transition_pos_lst, trained_steps, policy='search'):
+    #     length = 1
+    #     times = 3
 
-        # input_obs = np.concatenate([stack_obs for _ in range(times)], axis=0)
-        # states, values, policies = self.efficient_inference(input_obs)
-        states, values, policies, policy_mask = pre_lst
-        states = torch.cat([states for _ in range(times)], dim=0)
-        values = np.concatenate([values for _ in range(times)], axis=0)
-        policies = torch.cat([policies for _ in range(times)], dim=0)
-        reward_hidden = (torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda(),
-                         torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda())
-        last_values_prefixes = np.zeros(len(states))
-        reward_lst = []
-        value_lst = []
-        temperature = self.agent.get_temperature(trained_steps=trained_steps) * np.ones((len(states), 1))
-        for i in range(length):
-            if policy == 'search':
-                tree = mcts.names[self.config.mcts.language](
-                    num_actions=self.config.env.action_space_size if self.env == 'Atari' else self.config.mcts.num_top_actions,
-                    discount=self.config.rl.discount,
-                    **self.config.mcts,  # pass mcts related params
-                    **self.config.model,  # pass the value and reward support params
-                )
-                if self.env == 'Atari':
-                    if self.config.mcts.use_gumbel:
-                        r_values, r_policies, best_actions, _ = tree.search(
-                            self.model, len(states), states, values, policies,
-                            use_gumble_noise=True, temperature=temperature
-                        )
-                    else:
-                        r_values, r_policies, best_actions, _ = tree.search_ori_mcts(
-                            self.model, len(states), states, values, policies, use_noise=True,
-                            temperature=temperature, is_reanalyze=True
-                        )
-                else:
-                    r_values, r_policies, best_actions, sampled_actions, _, _ = tree.search_continuous(
-                        self.model, len(states), states, values, policies,
-                        use_gumble_noise=False, temperature=temperature)
+    #     # input_obs = np.concatenate([stack_obs for _ in range(times)], axis=0)
+    #     # states, values, policies = self.efficient_inference(input_obs)
+    #     states, values, policies, policy_mask = pre_lst
+    #     states = torch.cat([states for _ in range(times)], dim=0)
+    #     values = np.concatenate([values for _ in range(times)], axis=0)
+    #     policies = torch.cat([policies for _ in range(times)], dim=0)
+    #     reward_hidden = (torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda(),
+    #                      torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda())
+    #     last_values_prefixes = np.zeros(len(states))
+    #     reward_lst = []
+    #     value_lst = []
+    #     temperature = self.agent.get_temperature(trained_steps=trained_steps) * np.ones((len(states), 1))
+    #     for i in range(length):
+    #         if policy == 'search':
+    #             tree = mcts.names[self.config.mcts.language](
+    #                 num_actions=self.config.env.action_space_size if self.env == 'Atari' else self.config.mcts.num_top_actions,
+    #                 discount=self.config.rl.discount,
+    #                 **self.config.mcts,  # pass mcts related params
+    #                 **self.config.model,  # pass the value and reward support params
+    #             )
+    #             if self.env == 'Atari':
+    #                 if self.config.mcts.use_gumbel:
+    #                     r_values, r_policies, best_actions, _ = tree.search(
+    #                         self.model, len(states), states, values, policies,
+    #                         use_gumble_noise=True, temperature=temperature
+    #                     )
+    #                 else:
+    #                     r_values, r_policies, best_actions, _ = tree.search_ori_mcts(
+    #                         self.model, len(states), states, values, policies, use_noise=True,
+    #                         temperature=temperature, is_reanalyze=True
+    #                     )
+    #             else:
+    #                 r_values, r_policies, best_actions, sampled_actions, _, _ = tree.search_continuous(
+    #                     self.model, len(states), states, values, policies,
+    #                     use_gumble_noise=False, temperature=temperature)
 
 
-            if policy == 'search':
-                actions = torch.from_numpy(np.asarray(best_actions)).cuda().float()
-            else:
-                if self.env == 'Atari':
-                    actions = F.gumbel_softmax(policies, hard=True, dim=-1, tau=1e-4)
-                    actions = actions.argmax(dim=-1)
-                else:
-                    actions = policies[:, :policies.shape[-1]//2]
-                actions = actions.unsqueeze(1)
+    #         if policy == 'search':
+    #             actions = torch.from_numpy(np.asarray(best_actions)).cuda().float()
+    #         else:
+    #             if self.env == 'Atari':
+    #                 actions = F.gumbel_softmax(policies, hard=True, dim=-1, tau=1e-4)
+    #                 actions = actions.argmax(dim=-1)
+    #             else:
+    #                 actions = policies[:, :policies.shape[-1]//2]
+    #             actions = actions.unsqueeze(1)
 
-            with autocast():
-                states, value_prefixes, values, policies, reward_hidden = \
-                    self.model.recurrent_inference(states, actions, reward_hidden)
-                values = values.squeeze().detach().cpu().numpy()
-                value_lst.append(values)
-            if self.value_prefix and (i + 1) % self.lstm_horizon_len == 0:
-                reward_hidden = (torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda(),
-                                 torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda())
-                true_rewards = value_prefixes.squeeze().detach().cpu().numpy()
-                # last_values_prefixes = np.zeros(len(states))
-            else:
-                true_rewards = value_prefixes.squeeze().detach().cpu().numpy() - last_values_prefixes
-                last_values_prefixes = value_prefixes.squeeze().detach().cpu().numpy()
+    #         with autocast():
+    #             states, value_prefixes, values, policies, reward_hidden = \
+    #                 self.model.recurrent_inference(states, actions, reward_hidden)
+    #             values = values.squeeze().detach().cpu().numpy()
+    #             value_lst.append(values)
+    #         if self.value_prefix and (i + 1) % self.lstm_horizon_len == 0:
+    #             reward_hidden = (torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda(),
+    #                              torch.zeros(1, len(states), self.config.model.lstm_hidden_size).cuda())
+    #             true_rewards = value_prefixes.squeeze().detach().cpu().numpy()
+    #             # last_values_prefixes = np.zeros(len(states))
+    #         else:
+    #             true_rewards = value_prefixes.squeeze().detach().cpu().numpy() - last_values_prefixes
+    #             last_values_prefixes = value_prefixes.squeeze().detach().cpu().numpy()
 
-            reward_lst.append(true_rewards)
+    #         reward_lst.append(true_rewards)
 
-        value = 0
-        for i, reward in enumerate(reward_lst):
-            value += reward * (self.config.rl.discount ** i)
-        value += (self.config.rl.discount ** length) * value_lst[-1]
+    #     value = 0
+    #     for i, reward in enumerate(reward_lst):
+    #         value += reward * (self.config.rl.discount ** i)
+    #     value += (self.config.rl.discount ** length) * value_lst[-1]
 
-        value_reshaped = []
-        batch_size = len(states) // times
-        for i in range(times):
-            value_reshaped.append(value[batch_size * i:batch_size * (i+1)])
+    #     value_reshaped = []
+    #     batch_size = len(states) // times
+    #     for i in range(times):
+    #         value_reshaped.append(value[batch_size * i:batch_size * (i+1)])
 
-        value_reshaped = np.asarray(value_reshaped).mean(0)
-        output_values = []
-        policy_index = 0
-        for traj, state_index in zip(traj_lst, transition_pos_lst):
-            imagined_values = []
+    #     value_reshaped = np.asarray(value_reshaped).mean(0)
+    #     output_values = []
+    #     policy_index = 0
+    #     for traj, state_index in zip(traj_lst, transition_pos_lst):
+    #         imagined_values = []
 
-            for current_index in range(state_index, state_index + self.unroll_steps + 1):
-                traj_len = len(traj)
+    #         for current_index in range(state_index, state_index + self.unroll_steps + 1):
+    #             traj_len = len(traj)
 
-                # assert (current_index < traj_len) == (policy_mask[policy_index])
-                if policy_mask[policy_index]:
-                    imagined_values.append(value_reshaped[policy_index])
-                else:
-                    imagined_values.append(0.0)
+    #             # assert (current_index < traj_len) == (policy_mask[policy_index])
+    #             if policy_mask[policy_index]:
+    #                 imagined_values.append(value_reshaped[policy_index])
+    #             else:
+    #                 imagined_values.append(0.0)
 
-                policy_index += 1
+    #             policy_index += 1
 
-            output_values.append(imagined_values)
+    #         output_values.append(imagined_values)
 
-        return np.asarray(output_values)
+    #     return np.asarray(output_values)
 
     def efficient_inference(self, obs_lst, only_value=False, value_idx=0):
         batch_size = len(obs_lst)
@@ -984,7 +996,7 @@ class BatchWorker(Worker):
                 current_obs = formalize_obs_lst(current_obs, self.image_based)
                 # obtain the statistics at current steps
                 with autocast():
-                    states, values, policies = self.model.initial_inference(current_obs)
+                    states, _, values, policies = self.model.initial_inference(current_obs)
 
                 # process outputs
                 values = values.detach().cpu().numpy().flatten()
