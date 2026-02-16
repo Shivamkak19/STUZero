@@ -124,7 +124,7 @@ class DynamicsNetwork(nn.Module):
             self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
             self.spectral_predictor = OSFPredictor(self.seq_len, num_filters, num_ar, self.action_embedding_dim * 6 * 6, self.num_channels * 6 * 6)
         else:
-            self.spectral_predictor = OSFPredictor(self.seq_len, num_filters, num_ar, (action_space_size if is_continuous else 1) * 6 * 6, self.num_channels * 6 * 6)
+            self.spectral_predictor = OSFPredictor(self.seq_len, num_filters, num_ar, (self.action_space_size if is_continuous else 1) * 6 * 6, self.num_channels * 6 * 6)
 
     def forward(self, state_history, action_history):
         assert self.seq_len == action_history.shape[1], f"Action sequence length {action_history.shape[1]} does not match the expected {self.seq_len}"
@@ -158,8 +158,13 @@ class DynamicsNetwork(nn.Module):
         states_place = state_history.view(*(state_history.shape[:2]), -1)
         
         assert states_place.shape == (actions_place.shape[0], self.seq_len, self.num_channels * 6 * 6), f"State shape {states_place.shape} does not match the expected {(actions_place.shape[0], self.seq_len, self.num_channels * 6 * 6)}"
-        assert actions_place.shape == (states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6), f"Action shape {actions_place.shape} does not match the expected {(states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6)}"
-        
+        if self.action_embedding:
+            assert actions_place.shape == (states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6), f"Action shape {actions_place.shape} does not match the expected {(states_place.shape[0], self.seq_len, self.action_embedding_dim * 6 * 6)}"
+        else if self.is_continuous:
+            assert actions_place.shape == (states_place.shape[0], self.seq_len, self.action_space_size * 6 * 6), f"Action shape {actions_place.shape} does not match the expected {(states_place.shape[0], self.seq_len, self.action_space_size * 6 * 6)}"
+        else:
+            assert actions_place.shape == (states_place.shape[0], self.seq_len, 6 * 6), f"Action shape {actions_place.shape} does not match the expected {(states_place.shape[0], self.seq_len, 6 * 6)}"
+
         state = self.spectral_predictor(actions_place, states_place)
         state = state.view(-1, self.num_channels, 6, 6)
         
