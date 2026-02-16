@@ -297,8 +297,10 @@ class CyMCTS(MCTS):
 
         return action_pos
 
-    def search_ori_mcts(self, model, batch_size, root_states, root_values, root_policy_logits,
+    def search_ori_mcts(self, model, batch_size, root_states, root_state_histories, root_action_histories,root_values, root_policy_logits,
                         use_noise=True, temperature=1.0, verbose=0, is_reanalyze=False, **kwargs):
+        # root_state_histories up to time T, root_action_histories up to time T-1, root_values and root_policy_logits at time T
+
         # preparation
         # set dirichley noise (during training)
         if use_noise:
@@ -323,6 +325,8 @@ class CyMCTS(MCTS):
 
         # index of states
         state_pool = [root_states]
+        state_history_pool = [root_state_histories]
+        action_history_pool = [root_action_histories]
         hidden_state_index_x = 0
         # 1 x batch x 64
         reward_hidden_c_pool = [reward_hidden[0]]
@@ -354,29 +358,41 @@ class CyMCTS(MCTS):
             hidden_state_index_x_lst, hidden_state_index_y_lst, last_actions = ori_tree.batch_traverse(roots, self.c_base, self.c_init, self.discount, value_min_max_lst, results)
             search_lens = results.get_search_len()
 
+            current_state_histories = []
+            current_action_histories = []
             for ix, iy in zip(hidden_state_index_x_lst, hidden_state_index_y_lst):
                 current_states.append(state_pool[ix][iy])
+                current_state_histories.append(state_history_pool[ix][iy])
+                current_action_histories.append(action_history_pool[ix][iy])
                 hidden_states_c_reward.append(reward_hidden_c_pool[ix][0][iy])
                 hidden_states_h_reward.append(reward_hidden_h_pool[ix][0][iy])
 
             current_states = torch.stack(current_states)
+            current_state_histories = torch.stack(current_state_histories)
+            current_action_histories = torch.stack(current_action_histories)
             hidden_states_c_reward = torch.stack(hidden_states_c_reward).unsqueeze(0)
             hidden_states_h_reward = torch.stack(hidden_states_h_reward).unsqueeze(0)
             last_actions = torch.from_numpy(np.asarray(last_actions)).cuda().long().unsqueeze(1)
 
+            # update action history: roll left and place selected action at the end
+            current_action_histories = torch.roll(current_action_histories, shifts=-1, dims=1)
+            current_action_histories[:, -1] = last_actions
+
             # inference state, reward, value, policy given the current state
             reward_hidden = (hidden_states_c_reward, hidden_states_h_reward)
 
-            next_states, next_value_prefixes, next_values, next_logits, reward_hidden = self.update_statistics(
+            next_states, new_state_histories, next_value_prefixes, next_values, next_logits, reward_hidden = self.update_statistics(
                 prediction=True,                                    # use model prediction instead of env simulation
                 model=model,                                        # model
-                states=current_states,                              # current states
-                actions=last_actions,                               # last actions
+                state_history=current_state_histories,               # state histories
+                action_history=current_action_histories,             # action histories (with latest action)
                 reward_hidden=reward_hidden,                        # reward hidden
             )
 
             # save to database
             state_pool.append(next_states)
+            state_history_pool.append(new_state_histories)
+            action_history_pool.append(current_action_histories)
             # change value prefix to reward
             if self.value_prefix:
                 reset_idx = (np.array(search_lens) % self.lstm_horizon_len == 0)
@@ -414,8 +430,10 @@ class CyMCTS(MCTS):
         return search_root_values, search_root_policies, search_best_actions, mcts_info
 
 
-    def search(self, model, batch_size, root_states, root_values, root_policy_logits,
+    def search(self, model, batch_size, root_states, root_state_histories, root_action_histories, root_values, root_policy_logits,
                use_gumble_noise=True, temperature=1.0, verbose=0, **kwargs):
+        # root_state_histories up to time T, root_action_histories up to time T-1, root_values and root_policy_logits at time T
+
         # preparation
         # Node.set_static_attributes(self.discount, self.num_actions)  # set static parameters of MCTS
         # set root nodes for the batch
@@ -433,6 +451,8 @@ class CyMCTS(MCTS):
 
         # index of states
         state_pool = [root_states]
+        state_history_pool = [root_state_histories]
+        action_history_pool = [root_action_histories]
         hidden_state_index_x = 0
         # 1 x batch x 64
         reward_hidden_c_pool = [reward_hidden[0]]
@@ -476,15 +496,25 @@ class CyMCTS(MCTS):
 
             search_lens = results.get_search_len()
 
+            current_state_histories = []
+            current_action_histories = []
             for ix, iy in zip(hidden_state_index_x_lst, hidden_state_index_y_lst):
                 current_states.append(state_pool[ix][iy])
+                current_state_histories.append(state_history_pool[ix][iy])
+                current_action_histories.append(action_history_pool[ix][iy])
                 hidden_states_c_reward.append(reward_hidden_c_pool[ix][0][iy])
                 hidden_states_h_reward.append(reward_hidden_h_pool[ix][0][iy])
 
             current_states = torch.stack(current_states)
+            current_state_histories = torch.stack(current_state_histories)
+            current_action_histories = torch.stack(current_action_histories)
             hidden_states_c_reward = torch.stack(hidden_states_c_reward).unsqueeze(0)
             hidden_states_h_reward = torch.stack(hidden_states_h_reward).unsqueeze(0)
             last_actions = torch.from_numpy(np.asarray(last_actions)).cuda().long().unsqueeze(1)
+
+            # update action history: roll left and place selected action at the end
+            current_action_histories = torch.roll(current_action_histories, shifts=-1, dims=1)
+            current_action_histories[:, -1] = last_actions
 
             # inference state, reward, value, policy given the current state
             reward_hidden = (hidden_states_c_reward, hidden_states_h_reward)
@@ -494,11 +524,11 @@ class CyMCTS(MCTS):
                 'reward_hidden': reward_hidden,
             }
 
-            next_states, next_value_prefixes, next_values, next_logits, reward_hidden = self.update_statistics(
+            next_states, new_state_histories, next_value_prefixes, next_values, next_logits, reward_hidden = self.update_statistics(
                 prediction=True,                                    # use model prediction instead of env simulation
                 model=model,                                        # model
-                states=current_states,                              # current states
-                actions=last_actions,                               # last actions
+                state_history=current_state_histories,               # state histories
+                action_history=current_action_histories,             # action histories (with latest action)
                 reward_hidden=reward_hidden,                        # reward hidden
             )
             mcts_info[simulation_idx] = {
@@ -511,6 +541,8 @@ class CyMCTS(MCTS):
 
             # save to database
             state_pool.append(next_states)
+            state_history_pool.append(new_state_histories)
+            action_history_pool.append(current_action_histories)
             # change value prefix to reward
             reset_idx = (np.array(search_lens) % self.lstm_horizon_len == 0)
             if self.value_prefix:

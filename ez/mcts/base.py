@@ -65,27 +65,28 @@ class MCTS:
         if kwargs.get('prediction'):
             # prediction for next states, rewards, values, logits
             model = kwargs.get('model')
-            states = kwargs.get('states')
-            last_actions = kwargs.get('actions')
+            state_history = kwargs.get('state_history')
+            action_history = kwargs.get('action_history')
             reward_hidden = kwargs.get('reward_hidden')
 
             next_value_prefixes = 0
             for _ in range(self.mpc_horizon):
                 with torch.no_grad():
                     with autocast():
-                        states, pred_value_prefixes, next_values, next_logits, reward_hidden = \
-                            model.recurrent_inference(states, last_actions, reward_hidden)
+                        next_states, new_state_history, pred_value_prefixes, next_values, next_logits, reward_hidden = \
+                            model.recurrent_inference((state_history, action_history), reward_hidden)
                 # last_actions = self.sample_mpc_actions(next_logits)
                 next_value_prefixes += pred_value_prefixes
+                state_history = new_state_history
 
             # process outputs
             next_value_prefixes = next_value_prefixes.detach().cpu().numpy()
             next_values = next_values.detach().cpu().numpy()
 
             self.log('simulate action {}, r = {:.3f}, v = {:.3f}, logits = {}'
-                     ''.format(last_actions[0].tolist(), next_value_prefixes[0].item(), next_values[0].item(), next_logits[0].tolist()),
+                     ''.format(action_history[0, -1].tolist(), next_value_prefixes[0].item(), next_values[0].item(), next_logits[0].tolist()),
                      verbose=3)
-            return states, next_value_prefixes, next_values, next_logits, reward_hidden
+            return next_states, new_state_history, next_value_prefixes, next_values, next_logits, reward_hidden
         else:
             # env simulation for next states
             env = kwargs.get('env')
@@ -97,21 +98,26 @@ class MCTS:
     def estimate_value(self, **kwargs):
         # prediction for value in planning
         model = kwargs.get('model')
-        current_states = kwargs.get('states')
+        state_history = kwargs.get('state_history')
+        action_history = kwargs.get('action_history')
         actions = kwargs.get('actions')
         reward_hidden = kwargs.get('reward_hidden')
 
         Value = 0
         discount = 1
         for i in range(actions.shape[0]):
-            current_states_hidden = None
+            # roll action history and place the current action at the end
+            action_history = torch.roll(action_history, shifts=-1, dims=1)
+            action_history[:, -1] = actions[i]
+
             with torch.no_grad():
                 with autocast():
-                    next_states, next_value_prefixes, next_values, next_logits, reward_hidden = model.recurrent_inference(current_states, actions[i], reward_hidden)
+                    next_states, new_state_history, next_value_prefixes, next_values, next_logits, reward_hidden = \
+                        model.recurrent_inference((state_history, action_history), reward_hidden)
 
             next_value_prefixes = next_value_prefixes.detach()
             next_values = next_values.detach()
-            current_states = next_states
+            state_history = new_state_history
             Value += next_value_prefixes * discount
             discount *= self.discount
 
