@@ -5,7 +5,6 @@
 
 import copy
 import torch
-import torchrl
 import numpy as np
 import math
 

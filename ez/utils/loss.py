@@ -4,7 +4,7 @@
 # found in the LICENSE file in the root directory of this source tree.
 
 import torch
-import torchrl
+from ez.utils.torchrl_compat import TruncatedNormal as _TruncatedNormal
 import torch.nn as nn
 import torch.nn.functional as F
 from ez.utils.distribution import SquashedNormal, TruncatedNormal, ContDist
@@ -68,7 +68,7 @@ def continuous_loss(policy, target_action, target_policy, target_best_action, ma
         distr = SquashedNormal(mean, std)
     elif distribution_type == 'truncated_gaussian':
         mean, std = policy[:, :action_dim], policy[:, action_dim:]
-        distr = torchrl.modules.TruncatedNormal(mean, std)
+        distr = _TruncatedNormal(mean, std)
     else:
         raise NotImplementedError
 

@@ -7,7 +7,7 @@ import time
 import copy
 import math
 import torch
-import torchrl
+from ez.utils.torchrl_compat import NoisyLinear
 import torch.nn as nn
 from ez.agents.base import Agent
 from omegaconf import open_dict
@@ -48,18 +48,18 @@ def mlp(
             act = activation
             if use_bn:
                 layers += [
-                    torchrl.modules.NoisyLinear(sizes[i], sizes[i + 1], std_init=0.5) if noisy else nn.Linear(sizes[i], sizes[i + 1]),
+                    NoisyLinear(sizes[i], sizes[i + 1], std_init=0.5) if noisy else nn.Linear(sizes[i], sizes[i + 1]),
                     nn.BatchNorm1d(sizes[i + 1]),
                     act()
                 ]
             else:
-                layers += [torchrl.modules.NoisyLinear(sizes[i], sizes[i + 1], std_init=0.5) if noisy else nn.Linear(sizes[i], sizes[i + 1]),
+                layers += [NoisyLinear(sizes[i], sizes[i + 1], std_init=0.5) if noisy else nn.Linear(sizes[i], sizes[i + 1]),
                            act()]
         else:
             if p_norm == True:
                 layers += [PNorm()]
             act = output_activation
-            layers += [torchrl.modules.NoisyLinear(sizes[i], sizes[i + 1], std_init=0.5) if noisy else nn.Linear(sizes[i], sizes[i + 1]),
+            layers += [NoisyLinear(sizes[i], sizes[i + 1], std_init=0.5) if noisy else nn.Linear(sizes[i], sizes[i + 1]),
                        act()]
 
     if init_zero:
