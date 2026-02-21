@@ -26,5 +26,6 @@ wandb/
 **/._.DS_Store
 
 # Offline data
-dynamics_checkpoints/
-dynamics_dataset/
+*dynamics_checkpoints/
+*pong_100K/
+*asterix_110K/

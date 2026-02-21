@@ -293,6 +293,679 @@ class DynamicsNetworkWithSTU(nn.Module):
         return state
 
 
+class DynamicsNetworkResidualOnly(nn.Module):
+    """
+    Ablation: same architecture as DynamicsNetworkWithSTU but without the STU block.
+    Keeps the extra residual connection + ReLU to isolate the effect of the STU
+    from the effect of the additional skip connection.
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False,
+                 action_embedding=False, action_embedding_dim=32):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, state, action):
+        if not self.is_continuous:
+            action_place = torch.ones((
+                state.shape[0],
+                1,
+                state.shape[2],
+                state.shape[3],
+            )).cuda().float()
+
+            action_place = (
+                    action[:, :, None, None] * action_place / self.action_space_size
+            )
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, state.shape[-2], state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        # First residual (same as baseline and STU version)
+        x += state
+        x = nn.functional.relu(x)
+
+        # Extra residual path matching DynamicsNetworkWithSTU structure:
+        # STU version does: residual=x; x=relu(stu(x)+residual)
+        # Here we replace stu with identity: x=relu(x+x)=relu(2x)
+        # Since x is post-ReLU (non-negative), relu(2x)=2x.
+        x = nn.functional.relu(x + x)
+
+        for block in self.resblocks:
+            x = block(x)
+        state = x
+
+        return state
+
+
+class DynamicsNetworkWithMamba(nn.Module):
+    """
+    DynamicsNetwork with Mamba selective SSM as spatial filter.
+    Drop-in comparison for DynamicsNetworkWithSTU: same residual structure,
+    but replaces the STU block with a Mamba block over spatial positions.
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False,
+                 action_embedding=False, action_embedding_dim=32,
+                 d_state=16, d_conv=4, expand=1):
+        super().__init__()
+        from mamba_ssm import Mamba
+
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+
+        # Mamba block: operates on [B, L=36, D=num_channels]
+        self.mamba_norm = nn.LayerNorm(num_channels)
+        self.mamba = Mamba(
+            d_model=num_channels,
+            d_state=d_state,
+            d_conv=d_conv,
+            expand=expand,
+        )
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, state, action):
+        if not self.is_continuous:
+            action_place = torch.ones((
+                state.shape[0],
+                1,
+                state.shape[2],
+                state.shape[3],
+            )).cuda().float()
+
+            action_place = (
+                    action[:, :, None, None] * action_place / self.action_space_size
+            )
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, state.shape[-2], state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += state
+        x = nn.functional.relu(x)
+
+        # Mamba spatial filter with residual
+        residual = x
+        batch_size, num_channels, H, W = x.shape
+        x_seq = x.permute(0, 2, 3, 1).reshape(batch_size, H * W, num_channels)
+        # x_seq = self.mamba_norm(x_seq)
+        x_seq = self.mamba(x_seq)
+        x_seq = torch.clamp(x_seq, min=-1e6, max=1e8)
+        x = x_seq.reshape(batch_size, H, W, num_channels).permute(0, 3, 1, 2)
+        x = x + residual
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        state = x
+
+        return state
+
+
+class DynamicsNetworkWithAttention(nn.Module):
+    """
+    DynamicsNetwork with multi-head self-attention as spatial filter.
+    Drop-in comparison for DynamicsNetworkWithSTU: same residual structure,
+    but replaces the STU block with self-attention over spatial positions.
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False,
+                 action_embedding=False, action_embedding_dim=32,
+                 num_heads=4):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+
+        # Self-attention over spatial positions: [B, L=36, D=num_channels]
+        self.attn_norm = nn.LayerNorm(num_channels)
+        self.attn = nn.MultiheadAttention(
+            embed_dim=num_channels,
+            num_heads=num_heads,
+            batch_first=True,
+        )
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, state, action):
+        if not self.is_continuous:
+            action_place = torch.ones((
+                state.shape[0],
+                1,
+                state.shape[2],
+                state.shape[3],
+            )).cuda().float()
+
+            action_place = (
+                    action[:, :, None, None] * action_place / self.action_space_size
+            )
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, state.shape[-2], state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += state
+        x = nn.functional.relu(x)
+
+        # Self-attention spatial filter with residual
+        residual = x
+        batch_size, num_channels, H, W = x.shape
+        x_seq = x.permute(0, 2, 3, 1).reshape(batch_size, H * W, num_channels)
+        x_norm = self.attn_norm(x_seq)
+        x_seq, _ = self.attn(x_norm, x_norm, x_norm)
+        x = x_seq.reshape(batch_size, H, W, num_channels).permute(0, 3, 1, 2)
+        x = x + residual
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        state = x
+
+        return state
+
+
+class DynamicsNetworkTemporalBaseline(nn.Module):
+    """
+    Temporal baseline: same architecture as DynamicsNetwork but receives the full
+    history buffer. All N history states are stacked along the channel dimension
+    so the conv layer sees [B, N*C + action_dim, 6, 6] and learns to extract
+    temporal dependencies. The rest (BN, residual, resblocks) is unchanged.
+
+    Forward signature: forward(history, action) where history is [B, N, C, H, W].
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+
+        # Conv input: N*C channels (history stacked) + action encoding channels
+        history_channels = buffer_size * num_channels
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(history_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(history_channels + (action_space_size if is_continuous else 1), num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, history, action):
+        # history: [B, N, C, H, W]
+        current_state = history[:, -1]  # [B, C, H, W]
+        B, N, C, H, W = history.shape
+
+        # Stack all history states along channel dim: [B, N*C, H, W]
+        history_flat = history.reshape(B, N * C, H, W)
+
+        if not self.is_continuous:
+            action_place = torch.ones((B, 1, H, W)).cuda().float()
+            action_place = action[:, :, None, None] * action_place / self.action_space_size
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(1, 1, H, W)
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((history_flat, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += current_state
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        return x
+
+
+class DynamicsNetworkSpatioTemporalSTU(nn.Module):
+    """
+    Dynamics network with both spatial and temporal STU.
+    - Spatial STU: filters across 36 spatial positions (proven to stabilize rollouts)
+    - Temporal STU: filters across N timesteps per spatial position (captures sequential deps)
+    Both applied with residual connections in sequence.
+
+    Forward signature: forward(history, action) where history is [B, N, C, H, W].
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32,
+                 dynamics_stu_seq_len=36, dynamics_stu_num_filters=2):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+        self.dynamics_stu_seq_len = dynamics_stu_seq_len
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+
+        # Spatial STU: [B, 36, 64] over spatial positions
+        self.spatial_stu = MiniSTU(
+            seq_len=dynamics_stu_seq_len,
+            num_filters=dynamics_stu_num_filters,
+            input_dim=num_channels,
+            output_dim=num_channels,
+            use_hankel_L=False,
+            dtype=torch.float32,
+            device=None,
+        )
+
+        # Temporal STU: [B*36, N, 64] over timesteps per spatial position
+        self.temporal_stu = MiniSTU(
+            seq_len=buffer_size,
+            num_filters=dynamics_stu_num_filters,
+            input_dim=num_channels,
+            output_dim=num_channels,
+            use_hankel_L=False,
+            dtype=torch.float32,
+            device=None,
+        )
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, history, action):
+        # history: [B, N, C, H, W], action: [B, 1]
+        current_state = history[:, -1]  # [B, C, H, W]
+
+        if not self.is_continuous:
+            action_place = torch.ones((
+                current_state.shape[0], 1,
+                current_state.shape[2], current_state.shape[3],
+            )).cuda().float()
+            action_place = action[:, :, None, None] * action_place / self.action_space_size
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(
+                1, 1, current_state.shape[-2], current_state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((current_state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += current_state
+        x = nn.functional.relu(x)
+
+        # 1) Spatial STU block (same as DynamicsNetworkWithSTU)
+        residual = x
+        B, C, H, W = x.shape
+        x_seq = x.permute(0, 2, 3, 1).reshape(B, H * W, C)  # [B, 36, 64]
+        x_seq = self.spatial_stu(x_seq)                        # [B, 36, 64]
+        x = x_seq.reshape(B, H, W, C).permute(0, 3, 1, 2)    # [B, C, H, W]
+        x = x + residual
+        x = nn.functional.relu(x)
+
+        # Save pre-temporal state for buffer (closer to raw states than final output)
+        pre_temporal = x
+
+        # 2) Temporal STU block (per spatial position over history)
+        residual = x
+        N = history.shape[1]
+        h = history.permute(0, 1, 3, 4, 2)  # [B, N, H, W, C]
+        h = h.permute(0, 2, 3, 1, 4)        # [B, H, W, N, C]
+        h = h.reshape(B * H * W, N, C)      # [B*36, N, 64]
+        h = self.temporal_stu(h)             # [B*36, N, 64]
+        h = h[:, -1, :]                      # [B*36, 64]
+        temporal_context = h.reshape(B, H, W, C).permute(0, 3, 1, 2)  # [B, C, H, W]
+        x = temporal_context + residual
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+
+        # Return (output, buffer_state): output is the prediction,
+        # buffer_state is what should go into the history buffer during rollout
+        return x, pre_temporal
+
+
+class DynamicsNetworkTemporalSTU(nn.Module):
+    """
+    Dynamics network with temporal STU: processes a history buffer of past states
+    through MiniSTU over the time dimension (per spatial position).
+
+    Forward signature: forward(history, action) where history is [B, N, C, H, W].
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32,
+                 dynamics_stu_num_filters=2):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+
+        # Temporal STU: processes [B*36, N, 64] per spatial position over time
+        self.temporal_stu = MiniSTU(
+            seq_len=buffer_size,
+            num_filters=dynamics_stu_num_filters,
+            input_dim=num_channels,
+            output_dim=num_channels,
+            use_hankel_L=False,
+            dtype=torch.float32,
+            device=None,
+        )
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, history, action):
+        # history: [B, N, C, H, W], action: [B, 1]
+        current_state = history[:, -1]  # [B, C, H, W]
+
+        # Action encoding (same as other variants)
+        if not self.is_continuous:
+            action_place = torch.ones((
+                current_state.shape[0], 1,
+                current_state.shape[2], current_state.shape[3],
+            )).cuda().float()
+            action_place = action[:, :, None, None] * action_place / self.action_space_size
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(
+                1, 1, current_state.shape[-2], current_state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((current_state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += current_state
+        x = nn.functional.relu(x)
+
+        # Temporal STU block
+        residual = x
+        B, C, H, W = x.shape
+        N = history.shape[1]
+
+        # Reshape history for per-spatial-position temporal processing
+        # [B, N, C, H, W] -> [B, N, H, W, C] -> [B, H, W, N, C] -> [B*H*W, N, C]
+        h = history.permute(0, 1, 3, 4, 2)  # [B, N, H, W, C]
+        h = h.permute(0, 2, 3, 1, 4)        # [B, H, W, N, C]
+        h = h.reshape(B * H * W, N, C)      # [B*36, N, 64]
+
+        h = self.temporal_stu(h)             # [B*36, N, 64]
+        h = h[:, -1, :]                      # [B*36, 64] — last timestep output
+
+        temporal_context = h.reshape(B, H, W, C).permute(0, 3, 1, 2)  # [B, C, H, W]
+        x = temporal_context + residual
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        return x
+
+
+class DynamicsNetworkTemporalMamba(nn.Module):
+    """
+    Dynamics network with temporal Mamba: processes a history buffer of past states
+    through Mamba SSM over the time dimension (per spatial position).
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32,
+                 d_state=16, d_conv=4, expand=1):
+        super().__init__()
+        from mamba_ssm import Mamba
+
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+
+        # Temporal Mamba: processes [B*36, N, 64] per spatial position over time
+        self.temporal_mamba = Mamba(
+            d_model=num_channels,
+            d_state=d_state,
+            d_conv=d_conv,
+            expand=expand,
+        )
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, history, action):
+        current_state = history[:, -1]
+
+        if not self.is_continuous:
+            action_place = torch.ones((
+                current_state.shape[0], 1,
+                current_state.shape[2], current_state.shape[3],
+            )).cuda().float()
+            action_place = action[:, :, None, None] * action_place / self.action_space_size
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(
+                1, 1, current_state.shape[-2], current_state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((current_state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += current_state
+        x = nn.functional.relu(x)
+
+        # Temporal Mamba block
+        residual = x
+        B, C, H, W = x.shape
+        N = history.shape[1]
+
+        h = history.permute(0, 1, 3, 4, 2)  # [B, N, H, W, C]
+        h = h.permute(0, 2, 3, 1, 4)        # [B, H, W, N, C]
+        h = h.reshape(B * H * W, N, C)      # [B*36, N, 64]
+
+        h = self.temporal_mamba(h)           # [B*36, N, 64]
+        h = h[:, -1, :]                      # [B*36, 64]
+
+        temporal_context = h.reshape(B, H, W, C).permute(0, 3, 1, 2)
+        x = temporal_context + residual
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        return x
+
+
+class DynamicsNetworkTemporalAttention(nn.Module):
+    """
+    Dynamics network with temporal attention: processes a history buffer of past states
+    through multi-head self-attention over the time dimension (per spatial position).
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32,
+                 num_heads=4):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.action_embedding = action_embedding
+        self.action_embedding_dim = action_embedding_dim
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+
+        if action_embedding:
+            self.conv1x1 = nn.Conv2d(action_space_size if is_continuous else 1, self.action_embedding_dim, 1)
+            self.ln = nn.LayerNorm([action_embedding_dim, 6, 6])
+            self.conv = conv3x3(num_channels + self.action_embedding_dim, num_channels)
+        else:
+            self.conv = conv3x3(num_channels + action_space_size if is_continuous else num_channels + 1, num_channels)
+
+        self.bn = nn.BatchNorm2d(num_channels)
+
+        # Temporal attention: processes [B*36, N, 64] per spatial position over time
+        self.attn_norm = nn.LayerNorm(num_channels)
+        self.attn = nn.MultiheadAttention(
+            embed_dim=num_channels,
+            num_heads=num_heads,
+            batch_first=True,
+        )
+
+        self.resblocks = nn.ModuleList(
+            [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
+        )
+
+    def forward(self, history, action):
+        current_state = history[:, -1]
+
+        if not self.is_continuous:
+            action_place = torch.ones((
+                current_state.shape[0], 1,
+                current_state.shape[2], current_state.shape[3],
+            )).cuda().float()
+            action_place = action[:, :, None, None] * action_place / self.action_space_size
+        else:
+            action_place = action.reshape(*action.shape, 1, 1).repeat(
+                1, 1, current_state.shape[-2], current_state.shape[-1])
+
+        if self.action_embedding:
+            action_place = self.conv1x1(action_place)
+            action_place = self.ln(action_place)
+            action_place = nn.functional.relu(action_place)
+
+        x = torch.cat((current_state, action_place), dim=1)
+        x = self.conv(x)
+        x = self.bn(x)
+
+        x += current_state
+        x = nn.functional.relu(x)
+
+        # Temporal attention block
+        residual = x
+        B, C, H, W = x.shape
+        N = history.shape[1]
+
+        h = history.permute(0, 1, 3, 4, 2)  # [B, N, H, W, C]
+        h = h.permute(0, 2, 3, 1, 4)        # [B, H, W, N, C]
+        h = h.reshape(B * H * W, N, C)      # [B*36, N, 64]
+
+        h_norm = self.attn_norm(h)
+        h, _ = self.attn(h_norm, h_norm, h_norm)  # [B*36, N, 64]
+        h = h[:, -1, :]                            # [B*36, 64]
+
+        temporal_context = h.reshape(B, H, W, C).permute(0, 3, 1, 2)
+        x = temporal_context + residual
+        x = nn.functional.relu(x)
+
+        for block in self.resblocks:
+            x = block(x)
+        return x
+
+
 class ValuePolicyNetwork(nn.Module):
     def __init__(self, num_blocks, num_channels, reduced_channels, flatten_size, fc_layers, value_output_size,
                  policy_output_size, init_zero, is_continuous=False, policy_distribution='beta', **kwargs):

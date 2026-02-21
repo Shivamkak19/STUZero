@@ -5,6 +5,8 @@ Offline dynamics network training using pre-collected latent state dataset.
 Trains a DynamicsNetwork (or DynamicsNetworkWithSTU) to predict next latent
 states, using both MSE loss and consistency loss through frozen projection networks.
 
+Dataset: https://huggingface.co/datasets/Shivamkak/STUZero-Atari-Dynamics
+
 Three phases:
   1. Verify: Load benchmark dynamics weights, confirm they reproduce stored predictions
   2. Train:  Train dynamics from scratch with MSE + consistency loss
@@ -13,23 +15,20 @@ Three phases:
 Usage:
     cd STUZero
 
-    # Standard dynamics (validate pipeline):
+    # Train on Pong (auto-resolves data_dir and checkpoint):
+    python train_dynamics_offline.py --game pong --epochs 80 --batch_size 256
+
+    # Train on Asterix with STU:
+    python train_dynamics_offline.py --game asterix --model_type stu --epochs 80
+
+    # Download dataset from HuggingFace first, then train:
+    python train_dynamics_offline.py --game pong --download --epochs 80
+
+    # Manual paths (override game defaults):
     python train_dynamics_offline.py \
         --data_dir dynamics_dataset \
         --checkpoint model_100000.p \
         --epochs 50 --batch_size 256 --lr 1e-3
-
-    # STU dynamics:
-    python train_dynamics_offline.py \
-        --data_dir dynamics_dataset \
-        --checkpoint model_100000.p \
-        --use_stu --epochs 100 --lr 5e-4
-
-    # test with baseline dynamics network:
-    python train_dynamics_offline.py \
-        --data_dir dynamics_dataset \
-        --checkpoint model_100000.p \
-        --skip_verification --epochs 2 --eval_interval 1
 """
 
 import os
@@ -52,10 +51,60 @@ import numpy as np
 from ez.agents.models.base_model import (
     DynamicsNetwork,
     DynamicsNetworkWithSTU,
+    DynamicsNetworkResidualOnly,
+    DynamicsNetworkWithMamba,
+    DynamicsNetworkWithAttention,
+    DynamicsNetworkTemporalBaseline,
+    DynamicsNetworkSpatioTemporalSTU,
+    DynamicsNetworkTemporalSTU,
+    DynamicsNetworkTemporalMamba,
+    DynamicsNetworkTemporalAttention,
     ProjectionNetwork,
     ProjectionHeadNetwork,
 )
 from ez.utils.loss import cosine_similarity_loss
+
+
+# ===========================================================================
+# Game configs — maps game name to dataset subfolder and checkpoint
+# ===========================================================================
+
+HF_REPO_ID = "Shivamkak/STUZero-Atari-Dynamics"
+
+GAME_CONFIGS = {
+    'pong': {
+        'data_subdir': 'pong_100K',
+        'checkpoint': 'pong_100K/pong_model_100000.p',
+        'action_space_size': 6,
+    },
+    'asterix': {
+        'data_subdir': 'asterix_110K',
+        'checkpoint': 'asterix_110K/asterix_model_110000.p',
+        'action_space_size': 9,
+    },
+}
+
+
+def download_game_data(game, base_dir='.'):
+    """Download a game's dataset from HuggingFace Hub if not already present."""
+    from huggingface_hub import snapshot_download
+
+    gc = GAME_CONFIGS[game]
+    local_dir = Path(base_dir) / gc['data_subdir']
+
+    if local_dir.exists() and any(local_dir.glob('episode_*.pt')):
+        print(f"Dataset already exists at {local_dir}, skipping download.")
+        return str(local_dir)
+
+    print(f"Downloading {game} dataset from {HF_REPO_ID}...")
+    snapshot_download(
+        repo_id=HF_REPO_ID,
+        repo_type="dataset",
+        allow_patterns=f"{gc['data_subdir']}/*",
+        local_dir=base_dir,
+    )
+    print(f"Downloaded to {local_dir}")
+    return str(local_dir)
 
 
 # ===========================================================================
@@ -150,34 +199,148 @@ class SequentialDynamicsDataset(Dataset):
         return {'states': states, 'actions': actions}
 
 
+class TemporalDynamicsDataset(Dataset):
+    """Dataset of (history, a_t, s_{t+1}) transitions with N-step history buffer.
+
+    Each sample provides the N most recent states leading up to (and including)
+    state s_t, plus the action a_t and the ground-truth next state s_{t+1}.
+    For the first N-1 states of an episode, history is zero-padded on the left.
+    """
+
+    def __init__(self, episode_paths, buffer_size=10):
+        self.buffer_size = buffer_size
+        all_histories, all_actions, all_next_states = [], [], []
+        all_dynamics_preds = []
+
+        for ep_path in episode_paths:
+            ep = torch.load(ep_path, map_location='cpu', weights_only=False)
+            valid = ep['valid_next'].numpy()
+            states = ep['latent_states'].float()       # [T, C, H, W]
+            actions = ep['actions']                     # [T]
+            next_states = ep['next_latent_states'].float()
+            dynamics_preds = ep['dynamics_predictions'].float()
+
+            T = len(valid)
+            C, H, W = states.shape[1], states.shape[2], states.shape[3]
+
+            for t in range(T):
+                if not valid[t]:
+                    continue
+
+                # Build history buffer: states from t-N+1 to t (inclusive)
+                start = t - buffer_size + 1
+                if start >= 0:
+                    history = states[start:t + 1]  # [N, C, H, W]
+                else:
+                    # Zero-pad on the left for early timesteps
+                    pad_len = -start
+                    pad = torch.zeros(pad_len, C, H, W)
+                    history = torch.cat([pad, states[0:t + 1]], dim=0)  # [N, C, H, W]
+
+                all_histories.append(history)
+                all_actions.append(actions[t])
+                all_next_states.append(next_states[t])
+                all_dynamics_preds.append(dynamics_preds[t])
+
+        self.histories = torch.stack(all_histories)       # [N_total, buffer_size, C, H, W]
+        self.actions = torch.stack(all_actions)            # [N_total]
+        self.next_states = torch.stack(all_next_states)    # [N_total, C, H, W]
+        self.dynamics_preds = torch.stack(all_dynamics_preds)
+
+        print(f"  Loaded {len(episode_paths)} episodes, "
+              f"{len(self.histories)} valid transitions (buffer_size={buffer_size})")
+
+    def __len__(self):
+        return len(self.histories)
+
+    def __getitem__(self, idx):
+        return {
+            'history': self.histories[idx],         # [N, C, H, W]
+            'action': self.actions[idx],            # scalar
+            'next_state': self.next_states[idx],    # [C, H, W]
+            'dynamics_pred': self.dynamics_preds[idx],
+        }
+
+
 # ===========================================================================
 # Model construction and weight loading
 # ===========================================================================
 
-def build_dynamics_network(action_space_size, use_stu=False,
+def build_dynamics_network(action_space_size, model_type='baseline',
                            num_blocks=1, num_channels=64,
                            action_embedding=True, action_embedding_dim=16,
                            dynamics_stu_seq_len=36,
-                           dynamics_stu_num_filters=2):
-    """Build standard or STU dynamics network."""
-    if use_stu:
+                           dynamics_stu_num_filters=2,
+                           mamba_d_state=16, mamba_d_conv=4, mamba_expand=1,
+                           attn_num_heads=4,
+                           buffer_size=10):
+    """Build dynamics network.
+
+    model_type: 'baseline' | 'stu' | 'mamba' | 'attention' | 'residual_only'
+                | 'temporal_stu' | 'temporal_mamba' | 'temporal_attention'
+    """
+    common = dict(
+        num_blocks=num_blocks,
+        num_channels=num_channels,
+        action_space_size=action_space_size,
+        action_embedding=action_embedding,
+        action_embedding_dim=action_embedding_dim,
+    )
+
+    if model_type == 'stu':
         return DynamicsNetworkWithSTU(
-            num_blocks=num_blocks,
-            num_channels=num_channels,
-            action_space_size=action_space_size,
-            action_embedding=action_embedding,
-            action_embedding_dim=action_embedding_dim,
+            **common,
             dynamics_stu_seq_len=dynamics_stu_seq_len,
             dynamics_stu_num_filters=dynamics_stu_num_filters,
         )
-    else:
-        return DynamicsNetwork(
-            num_blocks=num_blocks,
-            num_channels=num_channels,
-            action_space_size=action_space_size,
-            action_embedding=action_embedding,
-            action_embedding_dim=action_embedding_dim,
+    elif model_type == 'mamba':
+        return DynamicsNetworkWithMamba(
+            **common,
+            d_state=mamba_d_state,
+            d_conv=mamba_d_conv,
+            expand=mamba_expand,
         )
+    elif model_type == 'attention':
+        return DynamicsNetworkWithAttention(
+            **common,
+            num_heads=attn_num_heads,
+        )
+    elif model_type == 'residual_only':
+        return DynamicsNetworkResidualOnly(**common)
+    elif model_type == 'temporal_baseline':
+        return DynamicsNetworkTemporalBaseline(
+            **common,
+            buffer_size=buffer_size,
+        )
+    elif model_type == 'spatiotemporal_stu':
+        return DynamicsNetworkSpatioTemporalSTU(
+            **common,
+            buffer_size=buffer_size,
+            dynamics_stu_seq_len=dynamics_stu_seq_len,
+            dynamics_stu_num_filters=dynamics_stu_num_filters,
+        )
+    elif model_type == 'temporal_stu':
+        return DynamicsNetworkTemporalSTU(
+            **common,
+            buffer_size=buffer_size,
+            dynamics_stu_num_filters=dynamics_stu_num_filters,
+        )
+    elif model_type == 'temporal_mamba':
+        return DynamicsNetworkTemporalMamba(
+            **common,
+            buffer_size=buffer_size,
+            d_state=mamba_d_state,
+            d_conv=mamba_d_conv,
+            expand=mamba_expand,
+        )
+    elif model_type == 'temporal_attention':
+        return DynamicsNetworkTemporalAttention(
+            **common,
+            buffer_size=buffer_size,
+            num_heads=attn_num_heads,
+        )
+    else:
+        return DynamicsNetwork(**common)
 
 
 def load_frozen_projection_networks(checkpoint_path, device):
@@ -300,19 +463,25 @@ def verify_benchmark_predictions(dynamics_model, dataset, device,
 # ===========================================================================
 
 def compute_losses(dynamics_model, projection_model, projection_head_model,
-                   batch, device, consistency_weight=5.0):
+                   batch, device, consistency_weight=5.0, is_temporal=False):
     """Compute MSE + consistency loss for a batch.
 
     Replicates the online consistency loss from ez/agents/base.py lines 474-477:
       predicted branch: projection_head(projection(G(s_t, a_t)))  [with grad]
       target branch:    projection(s_{t+1}).detach()               [no grad]
     """
-    states = batch['state'].to(device)
     actions = batch['action'].to(device).unsqueeze(-1)  # [B, 1]
     next_states = batch['next_state'].to(device)
 
-    # Dynamics prediction
-    pred_next = dynamics_model(states, actions)
+    # Dynamics prediction — temporal models take history, spatial take single state
+    if is_temporal:
+        history = batch['history'].to(device)  # [B, N, C, H, W]
+        result = dynamics_model(history, actions)
+        # Some temporal models return (output, buffer_state) tuple
+        pred_next = result[0] if isinstance(result, tuple) else result
+    else:
+        states = batch['state'].to(device)
+        pred_next = dynamics_model(states, actions)
 
     # MSE loss on raw latent states
     mse_loss = F.mse_loss(pred_next, next_states)
@@ -343,7 +512,7 @@ def compute_losses(dynamics_model, projection_model, projection_head_model,
 
 def train_one_epoch(dynamics_model, projection_model, projection_head_model,
                     train_loader, optimizer, device, consistency_weight=5.0,
-                    grad_clip=5.0):
+                    grad_clip=5.0, is_temporal=False):
     """Train for one epoch."""
     dynamics_model.train()
 
@@ -353,7 +522,7 @@ def train_one_epoch(dynamics_model, projection_model, projection_head_model,
     for batch in train_loader:
         loss, loss_dict = compute_losses(
             dynamics_model, projection_model, projection_head_model,
-            batch, device, consistency_weight,
+            batch, device, consistency_weight, is_temporal=is_temporal,
         )
 
         optimizer.zero_grad()
@@ -370,7 +539,7 @@ def train_one_epoch(dynamics_model, projection_model, projection_head_model,
 
 @torch.no_grad()
 def evaluate(dynamics_model, projection_model, projection_head_model,
-             eval_loader, device, consistency_weight=5.0):
+             eval_loader, device, consistency_weight=5.0, is_temporal=False):
     """Evaluate on held-out episodes."""
     dynamics_model.eval()
 
@@ -380,7 +549,7 @@ def evaluate(dynamics_model, projection_model, projection_head_model,
     for batch in eval_loader:
         _, loss_dict = compute_losses(
             dynamics_model, projection_model, projection_head_model,
-            batch, device, consistency_weight,
+            batch, device, consistency_weight, is_temporal=is_temporal,
         )
         for k, v in loss_dict.items():
             epoch_metrics[k] += v
@@ -390,12 +559,19 @@ def evaluate(dynamics_model, projection_model, projection_head_model,
 
 
 @torch.no_grad()
-def evaluate_multistep(dynamics_model, seq_dataset, device):
+def evaluate_multistep(dynamics_model, seq_dataset, device, is_temporal=False,
+                       buffer_size=10):
     """Evaluate multi-step autoregressive rollout error.
 
     Starting from ground-truth s_0, repeatedly applies the dynamics model:
         s_hat_{k+1} = G(s_hat_k, a_k)
     and measures MSE(s_hat_k, s_k) at each step.
+
+    For temporal models, maintains a FIFO buffer of size buffer_size.
+    The buffer is warmed up with ground-truth states: the first
+    min(buffer_size, K+1) states from the rollout window are used to fill
+    the buffer. Autoregressive prediction starts after the warm-up period,
+    and only post-warm-up steps are measured.
 
     Returns dict mapping step number -> mean MSE.
     """
@@ -408,17 +584,50 @@ def evaluate_multistep(dynamics_model, seq_dataset, device):
         gt_states = batch['states'].to(device)   # [B, K+1, C, H, W]
         actions = batch['actions'].to(device)     # [B, K]
         K = actions.shape[1]
+        B = gt_states.shape[0]
 
         current = gt_states[:, 0]  # start from ground truth
 
-        for step in range(K):
-            action = actions[:, step].unsqueeze(-1)
-            current = dynamics_model(current, action)
+        if is_temporal:
+            # Warm up buffer with ground-truth states
+            warmup_len = min(buffer_size, K + 1)
+            if warmup_len >= buffer_size:
+                # Enough GT states to fill the buffer
+                history = gt_states[:, :buffer_size]  # [B, N, C, H, W]
+                current = gt_states[:, buffer_size - 1]
+                start_step = buffer_size - 1  # first action to predict from
+            else:
+                # Not enough GT states — pad left with repeated first state
+                pad = gt_states[:, 0:1].repeat(1, buffer_size - warmup_len, 1, 1, 1)
+                history = torch.cat([pad, gt_states[:, :warmup_len]], dim=1)
+                current = gt_states[:, warmup_len - 1]
+                start_step = warmup_len - 1
 
-            gt = gt_states[:, step + 1]
-            mse = F.mse_loss(current, gt, reduction='none')
-            mse_per_sample = mse.reshape(current.shape[0], -1).mean(dim=1)
-            step_errors[step + 1].extend(mse_per_sample.cpu().tolist())
+            for step in range(start_step, K):
+                action = actions[:, step].unsqueeze(-1)
+                result = dynamics_model(history, action)
+                # Some temporal models return (output, buffer_state) tuple
+                if isinstance(result, tuple):
+                    current, buffer_state = result
+                else:
+                    current = result
+                    buffer_state = current
+                # Shift buffer: drop oldest, append buffer_state (not final output)
+                history = torch.cat([history[:, 1:], buffer_state.unsqueeze(1)], dim=1)
+
+                gt = gt_states[:, step + 1]
+                mse = F.mse_loss(current, gt, reduction='none')
+                mse_per_sample = mse.reshape(B, -1).mean(dim=1)
+                step_errors[step + 1].extend(mse_per_sample.cpu().tolist())
+        else:
+            for step in range(K):
+                action = actions[:, step].unsqueeze(-1)
+                current = dynamics_model(current, action)
+
+                gt = gt_states[:, step + 1]
+                mse = F.mse_loss(current, gt, reduction='none')
+                mse_per_sample = mse.reshape(B, -1).mean(dim=1)
+                step_errors[step + 1].extend(mse_per_sample.cpu().tolist())
 
     return {step: np.mean(errs) for step, errs in sorted(step_errors.items())}
 
@@ -431,24 +640,45 @@ def parse_args():
     p = argparse.ArgumentParser(
         description='Offline dynamics network training for STUZero',
     )
-    # Data
-    p.add_argument('--data_dir', type=str, required=True,
-                   help='Path to dynamics_dataset/ directory')
-    p.add_argument('--checkpoint', type=str, required=True,
-                   help='Path to EfficientZero checkpoint (model_100000.p)')
+    # Game selection
+    p.add_argument('--game', type=str, default=None,
+                   choices=list(GAME_CONFIGS.keys()),
+                   help='Game name — auto-resolves data_dir and checkpoint')
+    p.add_argument('--download', action='store_true',
+                   help='Download dataset from HuggingFace Hub before training')
+
+    # Data (overrides --game defaults if specified)
+    p.add_argument('--data_dir', type=str, default=None,
+                   help='Path to dataset directory (auto from --game if omitted)')
+    p.add_argument('--checkpoint', type=str, default=None,
+                   help='Path to EfficientZero checkpoint (auto from --game if omitted)')
     p.add_argument('--train_split', type=float, default=0.8,
                    help='Fraction of episodes for training')
 
     # Architecture
+    p.add_argument('--model_type', type=str, default='baseline',
+                   choices=['baseline', 'stu', 'mamba', 'attention', 'residual_only',
+                            'temporal_baseline', 'spatiotemporal_stu',
+                            'temporal_stu', 'temporal_mamba', 'temporal_attention'],
+                   help='Dynamics network variant')
+    p.add_argument('--buffer_size', type=int, default=10,
+                   help='History buffer size for temporal models (default: 10)')
     p.add_argument('--use_stu', action='store_true',
-                   help='Use DynamicsNetworkWithSTU')
+                   help='(Deprecated) Use --model_type=stu instead')
     p.add_argument('--action_space_size', type=int, default=None,
                    help='Override action space size (auto from metadata)')
     p.add_argument('--num_blocks', type=int, default=1)
     p.add_argument('--num_channels', type=int, default=64)
     p.add_argument('--action_embedding_dim', type=int, default=16)
+    # STU-specific
     p.add_argument('--dynamics_stu_seq_len', type=int, default=36)
     p.add_argument('--dynamics_stu_num_filters', type=int, default=2)
+    # Mamba-specific
+    p.add_argument('--mamba_d_state', type=int, default=16)
+    p.add_argument('--mamba_d_conv', type=int, default=4)
+    p.add_argument('--mamba_expand', type=int, default=1)
+    # Attention-specific
+    p.add_argument('--attn_num_heads', type=int, default=4)
 
     # Training
     p.add_argument('--epochs', type=int, default=50)
@@ -499,6 +729,31 @@ def main():
         print("WARNING: CUDA not available. DynamicsNetwork requires CUDA.")
         print("The script will likely fail during the forward pass.")
 
+    # --- Resolve game defaults ---
+    if args.game:
+        gc = GAME_CONFIGS[args.game]
+        if args.data_dir is None:
+            args.data_dir = gc['data_subdir']
+        if args.checkpoint is None:
+            args.checkpoint = gc['checkpoint']
+        if args.action_space_size is None:
+            args.action_space_size = gc['action_space_size']
+        if args.save_dir == 'dynamics_checkpoints':
+            args.save_dir = f'dynamics_checkpoints/{args.game}'
+        print(f"Game: {args.game} | data_dir={args.data_dir} | "
+              f"checkpoint={args.checkpoint}")
+
+    if args.data_dir is None or args.checkpoint is None:
+        raise ValueError(
+            "Specify --game or provide both --data_dir and --checkpoint"
+        )
+
+    # --- Optional HuggingFace download ---
+    if args.download:
+        if args.game is None:
+            raise ValueError("--download requires --game to be specified")
+        args.data_dir = download_game_data(args.game, base_dir='.')
+
     # --- Load metadata ---
     data_dir = Path(args.data_dir)
     metadata_path = data_dir / 'metadata.json'
@@ -529,10 +784,18 @@ def main():
           f"{n_train} train, {len(eval_episodes)} eval")
 
     # --- Build datasets ---
-    print("\nLoading training data...")
-    train_dataset = DynamicsDataset(train_episodes)
-    print("Loading eval data...")
-    eval_dataset = DynamicsDataset(eval_episodes)
+    is_temporal = args.model_type.startswith('temporal_') or args.model_type == 'spatiotemporal_stu'
+
+    if is_temporal:
+        print(f"\nLoading temporal training data (buffer_size={args.buffer_size})...")
+        train_dataset = TemporalDynamicsDataset(train_episodes, buffer_size=args.buffer_size)
+        print("Loading temporal eval data...")
+        eval_dataset = TemporalDynamicsDataset(eval_episodes, buffer_size=args.buffer_size)
+    else:
+        print("\nLoading training data...")
+        train_dataset = DynamicsDataset(train_episodes)
+        print("Loading eval data...")
+        eval_dataset = DynamicsDataset(eval_episodes)
 
     train_loader = DataLoader(
         train_dataset, batch_size=args.batch_size, shuffle=True,
@@ -568,14 +831,25 @@ def main():
 
     # --- Phase 2: Build trainable dynamics + frozen projections ---
     print("--- Phase 2: Training Setup ---")
+
+    # Back-compat: --use_stu flag overrides model_type
+    model_type = args.model_type
+    if args.use_stu and model_type == 'baseline':
+        model_type = 'stu'
+
     dynamics_model = build_dynamics_network(
         action_space_size=action_space_size,
-        use_stu=args.use_stu,
+        model_type=model_type,
         num_blocks=args.num_blocks,
         num_channels=args.num_channels,
         action_embedding_dim=args.action_embedding_dim,
         dynamics_stu_seq_len=args.dynamics_stu_seq_len,
         dynamics_stu_num_filters=args.dynamics_stu_num_filters,
+        mamba_d_state=args.mamba_d_state,
+        mamba_d_conv=args.mamba_d_conv,
+        mamba_expand=args.mamba_expand,
+        attn_num_heads=args.attn_num_heads,
+        buffer_size=args.buffer_size,
     ).to(device)
 
     projection_model, projection_head_model = load_frozen_projection_networks(
@@ -586,7 +860,7 @@ def main():
                    if p.requires_grad)
     print(f"Dynamics model: {type(dynamics_model).__name__}, "
           f"{n_params:,} trainable params")
-    print(f"Model: {'STU' if args.use_stu else 'Standard'}")
+    print(f"Model: {model_type}")
 
     # Optimizer
     if args.optimizer == 'Adam':
@@ -615,11 +889,17 @@ def main():
     # wandb
     if args.use_wandb:
         import wandb
+        wandb_tags = [model_type]
+        if args.game:
+            wandb_tags.insert(0, args.game)
         wandb.init(
             project=args.wandb_project,
             name=args.wandb_run_name,
             config=vars(args),
+            tags=wandb_tags,
         )
+        wandb.define_metric("rollout/best_final_step_mse_per_epoch", step_metric="epoch")
+        wandb.define_metric("epoch")
 
     # Save directory
     save_dir = Path(args.save_dir)
@@ -628,6 +908,10 @@ def main():
     # --- Training loop ---
     print(f"\n--- Training for {args.epochs} epochs ---\n")
     best_eval_mse = float('inf')
+    best_rollout_final_mse = float('inf')
+    best_rollout_data = None
+    best_rollout_epoch = None
+    all_rollout_rows = []  # accumulated across all eval epochs
 
     for epoch in range(1, args.epochs + 1):
         t0 = time.time()
@@ -636,6 +920,7 @@ def main():
             dynamics_model, projection_model, projection_head_model,
             train_loader, optimizer, device,
             args.consistency_weight, args.grad_clip,
+            is_temporal=is_temporal,
         )
 
         if scheduler is not None:
@@ -657,9 +942,11 @@ def main():
             eval_metrics = evaluate(
                 dynamics_model, projection_model, projection_head_model,
                 eval_loader, device, args.consistency_weight,
+                is_temporal=is_temporal,
             )
             multistep = evaluate_multistep(
                 dynamics_model, seq_eval_dataset, device,
+                is_temporal=is_temporal, buffer_size=args.buffer_size,
             )
 
             print(
@@ -678,13 +965,28 @@ def main():
                            save_dir / 'best_dynamics.pt')
                 print(f"  ** New best eval MSE: {best_eval_mse:.6f}")
 
+            # Track best rollout by final-step MSE
+            final_step = max(multistep.keys())
+            final_step_mse = multistep[final_step]
+            if final_step_mse < best_rollout_final_mse:
+                best_rollout_final_mse = final_step_mse
+                best_rollout_data = dict(multistep)
+                best_rollout_epoch = epoch
+                print(f"  ** New best rollout (step {final_step} MSE: "
+                      f"{final_step_mse:.6f}, epoch {epoch})")
+
             if args.use_wandb:
                 import wandb
                 log = {f'train/{k}': v for k, v in train_metrics.items()}
                 log.update({f'eval/{k}': v for k, v in eval_metrics.items()})
-                log.update({f'rollout/step_{k}_mse': v
-                            for k, v in multistep.items()})
                 log['lr'] = lr
+                log['epoch'] = epoch
+                log["rollout/best_final_step_mse_per_epoch"] = best_rollout_final_mse
+
+                # Accumulate this eval's rollout data (logged once at end)
+                for step_k, mse_v in sorted(multistep.items()):
+                    all_rollout_rows.append([epoch, step_k, mse_v])
+
                 wandb.log(log, step=epoch)
 
         # Save periodic checkpoint
@@ -705,6 +1007,28 @@ def main():
 
     if args.use_wandb:
         import wandb
+        # Log all rollout curves table once at end of training
+        all_curves_table = wandb.Table(
+            data=all_rollout_rows,
+            columns=["epoch", "rollout_step", "mse"],
+        )
+
+        # Best rollout curve as graph + table
+        best_table = wandb.Table(
+            data=[[step_k, mse_v, best_rollout_epoch]
+                  for step_k, mse_v in sorted(best_rollout_data.items())],
+            columns=["rollout_step", "mse", "best_epoch"],
+        )
+        best_curve_plot = wandb.plot.line(
+            best_table, "rollout_step", "mse",
+            title="MSE over Best Rollout",
+        )
+
+        wandb.log({
+            "rollout/all_curves_table": all_curves_table,
+            "rollout/best_curve_table": best_table,
+            "rollout/best_curve": best_curve_plot,
+        })
         wandb.finish()
 
 
