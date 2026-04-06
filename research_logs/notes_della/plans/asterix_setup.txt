@@ -1,0 +1,108 @@
+I am running some experiments on applying spectral filtering to the dynamics       
+  function for atari games, in an offline setting. specifically, I have trained a     
+  baseeline atari agent from the efficientzero v2 library after 100K steps in pong,   
+  and curated data from that. I used @data_collection_utils/collect_data.py for       
+  this. For more on spectral filtering and my previous experiments see                
+  @plans/stu_explanation.txt and @plans/progress.txt . And for more on teh results    
+  of the offline training, see @plans/temporal_setup_plan.txt . Now, I want to try    
+  running the same offline experiment for atari asterix. I want to check if           
+  stability in long rollout prediction for spatial stu in dynamics function for       
+  offline applies across other games. I have the model file at                        
+  @models/model_asterix_110000.p . Would you be able to help me with this? let me     
+  know if you think this is a viable direction to go in.  
+
+python collect_data.py exp_config=ez/config/exp/atari.yaml eval.model_path=models/model_asterix_110000.p +collect.n_episodes=50 +collect.max_steps=27000 +collect.output_dir=dynamics_dataset_asterix
+
+SESSION SUMMARY
+
+  Goal                                                                   
+   
+  Set up offline dynamics training experiments for Asterix (previously   
+  only had Pong) to test if spatial STU rollout stability generalizes
+  across Atari games.
+
+  What was done
+
+  1. Data Collection for Asterix
+  - Created SLURM script (slurm/collect_asterix.sh, later moved to
+  collect_asterix.sh) to collect dynamics dataset from the Asterix
+  benchmark checkpoint (models/model_asterix_110000.p) using
+  collect_data.py
+  - Dataset was successfully collected: 50 episodes, 184,876 transitions,
+   saved to dynamics_dataset_asterix/
+
+  2. HuggingFace Dataset Restructuring
+  - Reorganized HF repo from Shivamkak/STUZero-Pong-Dynamics to
+  Shivamkak/STUZero-Atari-Dynamics
+  - Structure: pong_100K/ and asterix_110K/ subfolders, each containing
+  episode files, metadata, and the benchmark model checkpoint
+  - Wrote root-level dynamics_dataset_readme.md describing the multi-game
+   dataset, collection procedure, and data fields
+  - Uploaded model files (pong_model_100000.p, asterix_model_110000.p)
+  into their respective HF subfolders
+
+  3. train_dynamics_offline.py Updates
+  - Added --game argument (pong | asterix) that auto-resolves data_dir,
+  checkpoint, and action_space_size via GAME_CONFIGS dict
+  - Added --download flag to pull data from HuggingFace before training
+  - Added per-game save directories (dynamics_checkpoints/pong/,
+  dynamics_checkpoints/asterix/)
+  - Added wandb tags for game name and model type for filtering runs
+  - Overhauled wandb rollout logging:
+    - rollout/best_final_step_mse_per_epoch — scalar tracking running
+  minimum of step-50 rollout MSE, x-axis mapped to epoch
+    - rollout/best_curve — graph titled "MSE over Best Rollout"
+  (rollout_step vs mse), logged once at end of training
+    - rollout/best_curve_table — table with [rollout_step, mse,
+  best_epoch] columns
+    - rollout/all_curves_table — accumulated table with [epoch,
+  rollout_step, mse] for all eval epochs, logged once at end
+    - Removed: 50 individual rollout/step_*_mse charts,
+  rollout/all_curves line_series graph, rollout/best_epoch scalar
+
+  4. offline.sh Updates
+  - Now takes positional args: sbatch offline.sh <game> <model_type>
+  - Restored per-model-type hyperparameters (baseline gets num_blocks=2,
+  STU gets num_blocks=1 + STU params, etc.)
+  - Uses --game flag instead of manual --data_dir/--checkpoint
+
+  Key file locations
+
+  - offline_training/train_dynamics_offline.py — main training script
+  - offline_training/offline.sh — SLURM launch script (old version in
+  offline_old.sh)
+  - collect_asterix.sh — SLURM script for Asterix data collection (at
+  project root)
+  - dynamics_dataset_readme.md — HF dataset README (at project root)
+  - GAME_CONFIGS in train_dynamics_offline.py — where to add new games
+
+  Next steps discussed
+
+  - Run sbatch offline.sh asterix stu (and baseline) to compare rollout
+  stability across games
+  - Multi-seed runs with wandb grouping for mean+std shading on scalar
+  metrics
+  - Script-level aggregation (~50 lines) needed for shaded rollout curves
+   across seeds
+
+
+   results
+
+   ──────┬──────────┬─────────┬──────────────────────┐                   
+  │ Step │ Baseline │   STU   │        Ratio         │                   
+  ├──────┼──────────┼─────────┼──────────────────────┤                   
+  │ 1    │ 0.0009   │ 0.0013  │ baseline 1.4x better │
+  ├──────┼──────────┼─────────┼──────────────────────┤                   
+  │ 5    │ 0.013    │ 0.005   │ STU 2.4x better      │
+  ├──────┼──────────┼─────────┼──────────────────────┤
+  │ 10   │ 3.4      │ 0.025   │ STU 137x better      │
+  ├──────┼──────────┼─────────┼──────────────────────┤
+  │ 20   │ 10.6M    │ 1.3     │ STU 8M x better      │
+  ├──────┼──────────┼─────────┼──────────────────────┤
+  │ 30   │ 6.3e13   │ 125     │ STU ~5e11 x better   │
+  ├──────┼──────────┼─────────┼──────────────────────┤
+  │ 40   │ 2.4e20   │ 5,529   │ STU ~4e16 x better   │
+  ├──────┼──────────┼─────────┼──────────────────────┤
+  │ 50   │ 1.25e27  │ 320,708 │ STU ~4e21 x better   │
+
+

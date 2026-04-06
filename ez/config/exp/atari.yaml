@@ -4,7 +4,7 @@ agent_name: atari_agent
 # env setting
 env:
   env: Atari
-  game: Asterix
+  game: Privateeye
   base_seed: 0
   n_skip: 4
   n_stack: 4
@@ -153,4 +153,4 @@ actors:
 # wandb
 wandb:
   project: 'ez-v2-release'
-  tag: 'Atari'
+  tag: 'Atari-Privateeye'

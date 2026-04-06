@@ -1,0 +1,121 @@
+     Plan: Temporal History Buffer for Dynamics Networks
+
+     Context
+
+     The spatial STU experiment showed that STU's Hankel eigenvector basis uniquely
+     stabilizes autoregressive rollouts when used as a spatial filter over the 6x6
+     latent grid. Now we want to test the original STU hypothesis: does spectral
+     filtering over temporal sequences (history of past states) also provide
+     stability benefits? This directly tests whether STU can learn sequential
+     dependencies across dynamics steps better than baselines, Mamba, and attention.
+
+     Architecture Design
+
+     Temporal Processing Approach
+
+     Process history per spatial position to keep parameter count comparable to the
+     spatial experiments:
+
+
+
+
+     history: [B, N, 64, 6, 6]   (N past states)
+       → permute+reshape: [B*36, N, 64]
+       → temporal_module: [B*36, N, 64] → [B*36, N, 64]
+       → take last output: [B*36, 64]
+       → reshape: [B, 64, 6, 6]   (temporal context)
+
+
+     This means: for each of the 36 spatial positions, look at how its 64 channels
+     evolved over the last N timesteps. STU seq_len = N (buffer size), input_dim =
+     output_dim = 64.
+
+     Forward Pass (e.g., Temporal STU)
+
+     Input: history [B, N, 64, 6, 6], current_state = history[:, -1], action [B, 1]
+
+     1. Action encode + conv + BN + residual(current_state) + relu → x [B, 64, 6, 6]
+     2. Temporal STU block:
+        - residual = x
+        - Reshape history → [B*36, N, 64]
+        - temporal_stu([B*36, N, 64]) → [B*36, N, 64]
+        - Take last timestep → [B*36, 64] → reshape → [B, 64, 6, 6]
+        - x = relu(temporal_context + residual)
+     3. ResBlocks → output [B, 64, 6, 6]
+
+
+
+     Changes
+
+     1. New model classes in base_model.py
+
+     - DynamicsNetworkTemporalSTU(nn.Module) — temporal MiniSTU with
+     seq_len=buffer_size
+     - DynamicsNetworkTemporalMamba(nn.Module) — temporal Mamba SSM
+     - DynamicsNetworkTemporalAttention(nn.Module) — temporal multi-head attention
+     - All share same init signature: add buffer_size param
+     - Forward signature: forward(self, history, action) where history is [B, N, 64,
+      6, 6]
+
+     2. New dataset class in train_dynamics_offline.py
+
+     - TemporalDynamicsDataset(Dataset) — provides training samples with N-step
+     history
+       - Each sample: {'history': [N, 64, 6, 6], 'action': scalar, 'next_state':
+     [64, 6, 6]}
+       - Sliding window over episodes respecting episode boundaries (valid_next
+     mask)
+       - Samples where we have at least N valid consecutive states before the
+     transition
+       - For the first N-1 states of an episode: zero-pad the history
+
+     3. Modified SequentialDynamicsDataset or new eval dataset
+
+     - Rollout eval windows need N extra initial states for the history buffer
+     warm-up
+     - Alternatively, maintain a rolling buffer during evaluate_multistep
+
+     4. Updated evaluate_multistep in train_dynamics_offline.py
+
+     - When model is temporal: maintain a FIFO buffer of size N during
+     autoregressive rollout
+     - Initialize buffer with the first ground-truth state repeated N times (or use
+     ground-truth warm-up)
+     - Each step: next_state = model(buffer, action), then shift buffer and append
+     next_state
+
+     5. Updated compute_losses in train_dynamics_offline.py
+
+     - Detect temporal model (check for buffer_size attribute or use --buffer_size
+     flag)
+     - Pass batch['history'] instead of batch['state'] to temporal models
+
+     6. Updated build_dynamics_network and CLI args
+
+     - Add --buffer_size N argument (default 0 = no temporal, existing behavior)
+     - New model types: temporal_stu, temporal_mamba, temporal_attention
+     - Buffer size passed to model constructors
+
+     7. Updated offline.sh
+
+     - Add cases for temporal_stu, temporal_mamba, temporal_attention
+     - Default buffer_size=10 for temporal variants
+
+     Key Files to Modify
+
+     - /home/sk3686/hazan/STUZero/ez/agents/models/base_model.py — new temporal
+     model classes
+     - /home/sk3686/hazan/STUZero/offline_training/train_dynamics_offline.py —
+     dataset, training loop, eval loop
+     - /home/sk3686/hazan/STUZero/offline_training/offline.sh — SLURM configs for
+     temporal runs
+
+     Verification
+
+     1. Run python train_dynamics_offline.py --model_type temporal_stu --buffer_size
+      10 --epochs 5 and verify:
+       - Dataset loads correctly with history windows
+       - Forward pass shapes are correct
+       - Rollout eval maintains buffer and produces valid step errors
+     2. Compare parameter counts between temporal and spatial variants
+     3. Submit full 80-epoch runs via sbatch offline.sh temporal_stu

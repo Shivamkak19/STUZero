@@ -1,0 +1,25 @@
+please see @thesis/draft_paper/latex/draft_report.tex . It outlines my project, motivation, experiments, results, and next steps. Then, just to check , I gave claude the dynamics function            
+  baseline, and said optimize this for autoregressive generation for long-horizon rollouts. I put what it made into the dynamicsNetworkResidualOnly function for ease of testing with the existing      
+  @STUZero/offline_training/offline.sh . the results are in @thesis/draft_paper/notes_della/offline_runs/claude1.txt (370K params approx), @thesis/draft_paper/notes_della/offline_runs/claude2.txt      
+  (125K params approx). This is slightly fewer params than used in @STUZero/offline_runs/stu_num_blocks=1_rollout_len=50_epochs=80.txt . You can see the implementation that claude made in              
+  @STUZero/ez/agents/models/base_model.py in the dynamicsNetworkResidualOnly. What are your thoughts on this? 
+
+
+   The STU result is still publishable and interesting, but the right framing is probably: spectral filtering as a spatial mixer induces an inductive bias toward autoregressive stability, which is
+  surprising given that no explicit memory or multi-step training is used. Not: STU is the best way to stabilize dynamics functions. The GRU comparison actually makes the paper more rigorous if you
+  include it — it shows the effect is real but contextualizes it against a competitive designed baseline.
+
+  ======
+  is there a way to quantify how much space the _memory overhead is for the gru approach? because if the stu approach is very memory efficient maybe that is still a notable finding, but if the         
+  memory overhead is neglibible then the stu finding seems useless 
+  ===========
+
+  Then you suggested trying groupNorm on the baseline dynamics function where the only change was  passing x through group norm before putting through resblocks and returning 
+
+          for block in self.resblocks:
+            x = block(x)
+
+        x = self.gn_out(x)
+        return x
+
+        and output is in @baseline_groupnorm.txt. What are your thoughts on this?

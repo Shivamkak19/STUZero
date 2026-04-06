@@ -123,9 +123,16 @@ model:
   num_blocks: 1 # prev 1
   num_channels: 64
   reduced_channels: 16
+  hidden_shape: 64     # same as num_channels, for latent [64,6,6]
+  dyn_shape: 256
+  act_embed_shape: 16  # action_embedding_dim
 
   projection_layers: [1024, 1024]     # hidden dim, output dim
   prjection_head_layers: [256, 1024]  # hidden dim, output dim
+  proj_hid_shape: 1024
+  pred_hid_shape: 256
+  proj_shape: 1024
+  pred_shape: 1024
 
   fc_layers: [32]   # prev [32]
   lstm_hidden_size: 512

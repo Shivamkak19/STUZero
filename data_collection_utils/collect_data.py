@@ -104,7 +104,7 @@ def collect_dataset(agent, model, config, n_episodes, max_steps, output_dir):
     }
 
     # Process episodes in batches (multiple envs in parallel)
-    batch_size = min(n_episodes, 8)
+    batch_size = min(n_episodes, config.get('collect', {}).get('batch_size', 4))
     episodes_collected = 0
 
     while episodes_collected < n_episodes:
@@ -561,8 +561,8 @@ def main(config):
         num_gpus=num_gpus,
         num_cpus=num_cpus,
         object_store_memory=(
-            150 * 1024 * 1024 * 1024 if config.env.image_based
-            else 100 * 1024 * 1024 * 1024
+            20 * 1024 * 1024 * 1024 if config.env.image_based
+            else 10 * 1024 * 1024 * 1024
         ),
     )
 
@@ -570,6 +570,9 @@ def main(config):
     model = agent.build_model()
     print(f"Loading checkpoint: {checkpoint_path}")
     weights = torch.load(checkpoint_path, map_location='cpu')
+    # Strip _orig_mod. prefix from torch.compile'd checkpoints
+    if any(k.startswith('_orig_mod.') for k in weights.keys()):
+        weights = {k.replace('_orig_mod.', ''): v for k, v in weights.items()}
     model.load_state_dict(weights)
     print("Checkpoint loaded successfully.")
 

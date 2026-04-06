@@ -27,5 +27,51 @@ wandb/
 
 # Offline data
 *dynamics_checkpoints/
-*pong_100K/
-*asterix_110K/
+
+# Dataset folders (stored on HuggingFace: Shivamkak/STUZero-Atari-Dynamics)
+*pong_100K
+*asterix_110K
+*alien_110K
+*seaquest_110K
+*kungfumaster_110K
+*mspacman_90K
+*roadrunner_110K
+*assault_90K
+*bankheist_110K
+*battlezone_40K
+offline_training/dmc
+
+# Model checkpoints
+offline_training/atari_models/
+*.p
+
+# Experiment results (logs kept in research_logs/)
+offline_training/results/
+offline_training/overnight_summary/
+
+# Third-party / experimental
+offline_training/tdmpc2/
+offline_training/tdmpc2_*/
+offline_training/train_tdmpc2_dynamics.py
+offline_training/tdmpc2_collect_data.py
+offline_training/flash-stu-2/
+
+# Slurm outputs
+slurm-*.out
+slurm/*.csv
+
+# Old experiment scripts (contain machine-specific paths, already executed)
+offline_training/scripts/
+
+# Misc
+offline_training/hf_readme_update.md
+offline_training/run_claude*.txt
+offline_training/instructions_*.txt
+data_collection_utils/ez
+train_online.sh
+ez/config/exp/atari2.yaml
+ez/config/exp/atari3.yaml
+
+# Large binaries
+Miniconda3-*.sh
+*.pt

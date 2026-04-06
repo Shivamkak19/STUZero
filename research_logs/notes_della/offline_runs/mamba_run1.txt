@@ -1,0 +1,156 @@
+Loaded metadata: Pong, |A|=6
+Episodes: 50 total, 40 train, 10 eval
+
+Loading training data...
+  Loaded 40 episodes, 70022 valid transitions
+Loading eval data...
+  Loaded 10 episodes, 17476 valid transitions
+Building multi-step eval windows...
+  Built 345 rollout windows of length 50
+
+--- Phase 1: Benchmark Verification ---
+  Loaded 50 episodes, 87498 valid transitions
+
+============================================================
+  BENCHMARK VERIFICATION
+============================================================
+  Samples checked:   2000
+  Max abs error:     0.002001
+  Mean abs error:    0.000007
+  Status:            PASSED
+============================================================
+
+--- Phase 2: Training Setup ---
+The cache for model files in Transformers v4.22.0 has been updated. Migrating your old cache. This is a one-time only operation. You can interrupt this and resume the migration later on by calling `transformers.utils.move_cache()`.
+0it [00:00, ?it/s]
+Dynamics model: DynamicsNetworkWithMamba, 137,696 trainable params
+Model: mamba
+
+--- Training for 80 epochs ---
+
+Epoch   1/80 | mse=0.233393  consist=-0.9294  vs_bench=0.233823  lr=1.00e-03 | 3.5s
+Epoch   2/80 | mse=0.028647  consist=-0.9828  vs_bench=0.028758  lr=9.98e-04 | 3.4s
+Epoch   3/80 | mse=0.008979  consist=-0.9872  vs_bench=0.009028  lr=9.97e-04 | 3.3s
+Epoch   4/80 | mse=0.004775  consist=-0.9895  vs_bench=0.004814  lr=9.94e-04 | 3.3s
+Epoch   5/80 | mse=0.003367  consist=-0.9905  vs_bench=0.003408  lr=9.90e-04 | 3.3s
+  [eval] mse=0.002995  consist=-0.9905  vs_bench=0.003033
+  [rollout] s1=0.00299  s2=0.00579  s3=0.01180  s4=0.02338  s5=0.04439  s6=0.08190  s7=0.13829  s8=0.22235  s9=0.38701  s10=64.56674  s11=235437978675475021824.00000  s12=nan  s13=nan  s14=nan  s15=nan  s16=nan  s17=nan  s18=nan  s19=nan  s20=nan  s21=nan  s22=nan  s23=nan  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.002995
+Epoch   6/80 | mse=0.002765  consist=-0.9913  vs_bench=0.002810  lr=9.86e-04 | 3.3s
+Epoch   7/80 | mse=0.002425  consist=-0.9918  vs_bench=0.002475  lr=9.81e-04 | 3.3s
+Epoch   8/80 | mse=0.002233  consist=-0.9921  vs_bench=0.002287  lr=9.76e-04 | 3.3s
+Epoch   9/80 | mse=0.002100  consist=-0.9924  vs_bench=0.002158  lr=9.69e-04 | 3.3s
+Epoch  10/80 | mse=0.002003  consist=-0.9926  vs_bench=0.002063  lr=9.62e-04 | 3.4s
+  [eval] mse=0.001956  consist=-0.9923  vs_bench=0.002014
+  [rollout] s1=0.00196  s2=0.00346  s3=0.00610  s4=0.01036  s5=0.01717  s6=0.02961  s7=0.05131  s8=0.08450  s9=0.12602  s10=0.17203  s11=0.23625  s12=0.34089  s13=0.57195  s14=5.25582  s15=414072344244.27502  s16=inf  s17=nan  s18=nan  s19=nan  s20=nan  s21=nan  s22=nan  s23=nan  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001956
+Epoch  11/80 | mse=0.001939  consist=-0.9927  vs_bench=0.002003  lr=9.54e-04 | 3.3s
+Epoch  12/80 | mse=0.001876  consist=-0.9929  vs_bench=0.001941  lr=9.46e-04 | 3.3s
+Epoch  13/80 | mse=0.001831  consist=-0.9931  vs_bench=0.001900  lr=9.36e-04 | 3.4s
+Epoch  14/80 | mse=0.001796  consist=-0.9931  vs_bench=0.001868  lr=9.26e-04 | 3.4s
+Epoch  15/80 | mse=0.001757  consist=-0.9932  vs_bench=0.001832  lr=9.16e-04 | 3.4s
+  [eval] mse=0.001790  consist=-0.9928  vs_bench=0.001875
+  [rollout] s1=0.00179  s2=0.00316  s3=0.00531  s4=0.00862  s5=0.01362  s6=0.02136  s7=0.03319  s8=0.05075  s9=0.07524  s10=0.10531  s11=0.14753  s12=0.23830  s13=55.29263  s14=305241025715711680.00000  s15=nan  s16=nan  s17=nan  s18=nan  s19=nan  s20=nan  s21=nan  s22=nan  s23=nan  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001790
+Epoch  16/80 | mse=0.001725  consist=-0.9933  vs_bench=0.001803  lr=9.05e-04 | 3.4s
+Epoch  17/80 | mse=0.001705  consist=-0.9933  vs_bench=0.001782  lr=8.93e-04 | 3.4s
+Epoch  18/80 | mse=0.001682  consist=-0.9935  vs_bench=0.001761  lr=8.80e-04 | 3.3s
+Epoch  19/80 | mse=0.001664  consist=-0.9935  vs_bench=0.001748  lr=8.67e-04 | 3.3s
+Epoch  20/80 | mse=0.001640  consist=-0.9936  vs_bench=0.001729  lr=8.54e-04 | 3.3s
+  [eval] mse=0.001619  consist=-0.9938  vs_bench=0.001710
+  [rollout] s1=0.00162  s2=0.00263  s3=0.00422  s4=0.00651  s5=0.00961  s6=0.01390  s7=0.01997  s8=0.02905  s9=0.04255  s10=0.05875  s11=0.07495  s12=0.09250  s13=0.11197  s14=0.13519  s15=0.16724  s16=0.21924  s17=0.57838  s18=18924.14068  s19=340921670170198454194508136448.00000  s20=nan  s21=nan  s22=nan  s23=nan  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001619
+Epoch  21/80 | mse=0.001628  consist=-0.9938  vs_bench=0.001721  lr=8.39e-04 | 3.4s
+Epoch  22/80 | mse=0.001608  consist=-0.9937  vs_bench=0.001701  lr=8.25e-04 | 3.3s
+Epoch  23/80 | mse=0.001603  consist=-0.9938  vs_bench=0.001697  lr=8.10e-04 | 3.3s
+Epoch  24/80 | mse=0.001588  consist=-0.9938  vs_bench=0.001684  lr=7.94e-04 | 3.3s
+Epoch  25/80 | mse=0.001580  consist=-0.9938  vs_bench=0.001682  lr=7.78e-04 | 3.4s
+  [eval] mse=0.001558  consist=-0.9936  vs_bench=0.001654
+  [rollout] s1=0.00156  s2=0.00254  s3=0.00404  s4=0.00625  s5=0.00935  s6=0.01390  s7=0.02053  s8=0.02927  s9=0.03869  s10=0.04723  s11=0.05407  s12=0.06328  s13=0.07444  s14=0.08876  s15=0.11746  s16=0.15789  s17=0.21287  s18=0.36185  s19=48.79502  s20=1280641461797226.50000  s21=nan  s22=nan  s23=nan  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001558
+Epoch  26/80 | mse=0.001572  consist=-0.9940  vs_bench=0.001675  lr=7.61e-04 | 3.3s
+Epoch  27/80 | mse=0.001561  consist=-0.9941  vs_bench=0.001669  lr=7.44e-04 | 3.3s
+Epoch  28/80 | mse=0.001554  consist=-0.9941  vs_bench=0.001666  lr=7.27e-04 | 3.3s
+Epoch  29/80 | mse=0.001544  consist=-0.9941  vs_bench=0.001657  lr=7.09e-04 | 3.4s
+Epoch  30/80 | mse=0.001541  consist=-0.9942  vs_bench=0.001657  lr=6.91e-04 | 3.3s
+  [eval] mse=0.001494  consist=-0.9941  vs_bench=0.001608
+  [rollout] s1=0.00150  s2=0.00235  s3=0.00368  s4=0.00551  s5=0.00781  s6=0.01059  s7=0.01400  s8=0.01884  s9=0.02439  s10=0.02942  s11=0.03436  s12=0.04007  s13=0.04644  s14=0.05272  s15=0.05875  s16=0.06507  s17=0.07289  s18=0.08350  s19=0.10209  s20=0.13349  s21=0.32505  s22=5509.24543  s23=110076774905511677177888768.00000  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001494
+Epoch  31/80 | mse=0.001529  consist=-0.9942  vs_bench=0.001648  lr=6.73e-04 | 3.4s
+Epoch  32/80 | mse=0.001522  consist=-0.9942  vs_bench=0.001642  lr=6.55e-04 | 3.2s
+Epoch  33/80 | mse=0.001515  consist=-0.9941  vs_bench=0.001638  lr=6.36e-04 | 3.4s
+Epoch  34/80 | mse=0.001511  consist=-0.9943  vs_bench=0.001635  lr=6.17e-04 | 3.3s
+Epoch  35/80 | mse=0.001506  consist=-0.9944  vs_bench=0.001636  lr=5.98e-04 | 3.3s
+  [eval] mse=0.001510  consist=-0.9944  vs_bench=0.001640
+  [rollout] s1=0.00150  s2=0.00236  s3=0.00364  s4=0.00535  s5=0.00736  s6=0.00957  s7=0.01216  s8=0.01573  s9=0.01980  s10=0.02372  s11=0.02746  s12=0.03138  s13=0.03605  s14=0.04035  s15=0.04549  s16=0.05033  s17=0.05531  s18=0.06143  s19=0.06702  s20=0.07047  s21=0.07341  s22=0.07784  s23=0.08546  s24=0.09198  s25=0.09705  s26=0.10138  s27=0.10435  s28=0.10770  s29=0.11370  s30=0.11997  s31=0.12505  s32=0.13037  s33=0.13543  s34=0.13984  s35=0.14601  s36=0.18627  s37=101.62596  s38=436169577528774.18750  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  36/80 | mse=0.001502  consist=-0.9945  vs_bench=0.001635  lr=5.78e-04 | 3.3s
+Epoch  37/80 | mse=0.001498  consist=-0.9944  vs_bench=0.001631  lr=5.59e-04 | 3.4s
+Epoch  38/80 | mse=0.001498  consist=-0.9945  vs_bench=0.001635  lr=5.39e-04 | 3.3s
+Epoch  39/80 | mse=0.001494  consist=-0.9945  vs_bench=0.001632  lr=5.20e-04 | 3.3s
+Epoch  40/80 | mse=0.001490  consist=-0.9945  vs_bench=0.001629  lr=5.00e-04 | 3.3s
+  [eval] mse=0.001460  consist=-0.9944  vs_bench=0.001595
+  [rollout] s1=0.00146  s2=0.00229  s3=0.00351  s4=0.00501  s5=0.00676  s6=0.00881  s7=0.01101  s8=0.01369  s9=0.01619  s10=0.01895  s11=0.02160  s12=0.02409  s13=0.02646  s14=0.02866  s15=0.03119  s16=0.03385  s17=0.03576  s18=0.03774  s19=0.03903  s20=0.04094  s21=0.04340  s22=0.04591  s23=0.04952  s24=0.05305  s25=0.05564  s26=0.05932  s27=0.06369  s28=0.06730  s29=0.07127  s30=0.07238  s31=0.07322  s32=0.07365  s33=0.07586  s34=0.08066  s35=0.10741  s36=58.61248  s37=4632664400482545.00000  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001460
+Epoch  41/80 | mse=0.001487  consist=-0.9946  vs_bench=0.001627  lr=4.80e-04 | 3.3s
+Epoch  42/80 | mse=0.001484  consist=-0.9946  vs_bench=0.001627  lr=4.61e-04 | 3.3s
+Epoch  43/80 | mse=0.001484  consist=-0.9947  vs_bench=0.001628  lr=4.41e-04 | 3.3s
+Epoch  44/80 | mse=0.001480  consist=-0.9947  vs_bench=0.001629  lr=4.22e-04 | 3.3s
+Epoch  45/80 | mse=0.001482  consist=-0.9947  vs_bench=0.001632  lr=4.02e-04 | 3.4s
+  [eval] mse=0.001509  consist=-0.9946  vs_bench=0.001659
+  [rollout] s1=0.00151  s2=0.00239  s3=0.00373  s4=0.00561  s5=0.00760  s6=0.00980  s7=0.01242  s8=0.01512  s9=0.01811  s10=0.02126  s11=0.02437  s12=0.02712  s13=0.02981  s14=0.03292  s15=0.03631  s16=0.03945  s17=0.04141  s18=0.04282  s19=0.04371  s20=0.04471  s21=0.04608  s22=0.04734  s23=0.04917  s24=0.05220  s25=0.05695  s26=0.06245  s27=0.07605  s28=1.28338  s29=41142754.39458  s30=inf  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  46/80 | mse=0.001480  consist=-0.9948  vs_bench=0.001631  lr=3.83e-04 | 3.3s
+Epoch  47/80 | mse=0.001481  consist=-0.9947  vs_bench=0.001633  lr=3.64e-04 | 3.3s
+Epoch  48/80 | mse=0.001477  consist=-0.9948  vs_bench=0.001631  lr=3.45e-04 | 3.4s
+Epoch  49/80 | mse=0.001476  consist=-0.9949  vs_bench=0.001634  lr=3.27e-04 | 3.3s
+Epoch  50/80 | mse=0.001478  consist=-0.9949  vs_bench=0.001636  lr=3.09e-04 | 3.3s
+  [eval] mse=0.001474  consist=-0.9949  vs_bench=0.001633
+  [rollout] s1=0.00147  s2=0.00235  s3=0.00372  s4=0.00558  s5=0.00758  s6=0.00985  s7=0.01273  s8=0.01589  s9=0.01917  s10=0.02227  s11=0.02512  s12=0.02851  s13=0.03172  s14=0.03408  s15=0.03692  s16=0.03904  s17=0.04138  s18=0.04240  s19=0.04290  s20=0.04410  s21=0.04513  s22=0.04745  s23=0.05056  s24=0.05477  s25=0.05966  s26=0.06604  s27=0.08152  s28=2.88795  s29=3504459075.60565  s30=inf  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  51/80 | mse=0.001476  consist=-0.9949  vs_bench=0.001636  lr=2.91e-04 | 3.3s
+Epoch  52/80 | mse=0.001474  consist=-0.9949  vs_bench=0.001634  lr=2.73e-04 | 3.4s
+Epoch  53/80 | mse=0.001474  consist=-0.9950  vs_bench=0.001636  lr=2.56e-04 | 3.3s
+Epoch  54/80 | mse=0.001472  consist=-0.9950  vs_bench=0.001635  lr=2.39e-04 | 3.3s
+Epoch  55/80 | mse=0.001469  consist=-0.9950  vs_bench=0.001632  lr=2.22e-04 | 3.3s
+  [eval] mse=0.001473  consist=-0.9951  vs_bench=0.001637
+  [rollout] s1=0.00147  s2=0.00237  s3=0.00381  s4=0.00574  s5=0.00776  s6=0.00986  s7=0.01220  s8=0.01515  s9=0.01822  s10=0.02153  s11=0.02490  s12=0.02832  s13=0.03171  s14=0.03513  s15=0.03729  s16=0.03841  s17=0.03865  s18=0.03883  s19=0.03930  s20=0.04014  s21=0.04193  s22=0.04282  s23=0.04446  s24=0.04694  s25=0.05033  s26=0.05384  s27=0.05762  s28=0.06193  s29=0.06544  s30=0.06983  s31=0.07722  s32=0.11170  s33=82.68644  s34=279472401526094.46875  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  56/80 | mse=0.001467  consist=-0.9950  vs_bench=0.001632  lr=2.06e-04 | 3.4s
+Epoch  57/80 | mse=0.001466  consist=-0.9951  vs_bench=0.001632  lr=1.90e-04 | 3.4s
+Epoch  58/80 | mse=0.001467  consist=-0.9951  vs_bench=0.001635  lr=1.75e-04 | 3.4s
+Epoch  59/80 | mse=0.001465  consist=-0.9951  vs_bench=0.001633  lr=1.61e-04 | 3.3s
+Epoch  60/80 | mse=0.001468  consist=-0.9951  vs_bench=0.001637  lr=1.46e-04 | 3.4s
+  [eval] mse=0.001469  consist=-0.9951  vs_bench=0.001642
+  [rollout] s1=0.00147  s2=0.00241  s3=0.00391  s4=0.00591  s5=0.00807  s6=0.01052  s7=0.01326  s8=0.01649  s9=0.01970  s10=0.02287  s11=0.02619  s12=0.02961  s13=0.03259  s14=0.03463  s15=0.03596  s16=0.03711  s17=0.03931  s18=0.04050  s19=0.04179  s20=0.04441  s21=0.04801  s22=0.05256  s23=0.05776  s24=0.06406  s25=0.06922  s26=0.07407  s27=0.08099  s28=0.09762  s29=39.61103  s30=271423259336347.90625  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  61/80 | mse=0.001466  consist=-0.9952  vs_bench=0.001636  lr=1.33e-04 | 3.5s
+Epoch  62/80 | mse=0.001467  consist=-0.9952  vs_bench=0.001637  lr=1.20e-04 | 3.4s
+Epoch  63/80 | mse=0.001467  consist=-0.9952  vs_bench=0.001638  lr=1.07e-04 | 3.4s
+Epoch  64/80 | mse=0.001468  consist=-0.9952  vs_bench=0.001640  lr=9.55e-05 | 3.6s
+Epoch  65/80 | mse=0.001468  consist=-0.9952  vs_bench=0.001640  lr=8.43e-05 | 3.5s
+  [eval] mse=0.001468  consist=-0.9952  vs_bench=0.001641
+  [rollout] s1=0.00146  s2=0.00244  s3=0.00394  s4=0.00600  s5=0.00822  s6=0.01058  s7=0.01335  s8=0.01675  s9=0.02064  s10=0.02482  s11=0.02835  s12=0.03255  s13=0.03674  s14=0.03893  s15=0.04017  s16=0.04221  s17=0.04484  s18=0.04857  s19=0.05275  s20=0.05639  s21=0.05937  s22=0.06241  s23=0.06487  s24=0.06883  s25=0.07501  s26=0.08265  s27=0.10918  s28=9.69782  s29=22892239215.63605  s30=inf  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  66/80 | mse=0.001470  consist=-0.9952  vs_bench=0.001644  lr=7.37e-05 | 3.3s
+Epoch  67/80 | mse=0.001466  consist=-0.9952  vs_bench=0.001640  lr=6.38e-05 | 3.3s
+Epoch  68/80 | mse=0.001469  consist=-0.9953  vs_bench=0.001643  lr=5.45e-05 | 3.5s
+Epoch  69/80 | mse=0.001470  consist=-0.9953  vs_bench=0.001645  lr=4.59e-05 | 3.6s
+Epoch  70/80 | mse=0.001470  consist=-0.9953  vs_bench=0.001646  lr=3.81e-05 | 3.4s
+  [eval] mse=0.001466  consist=-0.9953  vs_bench=0.001644
+  [rollout] s1=0.00146  s2=0.00246  s3=0.00404  s4=0.00617  s5=0.00851  s6=0.01106  s7=0.01416  s8=0.01797  s9=0.02216  s10=0.02711  s11=0.03220  s12=0.03687  s13=0.04027  s14=0.04169  s15=0.04279  s16=0.04532  s17=0.04877  s18=0.05230  s19=0.05764  s20=0.06284  s21=0.06822  s22=0.07425  s23=0.08117  s24=0.17817  s25=8150.88414  s26=25016867775799428644864.00000  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  71/80 | mse=0.001471  consist=-0.9953  vs_bench=0.001647  lr=3.09e-05 | 3.3s
+Epoch  72/80 | mse=0.001471  consist=-0.9953  vs_bench=0.001648  lr=2.45e-05 | 3.4s
+Epoch  73/80 | mse=0.001471  consist=-0.9953  vs_bench=0.001648  lr=1.88e-05 | 3.3s
+Epoch  74/80 | mse=0.001471  consist=-0.9953  vs_bench=0.001648  lr=1.38e-05 | 3.3s
+Epoch  75/80 | mse=0.001473  consist=-0.9953  vs_bench=0.001650  lr=9.61e-06 | 3.3s
+  [eval] mse=0.001465  consist=-0.9954  vs_bench=0.001644
+  [rollout] s1=0.00146  s2=0.00247  s3=0.00402  s4=0.00611  s5=0.00843  s6=0.01091  s7=0.01394  s8=0.01739  s9=0.02132  s10=0.02610  s11=0.03116  s12=0.03543  s13=0.03791  s14=0.03916  s15=0.04089  s16=0.04454  s17=0.04983  s18=0.05666  s19=0.06089  s20=0.06638  s21=0.09386  s22=122.92591  s23=8338881030486259.00000  s24=nan  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+Epoch  76/80 | mse=0.001473  consist=-0.9953  vs_bench=0.001650  lr=6.16e-06 | 3.4s
+Epoch  77/80 | mse=0.001472  consist=-0.9953  vs_bench=0.001649  lr=3.47e-06 | 3.4s
+Epoch  78/80 | mse=0.001473  consist=-0.9954  vs_bench=0.001650  lr=1.54e-06 | 3.4s
+Epoch  79/80 | mse=0.001474  consist=-0.9954  vs_bench=0.001652  lr=3.85e-07 | 3.3s
+Epoch  80/80 | mse=0.001473  consist=-0.9954  vs_bench=0.001651  lr=0.00e+00 | 3.4s
+  [eval] mse=0.001455  consist=-0.9954  vs_bench=0.001634
+  [rollout] s1=0.00145  s2=0.00246  s3=0.00401  s4=0.00609  s5=0.00839  s6=0.01088  s7=0.01396  s8=0.01741  s9=0.02142  s10=0.02597  s11=0.03136  s12=0.03618  s13=0.03909  s14=0.04038  s15=0.04255  s16=0.04634  s17=0.05191  s18=0.05814  s19=0.06375  s20=0.06706  s21=0.07286  s22=0.10174  s23=395.79929  s24=3874214523198910464.00000  s25=nan  s26=nan  s27=nan  s28=nan  s29=nan  s30=nan  s31=nan  s32=nan  s33=nan  s34=nan  s35=nan  s36=nan  s37=nan  s38=nan  s39=nan  s40=nan  s41=nan  s42=nan  s43=nan  s44=nan  s45=nan  s46=nan  s47=nan  s48=nan  s49=nan  s50=nan
+  ** New best eval MSE: 0.001455
+
+============================================================
+  Training complete!
+  Best eval MSE:  0.001455
+  Checkpoints in: dynamics_checkpoints/
+============================================================

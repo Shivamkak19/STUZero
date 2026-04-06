@@ -1,0 +1,112 @@
+Loaded metadata: Pong, |A|=6
+Episodes: 50 total, 40 train, 10 eval
+
+Loading training data...
+  Loaded 40 episodes, 70022 valid transitions
+Loading eval data...
+  Loaded 10 episodes, 17476 valid transitions
+Building multi-step eval windows...
+  Built 1742 rollout windows of length 10
+
+--- Phase 1: Benchmark Verification ---
+  Loaded 50 episodes, 87498 valid transitions
+
+============================================================
+  BENCHMARK VERIFICATION
+============================================================
+  Samples checked:   2000
+  Max abs error:     0.002001
+  Mean abs error:    0.000007
+  Status:            PASSED
+============================================================
+
+--- Phase 2: Training Setup ---
+Dynamics model: DynamicsNetwork, 195,360 trainable params
+Model: Standard
+
+--- Training for 50 epochs ---
+
+Epoch   1/50 | mse=0.228313  consist=-0.9189  vs_bench=0.228948  lr=9.99e-04 | 2.4s
+Epoch   2/50 | mse=0.018988  consist=-0.9822  vs_bench=0.019117  lr=9.96e-04 | 2.3s
+Epoch   3/50 | mse=0.006463  consist=-0.9862  vs_bench=0.006516  lr=9.91e-04 | 2.3s
+Epoch   4/50 | mse=0.003775  consist=-0.9888  vs_bench=0.003813  lr=9.84e-04 | 2.3s
+Epoch   5/50 | mse=0.002946  consist=-0.9899  vs_bench=0.002979  lr=9.76e-04 | 2.3s
+  [eval] mse=0.002647  consist=-0.9904  vs_bench=0.002682
+  [rollout] s1=0.00265  s2=0.00683  s3=0.02069  s4=0.07198  s5=0.26412  s6=0.97522  s7=3.57857  s8=13.00361  s9=47.80040  s10=179.37165
+  ** New best eval MSE: 0.002647
+Epoch   6/50 | mse=0.002502  consist=-0.9907  vs_bench=0.002530  lr=9.65e-04 | 2.3s
+Epoch   7/50 | mse=0.002263  consist=-0.9913  vs_bench=0.002292  lr=9.52e-04 | 2.3s
+Epoch   8/50 | mse=0.002147  consist=-0.9913  vs_bench=0.002175  lr=9.38e-04 | 2.3s
+Epoch   9/50 | mse=0.002018  consist=-0.9919  vs_bench=0.002046  lr=9.22e-04 | 2.3s
+Epoch  10/50 | mse=0.001916  consist=-0.9922  vs_bench=0.001947  lr=9.05e-04 | 2.3s
+  [eval] mse=0.001820  consist=-0.9922  vs_bench=0.001860
+  [rollout] s1=0.00182  s2=0.00436  s3=0.01162  s4=0.03754  s5=0.14016  s6=0.57323  s7=2.43548  s8=10.46406  s9=45.35911  s10=198.19236
+  ** New best eval MSE: 0.001820
+Epoch  11/50 | mse=0.001869  consist=-0.9922  vs_bench=0.001902  lr=8.85e-04 | 2.3s
+Epoch  12/50 | mse=0.001791  consist=-0.9926  vs_bench=0.001827  lr=8.64e-04 | 2.3s
+Epoch  13/50 | mse=0.001742  consist=-0.9927  vs_bench=0.001780  lr=8.42e-04 | 2.3s
+Epoch  14/50 | mse=0.001697  consist=-0.9929  vs_bench=0.001738  lr=8.19e-04 | 2.3s
+Epoch  15/50 | mse=0.001666  consist=-0.9930  vs_bench=0.001711  lr=7.94e-04 | 2.3s
+  [eval] mse=0.001646  consist=-0.9930  vs_bench=0.001687
+  [rollout] s1=0.00165  s2=0.00399  s3=0.01024  s4=0.02924  s5=0.09211  s6=0.31560  s7=1.14899  s8=4.33012  s9=16.82359  s10=66.77313
+  ** New best eval MSE: 0.001646
+Epoch  16/50 | mse=0.001637  consist=-0.9931  vs_bench=0.001686  lr=7.68e-04 | 2.3s
+Epoch  17/50 | mse=0.001607  consist=-0.9932  vs_bench=0.001659  lr=7.41e-04 | 2.3s
+Epoch  18/50 | mse=0.001582  consist=-0.9934  vs_bench=0.001638  lr=7.13e-04 | 2.3s
+Epoch  19/50 | mse=0.001559  consist=-0.9935  vs_bench=0.001616  lr=6.84e-04 | 2.3s
+Epoch  20/50 | mse=0.001540  consist=-0.9936  vs_bench=0.001601  lr=6.55e-04 | 2.4s
+  [eval] mse=0.001528  consist=-0.9936  vs_bench=0.001595
+  [rollout] s1=0.00152  s2=0.00359  s3=0.00869  s4=0.02277  s5=0.06384  s6=0.19553  s7=0.65535  s8=2.31763  s9=8.46421  s10=31.76755
+  ** New best eval MSE: 0.001528
+Epoch  21/50 | mse=0.001520  consist=-0.9936  vs_bench=0.001584  lr=6.24e-04 | 2.5s
+Epoch  22/50 | mse=0.001506  consist=-0.9937  vs_bench=0.001574  lr=5.94e-04 | 2.5s
+Epoch  23/50 | mse=0.001485  consist=-0.9938  vs_bench=0.001556  lr=5.63e-04 | 2.5s
+Epoch  24/50 | mse=0.001474  consist=-0.9939  vs_bench=0.001547  lr=5.31e-04 | 2.4s
+Epoch  25/50 | mse=0.001461  consist=-0.9940  vs_bench=0.001536  lr=5.00e-04 | 2.4s
+  [eval] mse=0.001473  consist=-0.9940  vs_bench=0.001544
+  [rollout] s1=0.00147  s2=0.00335  s3=0.00776  s4=0.01896  s5=0.04832  s6=0.13231  s7=0.38393  s8=1.12389  s9=3.35322  s10=10.31862
+  ** New best eval MSE: 0.001473
+Epoch  26/50 | mse=0.001451  consist=-0.9941  vs_bench=0.001529  lr=4.69e-04 | 2.3s
+Epoch  27/50 | mse=0.001441  consist=-0.9942  vs_bench=0.001524  lr=4.37e-04 | 2.3s
+Epoch  28/50 | mse=0.001430  consist=-0.9942  vs_bench=0.001516  lr=4.06e-04 | 2.4s
+Epoch  29/50 | mse=0.001425  consist=-0.9943  vs_bench=0.001512  lr=3.76e-04 | 2.3s
+Epoch  30/50 | mse=0.001415  consist=-0.9944  vs_bench=0.001506  lr=3.45e-04 | 2.3s
+  [eval] mse=0.001369  consist=-0.9943  vs_bench=0.001451
+  [rollout] s1=0.00137  s2=0.00295  s3=0.00633  s4=0.01397  s5=0.03207  s6=0.07928  s7=0.20834  s8=0.55317  s9=1.48610  s10=4.10405
+  ** New best eval MSE: 0.001369
+Epoch  31/50 | mse=0.001411  consist=-0.9945  vs_bench=0.001504  lr=3.16e-04 | 2.4s
+Epoch  32/50 | mse=0.001408  consist=-0.9946  vs_bench=0.001506  lr=2.87e-04 | 2.3s
+Epoch  33/50 | mse=0.001403  consist=-0.9946  vs_bench=0.001502  lr=2.59e-04 | 2.3s
+Epoch  34/50 | mse=0.001396  consist=-0.9947  vs_bench=0.001499  lr=2.32e-04 | 2.3s
+Epoch  35/50 | mse=0.001393  consist=-0.9947  vs_bench=0.001499  lr=2.06e-04 | 2.4s
+  [eval] mse=0.001404  consist=-0.9948  vs_bench=0.001513
+  [rollout] s1=0.00140  s2=0.00305  s3=0.00660  s4=0.01461  s5=0.03347  s6=0.08163  s7=0.21092  s8=0.55774  s9=1.48297  s10=3.98864
+Epoch  36/50 | mse=0.001389  consist=-0.9948  vs_bench=0.001497  lr=1.81e-04 | 2.4s
+Epoch  37/50 | mse=0.001388  consist=-0.9949  vs_bench=0.001500  lr=1.58e-04 | 2.5s
+Epoch  38/50 | mse=0.001388  consist=-0.9949  vs_bench=0.001501  lr=1.36e-04 | 2.4s
+Epoch  39/50 | mse=0.001385  consist=-0.9950  vs_bench=0.001501  lr=1.15e-04 | 2.5s
+Epoch  40/50 | mse=0.001382  consist=-0.9950  vs_bench=0.001500  lr=9.55e-05 | 2.4s
+  [eval] mse=0.001368  consist=-0.9950  vs_bench=0.001486
+  [rollout] s1=0.00136  s2=0.00292  s3=0.00620  s4=0.01328  s5=0.02949  s6=0.06926  s7=0.17133  s8=0.43795  s9=1.14697  s10=3.08536
+  ** New best eval MSE: 0.001368
+Epoch  41/50 | mse=0.001385  consist=-0.9950  vs_bench=0.001506  lr=7.78e-05 | 2.4s
+Epoch  42/50 | mse=0.001383  consist=-0.9951  vs_bench=0.001505  lr=6.18e-05 | 2.4s
+Epoch  43/50 | mse=0.001382  consist=-0.9951  vs_bench=0.001506  lr=4.76e-05 | 2.3s
+Epoch  44/50 | mse=0.001383  consist=-0.9952  vs_bench=0.001508  lr=3.51e-05 | 2.3s
+Epoch  45/50 | mse=0.001384  consist=-0.9952  vs_bench=0.001510  lr=2.45e-05 | 2.3s
+  [eval] mse=0.001367  consist=-0.9952  vs_bench=0.001495
+  [rollout] s1=0.00136  s2=0.00292  s3=0.00617  s4=0.01315  s5=0.02896  s6=0.06750  s7=0.16609  s8=0.42570  s9=1.12308  s10=3.05946
+  ** New best eval MSE: 0.001367
+Epoch  46/50 | mse=0.001383  consist=-0.9952  vs_bench=0.001510  lr=1.57e-05 | 2.3s
+Epoch  47/50 | mse=0.001382  consist=-0.9952  vs_bench=0.001510  lr=8.86e-06 | 2.4s
+Epoch  48/50 | mse=0.001385  consist=-0.9952  vs_bench=0.001513  lr=3.94e-06 | 2.4s
+Epoch  49/50 | mse=0.001383  consist=-0.9952  vs_bench=0.001512  lr=9.87e-07 | 2.5s
+Epoch  50/50 | mse=0.001384  consist=-0.9952  vs_bench=0.001513  lr=0.00e+00 | 2.4s
+  [eval] mse=0.001370  consist=-0.9953  vs_bench=0.001499
+  [rollout] s1=0.00137  s2=0.00294  s3=0.00622  s4=0.01320  s5=0.02885  s6=0.06665  s7=0.16285  s8=0.41578  s9=1.09251  s10=2.96897
+
+============================================================
+  Training complete!
+  Best eval MSE:  0.001367
+  Checkpoints in: dynamics_checkpoints/
+============================================================

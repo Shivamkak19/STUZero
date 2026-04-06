@@ -51,7 +51,7 @@ import numpy as np
 from ez.agents.models.base_model import (
     DynamicsNetwork,
     DynamicsNetworkWithSTU,
-    DynamicsNetworkResidualOnly,
+    DynamicsNetworkBaseline,
     DynamicsNetworkWithMamba,
     DynamicsNetworkWithAttention,
     DynamicsNetworkTemporalBaseline,
@@ -59,6 +59,8 @@ from ez.agents.models.base_model import (
     DynamicsNetworkTemporalSTU,
     DynamicsNetworkTemporalMamba,
     DynamicsNetworkTemporalAttention,
+    DynamicsNetworkSTUSequential,
+    DynamicsNetworkMLPSequential,
     ProjectionNetwork,
     ProjectionHeadNetwork,
 )
@@ -81,6 +83,52 @@ GAME_CONFIGS = {
         'data_subdir': 'asterix_110K',
         'checkpoint': 'asterix_110K/asterix_model_110000.p',
         'action_space_size': 9,
+    },
+    'dmc_image_hopper_hop': {
+        'data_subdir': 'dmc/dmc_image_hopper_hop_210K',
+        'checkpoint': 'dmc/dmc_image_hopper_hop_model_210000.p',
+        'action_space_size': 4,
+        'is_continuous': True,
+    },
+    'alien': {
+        'data_subdir': 'alien_110K',
+        'checkpoint': 'alien_110K/atari_alien_model_110000.p',
+        'action_space_size': 18,
+    },
+    'seaquest': {
+        'data_subdir': 'seaquest_110K',
+        'checkpoint': 'seaquest_110K/atari_seaquest_model_110000.p',
+        'action_space_size': 18,
+    },
+    'kungfumaster': {
+        'data_subdir': 'kungfumaster_110K',
+        'checkpoint': 'kungfumaster_110K/atari_kungfumaster_model_110000.p',
+        'action_space_size': 14,
+    },
+    'mspacman': {
+        'data_subdir': 'mspacman_90K',
+        'checkpoint': 'mspacman_90K/atari_mspacman_model_90000.p',
+        'action_space_size': 9,
+    },
+    'roadrunner': {
+        'data_subdir': 'roadrunner_110K',
+        'checkpoint': 'roadrunner_110K/atari_roadrunner_model_110000.p',
+        'action_space_size': 18,
+    },
+    'assault': {
+        'data_subdir': 'assault_90K',
+        'checkpoint': 'assault_90K/atari_assault_model_90000.p',
+        'action_space_size': 7,
+    },
+    'bankheist': {
+        'data_subdir': 'bankheist_110K',
+        'checkpoint': 'bankheist_110K/atari_bankheist_model_110000.p',
+        'action_space_size': 18,
+    },
+    'battlezone': {
+        'data_subdir': 'battlezone_40K',
+        'checkpoint': 'battlezone_40K/atari_battlezone_model_40000.p',
+        'action_space_size': 18,
     },
 }
 
@@ -162,9 +210,11 @@ class SequentialDynamicsDataset(Dataset):
     episode, with all transitions valid.
     """
 
-    def __init__(self, episode_paths, rollout_len=10):
+    def __init__(self, episode_paths, rollout_len=10, stride=None):
         self.rollout_len = rollout_len
         self.windows = []
+        # Default: non-overlapping for eval, configurable stride for training
+        step = stride if stride is not None else rollout_len
 
         for ep_path in episode_paths:
             ep = torch.load(ep_path, map_location='cpu', weights_only=False)
@@ -185,11 +235,12 @@ class SequentialDynamicsDataset(Dataset):
                     ], dim=0)
                     window_actions = actions[t:t + rollout_len]
                     self.windows.append((window_states, window_actions))
-                    t += rollout_len  # non-overlapping
+                    t += step
                 else:
                     t += 1
 
-        print(f"  Built {len(self.windows)} rollout windows of length {rollout_len}")
+        print(f"  Built {len(self.windows)} rollout windows of length {rollout_len}"
+              f" (stride={step})")
 
     def __len__(self):
         return len(self.windows)
@@ -273,16 +324,20 @@ def build_dynamics_network(action_space_size, model_type='baseline',
                            dynamics_stu_num_filters=2,
                            mamba_d_state=16, mamba_d_conv=4, mamba_expand=1,
                            attn_num_heads=4,
-                           buffer_size=10):
+                           buffer_size=10,
+                           stu_hidden_dim=512, stu_num_layers=2,
+                           is_continuous=False):
     """Build dynamics network.
 
-    model_type: 'baseline' | 'stu' | 'mamba' | 'attention' | 'residual_only'
+    model_type: 'baseline' | 'stu' | 'mamba' | 'attention' | 'baseline_only'
                 | 'temporal_stu' | 'temporal_mamba' | 'temporal_attention'
+                | 'stu_sequential'
     """
     common = dict(
         num_blocks=num_blocks,
         num_channels=num_channels,
         action_space_size=action_space_size,
+        is_continuous=is_continuous,
         action_embedding=action_embedding,
         action_embedding_dim=action_embedding_dim,
     )
@@ -305,8 +360,8 @@ def build_dynamics_network(action_space_size, model_type='baseline',
             **common,
             num_heads=attn_num_heads,
         )
-    elif model_type == 'residual_only':
-        return DynamicsNetworkResidualOnly(**common)
+    elif model_type == 'baseline_only':
+        return DynamicsNetworkBaseline(**common)
     elif model_type == 'temporal_baseline':
         return DynamicsNetworkTemporalBaseline(
             **common,
@@ -339,6 +394,25 @@ def build_dynamics_network(action_space_size, model_type='baseline',
             buffer_size=buffer_size,
             num_heads=attn_num_heads,
         )
+    elif model_type == 'stu_sequential':
+        return DynamicsNetworkSTUSequential(
+            num_blocks=num_blocks,
+            num_channels=num_channels,
+            action_space_size=action_space_size,
+            buffer_size=buffer_size,
+            dynamics_stu_num_filters=dynamics_stu_num_filters,
+            hidden_dim=stu_hidden_dim,
+            num_stu_layers=stu_num_layers,
+        )
+    elif model_type == 'mlp_sequential':
+        return DynamicsNetworkMLPSequential(
+            num_blocks=num_blocks,
+            num_channels=num_channels,
+            action_space_size=action_space_size,
+            buffer_size=buffer_size,
+            hidden_dim=stu_hidden_dim,
+            num_mlp_layers=stu_num_layers,
+        )
     else:
         return DynamicsNetwork(**common)
 
@@ -359,6 +433,9 @@ def load_frozen_projection_networks(checkpoint_path, device):
 
     full_weights = torch.load(checkpoint_path, map_location='cpu',
                               weights_only=False)
+    # Strip _orig_mod. prefix from torch.compile'd checkpoints
+    if any(k.startswith('_orig_mod.') for k in full_weights.keys()):
+        full_weights = {k.replace('_orig_mod.', ''): v for k, v in full_weights.items()}
 
     proj_weights = {
         k.replace('projection_model.', ''): v
@@ -384,16 +461,21 @@ def load_frozen_projection_networks(checkpoint_path, device):
     return projection_model, projection_head_model
 
 
-def load_benchmark_dynamics(checkpoint_path, action_space_size, device):
+def load_benchmark_dynamics(checkpoint_path, action_space_size, device,
+                            is_continuous=False):
     """Load the benchmark DynamicsNetwork weights from checkpoint for verification."""
     dynamics = DynamicsNetwork(
         num_blocks=1, num_channels=64,
         action_space_size=action_space_size,
+        is_continuous=is_continuous,
         action_embedding=True, action_embedding_dim=16,
     )
 
     full_weights = torch.load(checkpoint_path, map_location='cpu',
                               weights_only=False)
+    # Strip _orig_mod. prefix from torch.compile'd checkpoints
+    if any(k.startswith('_orig_mod.') for k in full_weights.keys()):
+        full_weights = {k.replace('_orig_mod.', ''): v for k, v in full_weights.items()}
     dyn_weights = {
         k.replace('dynamics_model.', ''): v
         for k, v in full_weights.items()
@@ -402,6 +484,16 @@ def load_benchmark_dynamics(checkpoint_path, action_space_size, device):
     dynamics.load_state_dict(dyn_weights)
     dynamics.to(device).eval()
     return dynamics
+
+
+# Global flag set by main() — controls action handling for continuous vs discrete envs
+_IS_CONTINUOUS = False
+
+def _prepare_action(action_tensor):
+    """Prepare action tensor for dynamics model. Unsqueezes for discrete, passes through for continuous."""
+    if _IS_CONTINUOUS:
+        return action_tensor
+    return action_tensor.unsqueeze(-1)
 
 
 # ===========================================================================
@@ -427,7 +519,7 @@ def verify_benchmark_predictions(dynamics_model, dataset, device,
         batch_idx = indices[start:end]
 
         states = dataset.states[batch_idx].to(device)
-        actions = dataset.actions[batch_idx].to(device).unsqueeze(-1)
+        actions = _prepare_action(dataset.actions[batch_idx].to(device))
         stored_preds = dataset.dynamics_preds[batch_idx].to(device)
 
         computed_preds = dynamics_model(states, actions)
@@ -470,7 +562,7 @@ def compute_losses(dynamics_model, projection_model, projection_head_model,
       predicted branch: projection_head(projection(G(s_t, a_t)))  [with grad]
       target branch:    projection(s_{t+1}).detach()               [no grad]
     """
-    actions = batch['action'].to(device).unsqueeze(-1)  # [B, 1]
+    actions = _prepare_action(batch['action'].to(device))
     next_states = batch['next_state'].to(device)
 
     # Dynamics prediction — temporal models take history, spatial take single state
@@ -535,6 +627,79 @@ def train_one_epoch(dynamics_model, projection_model, projection_head_model,
         n_batches += 1
 
     return {k: v / n_batches for k, v in epoch_metrics.items()}
+
+
+def train_one_epoch_multistep(dynamics_model, seq_loader, optimizer, device,
+                              grad_clip=5.0, is_temporal=False, buffer_size=10):
+    """Train for one epoch with multi-step autoregressive loss.
+
+    Unrolls the dynamics model K steps, computing MSE at each step against
+    ground truth and backpropagating through the full rollout chain.
+    This gives the model gradient signal for composable multi-step predictions.
+    """
+    dynamics_model.train()
+
+    epoch_metrics = defaultdict(float)
+    n_batches = 0
+
+    for batch in seq_loader:
+        gt_states = batch['states'].to(device)   # [B, K+1, C, H, W]
+        actions = batch['actions'].to(device)     # [B, K]
+        K = actions.shape[1]
+        B = gt_states.shape[0]
+
+        total_mse = 0.0
+        num_steps = 0
+
+        if is_temporal:
+            # Initialize history buffer with ground-truth states
+            warmup_len = min(buffer_size, K + 1)
+            if warmup_len >= buffer_size:
+                history = gt_states[:, :buffer_size].clone()
+                start_step = buffer_size - 1
+            else:
+                pad = gt_states[:, 0:1].expand(-1, buffer_size - warmup_len, -1, -1, -1)
+                history = torch.cat([pad, gt_states[:, :warmup_len]], dim=1)
+                start_step = warmup_len - 1
+
+            for step in range(start_step, K):
+                action = _prepare_action(actions[:, step])
+                result = dynamics_model(history, action)
+                if isinstance(result, tuple):
+                    current, buffer_state = result
+                else:
+                    current = result
+                    buffer_state = current
+
+                gt = gt_states[:, step + 1]
+                step_mse = F.mse_loss(current, gt)
+                total_mse = total_mse + step_mse
+                num_steps += 1
+
+                # Shift buffer — keep computation graph for backprop
+                history = torch.cat([history[:, 1:], buffer_state.unsqueeze(1)], dim=1)
+        else:
+            current = gt_states[:, 0]
+            for step in range(K):
+                action = _prepare_action(actions[:, step])
+                current = dynamics_model(current, action)
+
+                gt = gt_states[:, step + 1]
+                step_mse = F.mse_loss(current, gt)
+                total_mse = total_mse + step_mse
+                num_steps += 1
+
+        if num_steps > 0:
+            loss = total_mse / num_steps
+            optimizer.zero_grad()
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(dynamics_model.parameters(), grad_clip)
+            optimizer.step()
+
+            epoch_metrics['mse'] += loss.item()
+        n_batches += 1
+
+    return {k: v / max(n_batches, 1) for k, v in epoch_metrics.items()}
 
 
 @torch.no_grad()
@@ -604,7 +769,7 @@ def evaluate_multistep(dynamics_model, seq_dataset, device, is_temporal=False,
                 start_step = warmup_len - 1
 
             for step in range(start_step, K):
-                action = actions[:, step].unsqueeze(-1)
+                action = _prepare_action(actions[:, step])
                 result = dynamics_model(history, action)
                 # Some temporal models return (output, buffer_state) tuple
                 if isinstance(result, tuple):
@@ -621,7 +786,7 @@ def evaluate_multistep(dynamics_model, seq_dataset, device, is_temporal=False,
                 step_errors[step + 1].extend(mse_per_sample.cpu().tolist())
         else:
             for step in range(K):
-                action = actions[:, step].unsqueeze(-1)
+                action = _prepare_action(actions[:, step])
                 current = dynamics_model(current, action)
 
                 gt = gt_states[:, step + 1]
@@ -654,12 +819,15 @@ def parse_args():
                    help='Path to EfficientZero checkpoint (auto from --game if omitted)')
     p.add_argument('--train_split', type=float, default=0.8,
                    help='Fraction of episodes for training')
+    p.add_argument('--num_train_samples', type=int, default=None,
+                   help='Subsample training transitions (for sample efficiency experiments)')
 
     # Architecture
     p.add_argument('--model_type', type=str, default='baseline',
-                   choices=['baseline', 'stu', 'mamba', 'attention', 'residual_only',
+                   choices=['baseline', 'stu', 'mamba', 'attention', 'baseline_only',
                             'temporal_baseline', 'spatiotemporal_stu',
-                            'temporal_stu', 'temporal_mamba', 'temporal_attention'],
+                            'temporal_stu', 'temporal_mamba', 'temporal_attention',
+                            'stu_sequential', 'mlp_sequential'],
                    help='Dynamics network variant')
     p.add_argument('--buffer_size', type=int, default=10,
                    help='History buffer size for temporal models (default: 10)')
@@ -679,6 +847,11 @@ def parse_args():
     p.add_argument('--mamba_expand', type=int, default=1)
     # Attention-specific
     p.add_argument('--attn_num_heads', type=int, default=4)
+    # STU Sequential-specific
+    p.add_argument('--stu_hidden_dim', type=int, default=512,
+                   help='Hidden dimension for stu_sequential model')
+    p.add_argument('--stu_num_layers', type=int, default=2,
+                   help='Number of stacked STU layers for stu_sequential model')
 
     # Training
     p.add_argument('--epochs', type=int, default=50)
@@ -691,6 +864,14 @@ def parse_args():
                    choices=['cosine', 'none'])
     p.add_argument('--consistency_weight', type=float, default=5.0)
     p.add_argument('--grad_clip', type=float, default=5.0)
+
+    # Multi-step training
+    p.add_argument('--multistep_train_len', type=int, default=0,
+                   help='Multi-step training rollout length (0=disabled, use single-step). '
+                        'When >0, trains by unrolling dynamics K steps and backpropagating '
+                        'through the full chain.')
+    p.add_argument('--multistep_stride', type=int, default=5,
+                   help='Stride for overlapping multi-step training windows')
 
     # Evaluation
     p.add_argument('--rollout_len', type=int, default=10)
@@ -730,6 +911,7 @@ def main():
         print("The script will likely fail during the forward pass.")
 
     # --- Resolve game defaults ---
+    is_continuous = False
     if args.game:
         gc = GAME_CONFIGS[args.game]
         if args.data_dir is None:
@@ -738,10 +920,15 @@ def main():
             args.checkpoint = gc['checkpoint']
         if args.action_space_size is None:
             args.action_space_size = gc['action_space_size']
+        is_continuous = gc.get('is_continuous', False)
         if args.save_dir == 'dynamics_checkpoints':
             args.save_dir = f'dynamics_checkpoints/{args.game}'
         print(f"Game: {args.game} | data_dir={args.data_dir} | "
-              f"checkpoint={args.checkpoint}")
+              f"checkpoint={args.checkpoint} | continuous={is_continuous}")
+
+    # Set global for action handling
+    global _IS_CONTINUOUS
+    _IS_CONTINUOUS = is_continuous
 
     if args.data_dir is None or args.checkpoint is None:
         raise ValueError(
@@ -784,7 +971,10 @@ def main():
           f"{n_train} train, {len(eval_episodes)} eval")
 
     # --- Build datasets ---
-    is_temporal = args.model_type.startswith('temporal_') or args.model_type == 'spatiotemporal_stu'
+    is_temporal = (args.model_type.startswith('temporal_')
+                   or args.model_type == 'spatiotemporal_stu'
+                   or args.model_type == 'stu_sequential'
+                   or args.model_type == 'mlp_sequential')
 
     if is_temporal:
         print(f"\nLoading temporal training data (buffer_size={args.buffer_size})...")
@@ -796,6 +986,12 @@ def main():
         train_dataset = DynamicsDataset(train_episodes)
         print("Loading eval data...")
         eval_dataset = DynamicsDataset(eval_episodes)
+
+    # Optionally subsample training data for sample efficiency experiments
+    if args.num_train_samples is not None and args.num_train_samples < len(train_dataset):
+        indices = torch.randperm(len(train_dataset))[:args.num_train_samples]
+        train_dataset = torch.utils.data.Subset(train_dataset, indices.tolist())
+        print(f"  Subsampled to {len(train_dataset)} training transitions")
 
     train_loader = DataLoader(
         train_dataset, batch_size=args.batch_size, shuffle=True,
@@ -810,6 +1006,21 @@ def main():
     seq_eval_dataset = SequentialDynamicsDataset(
         eval_episodes, rollout_len=args.rollout_len,
     )
+
+    # Build multi-step training dataset if requested
+    seq_train_loader = None
+    if args.multistep_train_len > 0:
+        print(f"Building multi-step training windows (len={args.multistep_train_len}, "
+              f"stride={args.multistep_stride})...")
+        seq_train_dataset = SequentialDynamicsDataset(
+            train_episodes, rollout_len=args.multistep_train_len,
+            stride=args.multistep_stride,
+        )
+        seq_train_loader = DataLoader(
+            seq_train_dataset, batch_size=min(args.batch_size, 64),
+            shuffle=True, num_workers=args.num_workers, pin_memory=True,
+            drop_last=True,
+        )
 
     # --- Phase 1: Verify benchmark ---
     if not args.skip_verification:
@@ -850,6 +1061,9 @@ def main():
         mamba_expand=args.mamba_expand,
         attn_num_heads=args.attn_num_heads,
         buffer_size=args.buffer_size,
+        stu_hidden_dim=args.stu_hidden_dim,
+        stu_num_layers=args.stu_num_layers,
+        is_continuous=is_continuous,
     ).to(device)
 
     projection_model, projection_head_model = load_frozen_projection_networks(
@@ -916,12 +1130,19 @@ def main():
     for epoch in range(1, args.epochs + 1):
         t0 = time.time()
 
-        train_metrics = train_one_epoch(
-            dynamics_model, projection_model, projection_head_model,
-            train_loader, optimizer, device,
-            args.consistency_weight, args.grad_clip,
-            is_temporal=is_temporal,
-        )
+        if seq_train_loader is not None:
+            train_metrics = train_one_epoch_multistep(
+                dynamics_model, seq_train_loader, optimizer, device,
+                grad_clip=args.grad_clip,
+                is_temporal=is_temporal, buffer_size=args.buffer_size,
+            )
+        else:
+            train_metrics = train_one_epoch(
+                dynamics_model, projection_model, projection_head_model,
+                train_loader, optimizer, device,
+                args.consistency_weight, args.grad_clip,
+                is_temporal=is_temporal,
+            )
 
         if scheduler is not None:
             scheduler.step()
@@ -929,11 +1150,11 @@ def main():
         elapsed = time.time() - t0
         lr = optimizer.param_groups[0]['lr']
 
+        consist_str = f"  consist={train_metrics['consistency']:.4f}" if 'consistency' in train_metrics else ""
+        bench_str = f"  vs_bench={train_metrics['vs_benchmark_mse']:.6f}" if 'vs_benchmark_mse' in train_metrics else ""
         print(
             f"Epoch {epoch:3d}/{args.epochs} | "
-            f"mse={train_metrics['mse']:.6f}  "
-            f"consist={train_metrics['consistency']:.4f}  "
-            f"vs_bench={train_metrics['vs_benchmark_mse']:.6f}  "
+            f"mse={train_metrics['mse']:.6f}{consist_str}{bench_str}  "
             f"lr={lr:.2e} | {elapsed:.1f}s"
         )
 
@@ -961,8 +1182,11 @@ def main():
 
             if eval_metrics['mse'] < best_eval_mse:
                 best_eval_mse = eval_metrics['mse']
-                torch.save(dynamics_model.state_dict(),
-                           save_dir / 'best_dynamics.pt')
+                try:
+                    torch.save(dynamics_model.state_dict(),
+                               save_dir / 'best_dynamics.pt')
+                except Exception as e:
+                    print(f"  WARNING: Failed to save best checkpoint: {e}")
                 print(f"  ** New best eval MSE: {best_eval_mse:.6f}")
 
             # Track best rollout by final-step MSE
@@ -989,14 +1213,17 @@ def main():
 
                 wandb.log(log, step=epoch)
 
-        # Save periodic checkpoint
-        if epoch % args.save_interval == 0:
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': dynamics_model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'args': vars(args),
-            }, save_dir / f'dynamics_epoch_{epoch:04d}.pt')
+        # Save periodic checkpoint (disabled to conserve disk quota)
+        # if epoch % args.save_interval == 0:
+        #     try:
+        #         torch.save({
+        #             'epoch': epoch,
+        #             'model_state_dict': dynamics_model.state_dict(),
+        #             'optimizer_state_dict': optimizer.state_dict(),
+        #             'args': vars(args),
+        #         }, save_dir / f'dynamics_epoch_{epoch:04d}.pt')
+        #     except Exception as e:
+        #         print(f"  WARNING: Failed to save checkpoint: {e}")
 
     # --- Summary ---
     print(f"\n{'='*60}")

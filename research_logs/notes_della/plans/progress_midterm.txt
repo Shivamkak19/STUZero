@@ -1,0 +1,100 @@
+
+TITLE
+Building World Models for Reinforcement Learning with Spectral Transfer Units (STUs)
+
+MOTIVATION AND GOAL
+
+Reinforcement learning (RL) agents must learn to make decisions in complex environments by trial and error, which can be highly sample-inefficient. World models offer a promising solution by allowing agents to "imagine" future outcomes and practice in simulated rollouts before taking real actions. However, learning accurate world models for continuous control tasks remains challenging, particularly for long-horizon predictions where small errors compound over time.
+
+The goal of my project is to develop and evaluate Spectral Transfer Units (STUs) as the core architecture for world models in continuous control reinforcement learning environments, with the aim of achieving more accurate long-term dynamics prediction than existing approaches.
+
+This goal is important because improved world models could dramatically reduce the sample complexity of RL algorithms, making them more practical for real-world applications like robotics, autonomous systems, and control problems where data collection is expensive or risky.
+
+PROBLEM BACKGROUND AND RELATED WORK
+
+Existing world model architectures face several limitations. Recurrent neural networks suffer from vanishing gradients and struggle with long sequences. Transformer-based models, while powerful, require substantial computational resources and may not capture the underlying dynamical structure of physical systems efficiently. Most critically, prediction errors in neural network-based world models tend to compound rapidly over time, limiting their utility for long-horizon planning.
+
+STUs offer a fundamentally different approach rooted in spectral methods for learning dynamical systems. Originally developed for linear dynamical systems and recently extended to universal nonlinear dynamics, STUs use spectral filtering to efficiently capture temporal dependencies. Their theoretical foundation in dynamical systems theory makes them particularly well-suited for modeling the transition dynamics that world models must learn.
+
+=============================
+Background Work
+=============================
+See @efficient0paper.pdf
+From section 3 of this paper - 
+
+fficientZero algorithm learns a predictive model in a latent
+space and then performs planning over actions using this
+model. Specifically, the components of EfficientZero consist
+of a representation function, a dynamic function, a policy
+function, and a value function, which are formulated as
+follows.
+• Representation Function: H : st = H(ot)
+• Dynamic Function: G : ˆst+1, rt = G(st, at)
+• Policy Function: P : pt = P(st)
+• Value Function : V : vt = V(st)
+Among these components, ot represents the current observa-
+tion, st is the current latent state, and ˆst+1 is the predicted
+next state. The representation function learns a compact
+state representation of the input ot. The dynamic function
+predicts the next state ˆst+1 and the reward rt. The policy
+function outputs the current policy pt, and the value func-
+tion provides the value estimation vt at the current state.
+All components are implemented as neural networks. EZ-
+V2 uses a similar network structure (see Figure 2), with
+details of the architecture for each component provided in
+Appendix G. The main difference is that the action embed-
+ding block A encodes the action at as a latent vector within
+the dynamic function
+
+
+, see @spectral_ssm.pdf. from secton 3 of this paper - 
+Spectral Transform Unit (STU)
+  In this section we use Spectral Filtering to create a sequence to sequence neural network layer, i.e.
+  given an input sequence {u1 . . . uL} ∈ Rdin , it produces an output sequence {y1 . . . yL} ∈ Rdout .
+  A single layer of STU (depicted in Figure 2) is parameterized by a number K, denoting the number
+  of eigenfactors and matrices M ϕ+
+  1 . . . M ϕ+
+  K , M ϕ−
+  1 . . . M ϕ−
+  K ∈ Rdout×din , and M u
+  1 , M u
+  2 , M u
+  3 ∈
+  Rdout×din . The matrices form the params of the layer. Further recall the Hankel matrix Z ∈ RL×L
+  whose entries are given by
+  Z[i, j] ≜ 2
+  (i + j)3 − (i + j) . (3)
+  and let {(σj ∈ R, ϕj ∈ RL)}L
+  j=1 be the eigenvalue-eigenvector pairs of Z ordered to satisfy
+  σ1 ≥ σ2 ≥ . . . σd. .
+
+Also see @spectral_filtering.pdf for further background on spectral filtering methods.
+==============================
+PROGRESS
+==============================
+1. Started this project by doing a paper review of the existing literature surrounding spectral filtering and world models. 
+2. Colleagues in the lab had been using the Deluca code base to run experiments with spectral filtering on simple RL environments in Jax, and I started a project to create a port of the Deluca library to Pytorch. This would allow us to run more diverse experiments down the line, as pytorch is more widely adopted for testing many RL environments. 
+
+3. Then, I was advised to work on the EfficientZero to apply spectral filtering toward solving Atari environments. Our team started with the objective of applying spectral filtering to solve discrete environments, and among these discrete environments, the most simple environment was Pong. The EfficientZero library was based off of an earlier library MuZero, and it structured its model as follows: a representation network that encodes input state into a latent state, dynamics network that predicts next latent state and reward given an input latent state, and a ValuePolicy network that predicts the value function and outputs optimal policy. 
+
+4. Working with the EfficientZero library, the first step was to update outdated dependencies, as the library was not compatible to be run on an A100 out of the box.
+
+5. Then, I started experimentation by adding a MiniSTU layer to the value prediction function within the ValuePolicy prediction network. This was done by utilizing the MiniSTU module develped by peers in Prof. Hazan's lab. The results of this experiment are included in [EXP1...png]. As seen in the graph, the In the STU version, total_loss achieves ~ -18.2 roughly 8.3X quicker than benchmark version (STU hits -18.2 loss at 13,000 steps, benchmark first hits this loss at 108,000 steps). The STU version proceeds to overcorrect, so then the final eval score does not actually beat the benchmark. After this experiment, I attempted to find whether any modifictions would result in a loss output that consistently beat the benchmark. 
+
+Note that running one full experiment with ~100K steps for Atari takes approximately 15hrs, so that is why I decided not to run several iterations of the same experiment. If any given experimental condition seems promising after running one experiment, I will proceed to run additional experiments in order to generate error bars and identify statistically significant trends. 
+
+6. Next, I tried adding MiniSTU to both the value and policy prediction as a layer on top of existing structure in the EfficientZero library. [EXP2...png]
+
+7. The next series of experiments hoped to adjust hyper parameters to gauge whether there would be any interesting changes in loss or eval scores. in [EXP3...png], I tried reducing the learning rate by a factor of 10 to prevent potential overfitting. In [EXP4...png] I tried increasing the weight decay by a factor of 5 also to curb overfitting. In [EXP5...png], I attempted to increase the number of filters and the sequence length in case the input state was too large for the default number of filters I had set of FILTERS = 8. In each of these cases, I made the hyperparameter modification on top of the Efficient Zero library + MiniSTU added the value prediction heads. [EXP1...png]. However, in each of these cases, results did not outperform the original baseline. 
+
+8. Next, we decided to try adding spectral filtering to the dynamics network with a residual connection, as well as trying to track history of input states. In [EXP6...png], we concatenated the output of the dynamics network with the output of the dynamics network passed through a MiniSTU layer such that output_new = mlp(output_old + MiniSTU(output_old)). In [EXP7...png], we also added STU to the dynamics network, but we implemented a HistoryMiniSTU component that keeps track of historic input states to the dynamics network. The hope is that this would pass genuine sequences of states to the STU block as opposed to interprested sequences by flattening input features as in previous experiments. While this approach did yield some change in policy loss, total loss was still greater than the benchmark, and the training loop terminates early, suggesting a problem with the setup of the history buffer. 
+
+Next steps: 
+
+1. Create a history buffer from within the training loop to address the issues with current implementation of the HistoryMiniSTU.
+2. Currently, input state (4 dimensional) is being flattened and fed into a single STU, and then unflattened to maintain proper shape. It seems like a good next step may be to define 4 STU in parallel for each dimension to avoid flattening. 
+
+3. In the EfficientZero library, there is no dynamics loss, so it is difficult to gauge whether changes we make in the dynamics network are resulting in improvements in learning the system dynamics, other than improvements in downstream eval scores of the agent's performance in pong games. We will be able to achieve greater iteration speeds as well as greater insights as to which changes result in stronger dynamics network by training an offline encoder/decoder. We can create a data set using a checkpoint of the benchmark model after 100K steps. Then, using this data set and the learned dynamics network outputs of the benchmark model, we can evaluate changes to the dynamics network offline before introducing these changes into our online training loop. This approach seems to be particular promising.
+
+4. If the above experiments don't work, we have also discussed using a pre-training finetuning scheme where we may train using the benchmark model for some fixed number of steps N (say N = 10K), and then proceed to fine-tune using an STU-based approach. The goal in this set of experiment would be to gauge whether the STU-finetuning achieves comparable accuracy to the final benchmark model in a fewer number of steps.
+

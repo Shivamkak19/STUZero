@@ -134,4 +134,7 @@ urllib3==2.2.3
 wandb==0.14.2
 wcwidth==0.2.14
 yarl==1.15.2
-zipp==3.20.2
+zipp==3.20.2huggingface-hub
+matplotlib
+seaborn
+pandas

@@ -1,0 +1,9 @@
+training,episodes,baseline,spatial_stu,attention,stu_advantage
+singlestep,5,0.670,0.632,,1.06
+singlestep,10,0.328,0.208,,1.58
+singlestep,20,0.109,0.071,,1.53
+singlestep,40,0.054,0.040,,1.35
+multistep,5,0.494,0.437,0.006,1.13
+multistep,10,0.119,0.097,0.006,1.23
+multistep,20,0.012,0.003,,4.00
+multistep,40,0.007,0.001,,6.40

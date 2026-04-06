@@ -225,6 +225,8 @@ class DynamicsNetworkWithSTU(nn.Module):
         self.resblocks = nn.ModuleList(
             [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
         )
+        self.gn_out = nn.GroupNorm(8, num_channels)
+
 
     def forward(self, state, action):
         # Encode action (same as original DynamicsNetwork)
@@ -288,19 +290,21 @@ class DynamicsNetworkWithSTU(nn.Module):
         # Apply residual blocks
         for block in self.resblocks:
             x = block(x)
+
+        x = self.gn_out(x)
         state = x
 
         return state
 
 
-class DynamicsNetworkResidualOnly(nn.Module):
-    """
-    Ablation: same architecture as DynamicsNetworkWithSTU but without the STU block.
-    Keeps the extra residual connection + ReLU to isolate the effect of the STU
-    from the effect of the additional skip connection.
-    """
-    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False,
-                 action_embedding=False, action_embedding_dim=32):
+class DynamicsNetworkBaseline(nn.Module):
+    def __init__(self, num_blocks, num_channels, action_space_size, is_continuous=False, action_embedding=False, action_embedding_dim=32):
+        """
+        Dynamics network
+        :param num_blocks: int, number of res blocks
+        :param num_channels: int, channels of hidden states
+        :param action_space_size: int, action space size
+        """
         super().__init__()
         self.is_continuous = is_continuous
         self.action_embedding = action_embedding
@@ -320,7 +324,10 @@ class DynamicsNetworkResidualOnly(nn.Module):
             [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
         )
 
+        self.gn_out = nn.GroupNorm(8, num_channels)
+
     def forward(self, state, action):
+        # encode action
         if not self.is_continuous:
             action_place = torch.ones((
                 state.shape[0],
@@ -344,22 +351,17 @@ class DynamicsNetworkResidualOnly(nn.Module):
         x = self.conv(x)
         x = self.bn(x)
 
-        # First residual (same as baseline and STU version)
         x += state
         x = nn.functional.relu(x)
 
-        # Extra residual path matching DynamicsNetworkWithSTU structure:
-        # STU version does: residual=x; x=relu(stu(x)+residual)
-        # Here we replace stu with identity: x=relu(x+x)=relu(2x)
-        # Since x is post-ReLU (non-negative), relu(2x)=2x.
-        x = nn.functional.relu(x + x)
-
         for block in self.resblocks:
             x = block(x)
+
+        
+        x = self.gn_out(x)
         state = x
 
         return state
-
 
 class DynamicsNetworkWithMamba(nn.Module):
     """
@@ -389,7 +391,6 @@ class DynamicsNetworkWithMamba(nn.Module):
         self.bn = nn.BatchNorm2d(num_channels)
 
         # Mamba block: operates on [B, L=36, D=num_channels]
-        self.mamba_norm = nn.LayerNorm(num_channels)
         self.mamba = Mamba(
             d_model=num_channels,
             d_state=d_state,
@@ -400,6 +401,7 @@ class DynamicsNetworkWithMamba(nn.Module):
         self.resblocks = nn.ModuleList(
             [ResidualBlock(num_channels, num_channels) for _ in range(num_blocks)]
         )
+        self.gn_out = nn.GroupNorm(8, num_channels)
 
     def forward(self, state, action):
         if not self.is_continuous:
@@ -432,15 +434,15 @@ class DynamicsNetworkWithMamba(nn.Module):
         residual = x
         batch_size, num_channels, H, W = x.shape
         x_seq = x.permute(0, 2, 3, 1).reshape(batch_size, H * W, num_channels)
-        # x_seq = self.mamba_norm(x_seq)
         x_seq = self.mamba(x_seq)
-        x_seq = torch.clamp(x_seq, min=-1e6, max=1e8)
         x = x_seq.reshape(batch_size, H, W, num_channels).permute(0, 3, 1, 2)
         x = x + residual
         x = nn.functional.relu(x)
 
         for block in self.resblocks:
             x = block(x)
+
+        x = self.gn_out(x)
         state = x
 
         return state
@@ -964,6 +966,170 @@ class DynamicsNetworkTemporalAttention(nn.Module):
         for block in self.resblocks:
             x = block(x)
         return x
+
+
+class DynamicsNetworkSTUSequential(nn.Module):
+    """
+    STU as the primary temporal dynamics model.
+
+    Unlike previous variants that add STU as a residual on top of a CNN dynamics
+    model, this uses STU as the core computation. The STU processes a temporal
+    sequence of encoded states and learns the dynamics operator via spectral
+    filtering over the time dimension — directly leveraging its ability to
+    efficiently learn powers of the transition operator (A^n).
+
+    Forward signature: forward(history, action) where history is [B, N, C, H, W].
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32,
+                 dynamics_stu_num_filters=2, hidden_dim=512, num_stu_layers=2):
+        super().__init__()
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+        self.hidden_dim = hidden_dim
+        self.state_dim = num_channels * 6 * 6  # 64 * 36 = 2304
+
+        # Encode each state from flat 2304 to hidden_dim
+        self.state_encoder = nn.Sequential(
+            nn.Linear(self.state_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
+        )
+
+        # Action embedding
+        self.action_embed = nn.Embedding(action_space_size, hidden_dim)
+
+        # Stacked STU layers for temporal processing
+        self.stu_layers = nn.ModuleList()
+        self.stu_norms = nn.ModuleList()
+        for _ in range(num_stu_layers):
+            self.stu_layers.append(
+                MiniSTU(
+                    seq_len=buffer_size,
+                    num_filters=dynamics_stu_num_filters,
+                    input_dim=hidden_dim,
+                    output_dim=hidden_dim,
+                    use_hankel_L=False,
+                    dtype=torch.float32,
+                    device=None,
+                )
+            )
+            self.stu_norms.append(nn.LayerNorm(hidden_dim))
+
+        # Decode back to state space
+        self.state_decoder = nn.Sequential(
+            nn.Linear(hidden_dim + hidden_dim, hidden_dim),  # concat with action
+            nn.ReLU(),
+            nn.Linear(hidden_dim, self.state_dim),
+        )
+
+    def forward(self, history, action):
+        # history: [B, N, C, H, W], action: [B, 1]
+        B, N, C, H, W = history.shape
+        last_state = history[:, -1]  # [B, C, H, W]
+
+        # Flatten each state in history and encode
+        states_flat = history.reshape(B, N, -1)  # [B, N, 2304]
+        x = self.state_encoder(states_flat)  # [B, N, hidden_dim]
+
+        # Apply STU layers with residual connections
+        for stu, norm in zip(self.stu_layers, self.stu_norms):
+            residual = x
+            x = stu(x)  # [B, N, hidden_dim]
+            x = norm(x + residual)
+
+        # Take last temporal position
+        x_last = x[:, -1, :]  # [B, hidden_dim]
+
+        # Action embedding
+        action_idx = action.squeeze(-1).long()  # [B]
+        a_emb = self.action_embed(action_idx)  # [B, hidden_dim]
+
+        # Decode to state space
+        combined = torch.cat([x_last, a_emb], dim=-1)  # [B, hidden_dim*2]
+        output = self.state_decoder(combined)  # [B, 2304]
+        output = output.reshape(B, C, H, W)
+
+        # Residual from last input state
+        output = output + last_state
+
+        return output
+
+
+class DynamicsNetworkMLPSequential(nn.Module):
+    """
+    MLP-based temporal dynamics model — ablation for DynamicsNetworkSTUSequential.
+
+    Same architecture as STU Sequential, but replaces spectral filtering with
+    a simple MLP over the temporal dimension. This isolates whether the Hankel
+    eigenvector basis specifically matters, or any temporal processing suffices.
+
+    Forward signature: forward(history, action) where history is [B, N, C, H, W].
+    """
+    def __init__(self, num_blocks, num_channels, action_space_size, buffer_size=10,
+                 is_continuous=False, action_embedding=False, action_embedding_dim=32,
+                 hidden_dim=512, num_mlp_layers=2):
+        super().__init__()
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+        self.hidden_dim = hidden_dim
+        self.state_dim = num_channels * 6 * 6
+
+        self.state_encoder = nn.Sequential(
+            nn.Linear(self.state_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
+        )
+
+        self.action_embed = nn.Embedding(action_space_size, hidden_dim)
+
+        # Replace STU with MLP over temporal dim: [B, N, hidden] -> [B, N, hidden]
+        self.temporal_layers = nn.ModuleList()
+        self.temporal_norms = nn.ModuleList()
+        for _ in range(num_mlp_layers):
+            self.temporal_layers.append(nn.Sequential(
+                nn.Linear(buffer_size * hidden_dim, hidden_dim),
+                nn.ReLU(),
+                nn.Linear(hidden_dim, buffer_size * hidden_dim),
+            ))
+            self.temporal_norms.append(nn.LayerNorm(hidden_dim))
+
+        self.state_decoder = nn.Sequential(
+            nn.Linear(hidden_dim + hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, self.state_dim),
+        )
+
+    def forward(self, history, action):
+        B, N, C, H, W = history.shape
+        last_state = history[:, -1]
+
+        states_flat = history.reshape(B, N, -1)
+        x = self.state_encoder(states_flat)  # [B, N, hidden_dim]
+
+        for mlp, norm in zip(self.temporal_layers, self.temporal_norms):
+            residual = x
+            x_flat = x.reshape(B, -1)  # [B, N*hidden_dim]
+            x_flat = mlp(x_flat)  # [B, N*hidden_dim]
+            x = x_flat.reshape(B, N, self.hidden_dim)
+            x = norm(x + residual)
+
+        x_last = x[:, -1, :]
+        action_idx = action.squeeze(-1).long()
+        a_emb = self.action_embed(action_idx)
+
+        combined = torch.cat([x_last, a_emb], dim=-1)
+        output = self.state_decoder(combined)
+        output = output.reshape(B, C, H, W)
+        output = output + last_state
+
+        return output
 
 
 class ValuePolicyNetwork(nn.Module):

@@ -1,0 +1,9 @@
+model,params,singlestep_step50_mse,multistep_step50_mse,improvement_factor
+original_baseline_no_gn,195000,2960000000000000,,,
+baseline_groupnorm,121000,0.020,0.000246,81.3
+spatial_stu_k2,138000,0.820,0.000196,4183.7
+stu_sequential_k2,5200000,0.368,0.001440,255.6
+stu_sequential_k1,4200000,,0.001412,
+stu_sequential_k4,7400000,,0.001387,
+stu_sequential_k8,11500000,,0.001542,
+stu_seq_small_h256,1900000,,0.001465,

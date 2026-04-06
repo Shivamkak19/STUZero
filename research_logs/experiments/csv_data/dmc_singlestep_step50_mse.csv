@@ -1,0 +1,13 @@
+environment,episodes,baseline,baseline_norm,feature_stu,stu_sequential,stu_seq_vs_norm
+hopper_hop,5,188.40,0.271,0.853,0.153,1.77
+hopper_hop,10,119.90,0.065,0.888,0.045,1.44
+hopper_hop,20,55.60,0.051,1.111,0.036,1.42
+hopper_hop,40,22.10,0.043,0.337,0.035,1.23
+walker_walk,5,165.78,0.680,1.346,0.567,1.20
+walker_walk,10,86.19,0.224,1.140,0.266,0.84
+walker_walk,20,46.85,0.202,1.030,0.164,1.23
+walker_walk,40,23.38,0.181,0.719,0.130,1.39
+cheetah_run,5,91.04,0.490,1.501,0.209,2.34
+cheetah_run,10,43.31,0.055,1.008,0.035,1.57
+cheetah_run,20,11.94,0.041,0.691,0.029,1.41
+cheetah_run,40,1.39,0.057,0.731,0.030,1.90

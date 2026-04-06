@@ -1,0 +1,13 @@
+environment,episodes,baseline,feature_stu,stu_advantage
+hopper_hop,5,0.026,0.019,1.37
+hopper_hop,10,0.011,0.011,1.00
+hopper_hop,20,0.008,0.008,1.00
+hopper_hop,40,0.006,0.006,1.00
+walker_walk,5,0.013342,0.011495,1.16
+walker_walk,10,0.009712,0.009363,1.04
+walker_walk,20,0.007950,0.008126,-1.02
+walker_walk,40,0.006679,0.007103,-1.06
+cheetah_run,5,0.022262,0.019620,1.13
+cheetah_run,10,0.014256,0.013399,1.06
+cheetah_run,20,0.009404,0.009020,1.04
+cheetah_run,40,0.007041,0.006958,1.01

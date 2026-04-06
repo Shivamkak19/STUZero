@@ -1,0 +1,5 @@
+Spectral filtering has been found to be good at learning linear dynamical systems. Specifically, say you have a system that can be modelled by Ax = y. For a simple sequence, ie 1,2,3,4..., this matrix A will be very easy to determine. However, for complex sequences, the A matrix may grow arbitrarily large, or the relevant system to solve may be A^n = y, where n is some power of the A matrix. In these cases, while the dynamics may be learnable, it becomes much more intesive to compute the A^n matrix in order to learn the system. It has been found that spectral filtering is able to learn this A matrix particularly well, by projecting to a higher dimension, applying convolutions with a certain hankel matrix, and then projecting back down to the target dimension. 
+
+Using this concept of spectral filtering, previous work has designed the Spectral Transfer Unit (STU), which applies spectral filtering to input. 
+
+In this codebase, we use a MiniSTU, which is added as a block within existing neural network architectures.

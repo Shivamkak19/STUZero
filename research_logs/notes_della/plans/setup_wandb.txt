@@ -1,0 +1,12 @@
+this is not quite the wandb logging i am looking for rollout section. 
+  i want a chart that has the rollout step on x axis ie (1-50 for this   
+  current rollout_len) and the mse on y axis, as it is right now. and    
+  then this should be for every eval phase. my goal is to compare the    
+  long-horizon rollout prediction error across different architectures.  
+  then, if it is possible, it would also be good to have a chart that    
+  is "best rollout prediction" ie whichever of the epochs resulted in    
+  the best long horizon rollout prediction , ie lowest mse at step 50,   
+  save this epoch's rollout graph in the best graph. ie because          
+  sometimes the best might happen at like epoch 65 or before training    
+  ends at epoch 80 etc. my goal then would be to compare each            
+  architecture's best rollout from the training run against each other 
