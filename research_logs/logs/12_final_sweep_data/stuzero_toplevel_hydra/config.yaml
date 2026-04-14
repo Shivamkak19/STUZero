@@ -1,0 +1,38 @@
+root_dir: .
+exp_config: ez/config/exp/atari_stu_decoder_50K.yaml
+tag: EZ-V2
+debug: false
+save_path: results/${env.env}/${env.game}/
+agent_name: null
+env: null
+rl: null
+optimizer: null
+priority: null
+train: null
+data: null
+mcts: null
+model: null
+actors: null
+wandb:
+  project: ez-v2
+  tag: ''
+augmentation:
+- shift
+- intensity
+ddp:
+  world_size: 1
+  training_size: 1
+  address: 127.0.0.1
+ray:
+  single_process: false
+log:
+  log_interval: 100
+  log_smos: false
+eval:
+  verbose: 0
+  save_path: test
+  model_path: results/Atari/Breakout/EZ-V2-seed=0-2023-08-10 00:40:53/models/model_10000.p
+  model_path_new: results/Atari/Breakout/EZ-V2-seed=0-2023-08-10 00:40:53/models/model_80000.p
+  n_episodes: 10
+  compare_value: false
+  analysis_value: false

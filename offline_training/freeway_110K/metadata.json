@@ -1,0 +1,51 @@
+{
+  "description": "Dynamics training dataset collected from a trained EfficientZero benchmark on Atari. Contains latent states, actions, ground-truth next states, and benchmark dynamics predictions for offline dynamics network development.",
+  "environment": "Freeway",
+  "checkpoint": "offline_training/atari_models/atari_freeway_model_110000.p",
+  "n_episodes": 50,
+  "config": {
+    "n_stack": 4,
+    "obs_shape": [
+      3,
+      96,
+      96
+    ],
+    "action_space_size": 3,
+    "gray_scale": false,
+    "num_channels": 64,
+    "down_sample": true,
+    "state_norm": false,
+    "discount": 0.988053892081
+  },
+  "shapes": {
+    "frames": "[T, 96, 96, 3]",
+    "latent_states": "[T, 64, 6, 6]",
+    "projections": "[T, 1024]"
+  },
+  "stats": {
+    "total_transitions": 102262,
+    "n_episodes_collected": 50,
+    "mean_episode_length": 2045.24,
+    "std_episode_length": 2.3286047324524617,
+    "mean_episode_reward": 0.0,
+    "min_episode_reward": 0.0,
+    "max_episode_reward": 0.0
+  },
+  "fields": {
+    "frames": "[T, H, W, C] uint8 - raw observation frame at each step",
+    "actions": "[T] long - discrete action taken",
+    "rewards": "[T] float32 - reward received",
+    "latent_states": "[T, C, 6, 6] float32 - s_t = H(stacked_obs_t)",
+    "next_latent_states": "[T, C, 6, 6] float32 - s_{t+1} ground truth",
+    "dynamics_predictions": "[T, C, 6, 6] float32 - G(s_t, a_t) benchmark",
+    "projections": "[T, D] float32 - projection of s_t",
+    "dynamics_projections": "[T, D] float32 - projection of G(s_t, a_t)",
+    "dones": "[T] bool - episode termination",
+    "valid_next": "[T] bool - True if next_latent_state is a real next state"
+  },
+  "notes": {
+    "stacking": "Latent states are computed from 4 stacked frames. At step t, stacked_obs = [frame_{t-3}, ..., frame_t]. At episode start (t < 4), earlier positions are filled with copies of the initial frame.",
+    "normalization": "Frames are stored as uint8 [0-255]. The representation network expects float32 inputs normalized by dividing by 255.",
+    "valid_next": "valid_next[t]=False at the last step of an episode or at terminal states. next_latent_states[t] is meaningless when valid_next[t]=False."
+  }
+}

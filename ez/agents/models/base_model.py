@@ -6,6 +6,7 @@
 import torch
 import math
 import torch.nn as nn
+import torch.nn.functional as F
 import numpy as np
 from .layer import ResidualBlock, conv3x3, mlp
 from .stu_layer import MiniSTU
@@ -1057,6 +1058,248 @@ class DynamicsNetworkSTUSequential(nn.Module):
         output = output + last_state
 
         return output
+
+
+class STUResBlock(nn.Module):
+    """Pre-norm transformer-style block with STU as the mixer.
+
+    sublayer 1:  x = x + STU(LayerNorm(x))
+    sublayer 2:  x = x + MLP(LayerNorm(x))
+
+    The STU operates along the sequence (time) dimension. The MLP operates
+    per-position. This is the JAX-repo-shaped block: STU replaces attention.
+    """
+    def __init__(self, d_model: int, seq_len: int, num_filters: int,
+                 mlp_ratio: float = 2.0, use_hankel_L: bool = False):
+        super().__init__()
+        self.norm1 = nn.LayerNorm(d_model)
+        self.stu = MiniSTU(
+            seq_len=seq_len,
+            num_filters=num_filters,
+            input_dim=d_model,
+            output_dim=d_model,
+            use_hankel_L=use_hankel_L,
+            dtype=torch.float32,
+            device=None,
+        )
+        self.norm2 = nn.LayerNorm(d_model)
+        hidden = int(d_model * mlp_ratio)
+        self.mlp = nn.Sequential(
+            nn.Linear(d_model, hidden),
+            nn.GELU(),
+            nn.Linear(hidden, d_model),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x = x + self.stu(self.norm1(x))
+        x = x + self.mlp(self.norm2(x))
+        return x
+
+
+class DynamicsNetworkPureSTU(nn.Module):
+    """JAX-faithful temporal STU dynamics function.
+
+    STU is the *only* sequence mixer. There are no CNN ResBlocks, no
+    flattened-spatial STU, no parallel branches. Each per-frame state is
+    encoded with a single Linear, the action is appended as the (N+1)-th
+    token in the sequence, a stack of STUResBlock layers mixes along time,
+    and the last position is decoded back to the next-state prediction.
+
+    Forward signature: forward(history, action) where history is [B, N, C, H, W].
+    """
+    def __init__(self, num_channels: int, action_space_size: int,
+                 buffer_size: int = 32,
+                 d_model: int = 128,
+                 num_stu_layers: int = 4,
+                 num_filters: int = 8,
+                 mlp_ratio: float = 2.0,
+                 use_hankel_L: bool = False,
+                 is_continuous: bool = False,
+                 # Accepted but unused — kept for build_dynamics_network compat:
+                 action_embedding: bool = True,
+                 action_embedding_dim: int = 16):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.buffer_size = buffer_size
+        self.d_model = d_model
+        self.num_filters = num_filters
+        self.state_dim = num_channels * 6 * 6  # 64 * 36 = 2304
+
+        # Per-frame encoder: project flat state to d_model. One linear, no MLP.
+        self.state_encoder = nn.Linear(self.state_dim, d_model)
+
+        # Action token: embedding (discrete) or linear projection (continuous)
+        if is_continuous:
+            self.action_proj = nn.Linear(action_space_size, d_model)
+        else:
+            self.action_embed = nn.Embedding(action_space_size, d_model)
+
+        # Sequence has buffer_size past states + 1 action token
+        self.seq_len = buffer_size + 1
+
+        # Stack of STU+MLP residual blocks
+        self.layers = nn.ModuleList([
+            STUResBlock(
+                d_model=d_model,
+                seq_len=self.seq_len,
+                num_filters=num_filters,
+                mlp_ratio=mlp_ratio,
+                use_hankel_L=use_hankel_L,
+            )
+            for _ in range(num_stu_layers)
+        ])
+        self.norm_out = nn.LayerNorm(d_model)
+
+        # Decoder: project last-position output back to flat state
+        self.state_decoder = nn.Linear(d_model, self.state_dim)
+
+    def forward(self, history: torch.Tensor, action: torch.Tensor) -> torch.Tensor:
+        # history: [B, N, C, H, W], action: [B, 1] (discrete) or [B, A] (continuous)
+        B, N, C, H, W = history.shape
+
+        # Encode each past state into a token in d_model space
+        x = self.state_encoder(history.reshape(B, N, -1))  # [B, N, d_model]
+
+        # Encode action and append as last token
+        if self.is_continuous:
+            a = self.action_proj(action)
+        else:
+            a = self.action_embed(action.squeeze(-1).long())
+        x = torch.cat([x, a.unsqueeze(1)], dim=1)  # [B, N+1, d_model]
+
+        # Stack of STU residual blocks, mixing along time
+        for layer in self.layers:
+            x = layer(x)
+
+        # Read out the last position (the action token), normalize, decode
+        x_last = self.norm_out(x[:, -1, :])  # [B, d_model]
+        out = self.state_decoder(x_last).reshape(B, C, H, W)
+        return out
+
+
+class DynamicsNetworkSTUDecoder(nn.Module):
+    """STU as a sequence-to-sequence dynamics decoder.
+
+    The cleanest mapping of STU's theoretical regime onto world models:
+    given an initial state s_0 and an action sequence [a_0, ..., a_{K-1}],
+    predict the entire trajectory [s_1, ..., s_K] in a SINGLE forward pass
+    (no autoregressive rollout, no access to intermediate ground-truth states).
+
+    Architecture:
+        encode(s_0)         -> token 0    [B, 1, d_model]
+        encode(a_0..a_{K-1})-> tokens 1..K [B, K, d_model]
+        concat                              [B, K+1, d_model]
+        stack of STUResBlock layers (mixing along the K+1 axis)
+        per-position decoder linear -> [B, K+1, state_dim]
+        return positions 1..K reshaped to [B, K, C, H, W]
+
+    The "input sequence" to STU is (initial state, action sequence). The
+    "output sequence" is the predicted future trajectory. Each output state
+    is causally a function of s_0 and the action prefix that produced it,
+    which is exactly what an LDS impulse response represents — and what
+    the Hankel eigenbasis is provably optimal for.
+
+    Forward signature: forward(initial_state, action_sequence)
+        initial_state:   [B, C, H, W]
+        action_sequence: [B, K]   (discrete) or [B, K, A] (continuous)
+        returns:         [B, K, C, H, W]   predicted s_1..s_K
+    """
+    def __init__(self, num_channels: int, action_space_size: int,
+                 max_action_seq_len: int = 64,
+                 d_model: int = 128,
+                 num_stu_layers: int = 4,
+                 num_filters: int = 8,
+                 mlp_ratio: float = 2.0,
+                 use_hankel_L: bool = False,
+                 is_continuous: bool = False,
+                 # Accepted but unused — kept for build_dynamics_network compat:
+                 action_embedding: bool = True,
+                 action_embedding_dim: int = 16):
+        super().__init__()
+        self.is_continuous = is_continuous
+        self.num_channels = num_channels
+        self.action_space_size = action_space_size
+        self.max_action_seq_len = max_action_seq_len
+        self.d_model = d_model
+        self.num_filters = num_filters
+        self.state_dim = num_channels * 6 * 6  # 64 * 36 = 2304
+
+        # Per-frame state encoder: project flat state to d_model
+        self.state_encoder = nn.Linear(self.state_dim, d_model)
+
+        # Action token: embedding (discrete) or linear projection (continuous)
+        if is_continuous:
+            self.action_proj = nn.Linear(action_space_size, d_model)
+        else:
+            self.action_embed = nn.Embedding(action_space_size, d_model)
+
+        # Sequence has 1 (state) + max_action_seq_len (actions) tokens
+        self.seq_len = 1 + max_action_seq_len
+
+        # Stack of STU+MLP residual blocks
+        self.layers = nn.ModuleList([
+            STUResBlock(
+                d_model=d_model,
+                seq_len=self.seq_len,
+                num_filters=num_filters,
+                mlp_ratio=mlp_ratio,
+                use_hankel_L=use_hankel_L,
+            )
+            for _ in range(num_stu_layers)
+        ])
+        self.norm_out = nn.LayerNorm(d_model)
+
+        # Per-position decoder: project each output position back to flat state
+        self.state_decoder = nn.Linear(d_model, self.state_dim)
+
+    def forward(self, initial_state: torch.Tensor, action_sequence: torch.Tensor) -> torch.Tensor:
+        """Single-shot multistep state prediction.
+
+        initial_state:   [B, C, H, W]
+        action_sequence: [B, K] discrete int or [B, K, A] continuous
+        returns:         [B, K, C, H, W]
+        """
+        B, C, H, W = initial_state.shape
+        K = action_sequence.shape[1]
+
+        # Encode initial state to one token
+        s0_token = self.state_encoder(initial_state.reshape(B, -1))         # [B, d_model]
+        s0_token = s0_token.unsqueeze(1)                                    # [B, 1, d_model]
+
+        # Encode each action to a token
+        if self.is_continuous:
+            action_tokens = self.action_proj(action_sequence)               # [B, K, d_model]
+        else:
+            action_tokens = self.action_embed(action_sequence.long())       # [B, K, d_model]
+
+        # Concatenate: [s0, a0, a1, ..., a_{K-1}]   shape [B, K+1, d_model]
+        x = torch.cat([s0_token, action_tokens], dim=1)
+        actual_seq_len = x.shape[1]
+
+        # The STU layers were initialized with seq_len = max_action_seq_len + 1.
+        # If the current sequence is shorter, pad with zeros to the model's
+        # max length so the FFT-conv works at a fixed length, then truncate
+        # back. This lets us use a single trained model on variable K at eval.
+        if actual_seq_len < self.seq_len:
+            pad_len = self.seq_len - actual_seq_len
+            x = F.pad(x, (0, 0, 0, pad_len))                                # pad along seq dim
+
+        # Stack of STU + MLP residual blocks, mixing along time
+        for layer in self.layers:
+            x = layer(x)
+
+        x = self.norm_out(x)                                                # [B, seq_len, d_model]
+        # Truncate back to the actual sequence length
+        if actual_seq_len < self.seq_len:
+            x = x[:, :actual_seq_len]
+
+        # Decode each output position to a flat state, then take positions 1..K
+        # Position 0 is the encoded s_0; positions 1..K are predictions for s_1..s_K.
+        out_flat = self.state_decoder(x)                                    # [B, K+1, state_dim]
+        preds = out_flat[:, 1:]                                             # [B, K, state_dim]
+        return preds.reshape(B, K, C, H, W)
 
 
 class DynamicsNetworkMLPSequential(nn.Module):

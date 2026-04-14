@@ -26,8 +26,25 @@ Investigating whether spectral filtering (STU — Spectral Transform Unit) impro
 | 2026-04-04 | `research_log_04042026.md` | Walker Walk, Cheetah Run, Pong extended (100-step, very low data), multi-seed validation, self-attention comparison, DMC Image Hopper |
 | 2026-04-05 | `research_log_04052026.md` | Alien + Seaquest: full sample efficiency (60 experiments) |
 | 2026-04-05 | `research_log_04052026_part2.md` | KungFuMaster + MsPacman + RoadRunner: full sample efficiency (90 experiments) |
+| 2026-04-11 to 04-14 | `8_stu_dreamer_research_log.md` | STU integration into DreamerV3 (JAX): walker_walk (baseline / stuB / stuRand / stuPlus), hopper_stand (size1m + size12m), cheetah_run. Finding: STU-inside-`_core` with Hankel eigenvectors provides 20-36% faster convergence to baseline-level performance; random filters match asymptote but take 55% more steps; stu_plus scales poorly to 12m. Data in `8_stu_dreamer_data/`. |
+| 2026-04-09 to 04-11 | `9_rezero_stu_mixer_research_log.md` | STU as pre-RSSM encoder mixer in R2-Dreamer (PyTorch). Pong: baseline reaches eval +4.3 at step 400K; STU-hankelscaled stalls at -12.8. **Finding: STU-mixer placed before RSSM does NOT help on Pong** — contrasts with stu-dreamer-jax result where STU inside the recurrence does help. Suggests placement within world-model architectures matters. Data in `9_rezero_stu_mixer_data/`. |
+| 2026-04-11 (approx) | `10_spectral_transformer_jax_research_log.md` | Broad JAX transformer stack with Attention/STU/Mamba mixers. Random-filter ablation on state tracking: Hankel eval_loss 0.047 vs random-normalized 0.556 (**12× gap** — much larger than Dreamer ablation). Data in `10_spectral_transformer_jax_data/`. |
+| consolidation | `11_stuzero_offline_data/` | Archived training + pipeline logs (no checkpoints) from the STUZero offline experiments referenced by logs #0-#7. 248 completed runs across 19 games (5ep/10ep/20ep/40ep × single/multistep × stu/baseline/attention). **7 games missing from disk** despite logs 4-5 claiming them run: alien, pong, mspacman, seaquest, roadrunner, kungfumaster, gopher. 7.2 MB compressed. See README. |
+| final sweep | `12_final_sweep_data/` | Catch-all for experimental data discovered during final pre-offload sweep: **42 EZ-V2 online Atari runs** (Pong×36, Asterix×2, KungFuMaster/Assault/Boxing/Gopher×1 — logs + eval JSONs), 55 wandb run metadata bundles, the original failing stufix run that motivated log #8 (pre-existing, not produced by this work), Run A (post-hoc STU) data referenced in log #8, ReZero logdir debug runs referenced in log #9. **12 video reels** (STUZero EZ-V2 Atari + stu-dreamer-jax baseline/stuB/stuRand/stuPlus/stufix + ReZero Pong baseline-vs-STU). 12 MB total. See README. |
 
-All logs are in: `offline_training/results/`
+## Sibling directories (peer to `logs/`)
+
+`research_logs/logs/` contains the chronological research notes. Two sibling directories hold processed results and writeup materials:
+
+| Dir | Size | Contents |
+|-----|------|----------|
+| `research_logs/experiments/` | 2.7 MB | **Processed experimental data for thesis plots.** 11 CSV files with step-50 MSE, sample efficiency, multiseed validation, attention comparison, DMC/Atari, pong rollout divergence. 13 plots (PNG + PDF) generated from those CSVs: pong rollout divergence, cross-game 5ep bar chart, sample efficiency curves, STU advantage vs episodes, multiseed validation. `experiment_descriptions.md` explains methodology. `generate_plots.py` regenerates plots. |
+| `research_logs/draft_paper/` | 9.7 MB | **Draft thesis writeup.** `draft_report.tex` + `references.bib` + `graphs/` + compiled `draft_report.pdf` + `Thesis Draft Report - Shivam Kak.pdf`. |
+| `research_logs/notes_della/` | 642 KB | Informal working notes from Princeton della runs: `offline_runs/` (11 txt files with baseline/attention/mamba/STU run notes), `plans/` (midterm progress, spectral explanation, temporal setup). |
+
+**Note:** `research_logs/experiments/` files were in git but deleted from filesystem as of this sweep. Restored via `git checkout HEAD -- research_logs/experiments/`.
+
+All logs are in: `offline_training/results/` (except `8_stu_dreamer_data/` which is co-located with its log file).
 
 ### Results Directories
 

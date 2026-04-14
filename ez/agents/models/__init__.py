@@ -19,6 +19,7 @@ class EfficientZero(nn.Module):
                  projection_model,
                  projection_head_model,
                  config,
+                 stu_decoder_aux=None,
                  **kwargs,
                  ):
         """The basic models in EfficientZero
@@ -52,6 +53,9 @@ class EfficientZero(nn.Module):
         self.state_norm = kwargs.get('state_norm')
         self.value_prefix = kwargs.get('value_prefix')
         self.v_num = config.train.v_num
+        # Optional STUDecoder side network for auxiliary multi-step loss.
+        # Only used in update_weights() during training; never queried by MCTS.
+        self.stu_decoder_aux = stu_decoder_aux
 
     def do_representation(self, obs):
         state = self.representation_model(obs)
@@ -66,6 +70,26 @@ class EfficientZero(nn.Module):
             next_state = normalize_state(next_state)
 
         return next_state
+
+    def do_stu_decoder(self, initial_state, action_sequence):
+        """Predict the K-step latent trajectory in a single forward pass.
+
+        initial_state:   [B, C, H, W]
+        action_sequence: [B, K] long (discrete) or [B, K, A] (continuous)
+        returns:         [B, K, C, H, W] predicted latent states s_1..s_K
+
+        Used as an auxiliary multi-step training loss; never called by MCTS.
+        Asserts that the side network is configured.
+        """
+        assert self.stu_decoder_aux is not None, \
+            "do_stu_decoder called but stu_decoder_aux is None"
+        preds = self.stu_decoder_aux(initial_state, action_sequence)
+        if self.state_norm:
+            B, K = preds.shape[0], preds.shape[1]
+            flat = preds.reshape(B * K, *preds.shape[2:])
+            flat = normalize_state(flat)
+            preds = flat.reshape(B, K, *preds.shape[2:])
+        return preds
 
     def do_reward_prediction(self, next_state, reward_hidden=None):
         # use the predicted state (Namely, current state + action) for reward prediction

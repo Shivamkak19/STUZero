@@ -7,6 +7,7 @@ import random
 import time
 import copy
 import math
+import torch
 from ez.agents.base import Agent
 from omegaconf import open_dict
 
@@ -28,7 +29,19 @@ class EZAtariAgent(Agent):
         self.dynamics_stu_seq_len = config.model.get('dynamics_stu_seq_len', 36)
         self.dynamics_stu_num_filters = config.model.get('dynamics_stu_num_filters', 2)
         self.use_dynamics_stu = config.model.get('use_dynamics_stu', False)
-        
+
+        # STUDecoder side-network hyperparameters (auxiliary multi-step loss).
+        # When use_stu_decoder_aux is True, a DynamicsNetworkSTUDecoder is
+        # constructed alongside the regular dynamics function and trained via
+        # an extra K-step consistency loss in update_weights(). It is NEVER
+        # used by MCTS — only as a training-time auxiliary objective.
+        self.use_stu_decoder_aux = config.model.get('use_stu_decoder_aux', False)
+        self.stu_decoder_d_model = config.model.get('stu_decoder_d_model', 128)
+        self.stu_decoder_num_layers = config.model.get('stu_decoder_num_layers', 4)
+        self.stu_decoder_num_filters = config.model.get('stu_decoder_num_filters', 8)
+        self.stu_decoder_mlp_ratio = config.model.get('stu_decoder_mlp_ratio', 2.0)
+        self.stu_decoder_filter_type = config.model.get('stu_decoder_filter_type', 'hankel')
+
         self.update_config()
 
         self.num_blocks = config.model.num_blocks
@@ -142,8 +155,47 @@ class EZAtariAgent(Agent):
         projection_model = ProjectionNetwork(state_dim, projection_layers[0], projection_layers[1])
         projection_head_model = ProjectionHeadNetwork(projection_layers[1], head_layers[0], head_layers[1])
 
+        # Optional STUDecoder side network for auxiliary multi-step training loss.
+        stu_decoder_aux = None
+        if self.use_stu_decoder_aux:
+            unroll_steps = self.config.rl.unroll_steps
+            stu_decoder_aux = DynamicsNetworkSTUDecoder(
+                num_channels=self.num_channels,
+                action_space_size=self.action_space_size,
+                max_action_seq_len=unroll_steps,
+                d_model=self.stu_decoder_d_model,
+                num_stu_layers=self.stu_decoder_num_layers,
+                num_filters=self.stu_decoder_num_filters,
+                mlp_ratio=self.stu_decoder_mlp_ratio,
+                is_continuous=False,
+                action_embedding=self.action_embedding,
+                action_embedding_dim=self.action_embedding_dim,
+            )
+            # Optionally swap the MiniSTU filter basis (e.g., to hankel_scaled).
+            if self.stu_decoder_filter_type != 'hankel':
+                from ez.agents.models.filter_factory import make_filters
+                from ez.agents.models.stu_layer import MiniSTU as _MiniSTU
+                stu_modules = [m for m in stu_decoder_aux.modules() if isinstance(m, _MiniSTU)]
+                for idx, mod in enumerate(stu_modules):
+                    seq_len = mod.phi.shape[0]
+                    K = mod.phi.shape[1]
+                    new_phi = make_filters(
+                        kind=self.stu_decoder_filter_type,
+                        seq_len=seq_len, num_filters=K,
+                        seed=self.config.env.base_seed + idx,
+                    )
+                    with torch.no_grad():
+                        mod.phi.copy_(new_phi.to(device=mod.phi.device, dtype=mod.phi.dtype))
+                print(f"STUDecoder aux filter swap: filter_type={self.stu_decoder_filter_type}, "
+                      f"swapped {len(stu_modules)} MiniSTU instances")
+            n_stu_params = sum(p.numel() for p in stu_decoder_aux.parameters() if p.requires_grad)
+            print(f"STUDecoder aux constructed: max_action_seq_len={unroll_steps}, "
+                  f"d_model={self.stu_decoder_d_model}, num_layers={self.stu_decoder_num_layers}, "
+                  f"num_filters={self.stu_decoder_num_filters}, params={n_stu_params:,}")
+
         ez_model = EfficientZero(representation_model, dynamics_model, reward_prediction_model, value_policy_model,
                                  projection_model, projection_head_model, self.config,
+                                 stu_decoder_aux=stu_decoder_aux,
                                  state_norm=self.state_norm, value_prefix=self.value_prefix)
 
         return ez_model

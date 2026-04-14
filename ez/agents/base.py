@@ -459,6 +459,11 @@ class Agent:
         policy_entropy_loss -= entropy_loss
 
         prev_value_prefixes = torch.zeros_like(policy_loss)
+        # Save initial latent state for the optional STUDecoder auxiliary loss.
+        # The unroll loop below reassigns `states` to predicted-next-state at
+        # each step, so we keep a reference to the s_0 tensor before that.
+        initial_states_for_stu = states
+        gt_next_states_list = []  # collected per-step ground-truth latents
         # unroll k steps recurrently
         with autocast():
             for step_i in range(unroll_steps):
@@ -470,6 +475,7 @@ class Agent:
 
                 # consistency loss
                 gt_next_states = model.do_representation(obs_target_batch[:, beg_index:end_index])
+                gt_next_states_list.append(gt_next_states)
 
                 # projection for consistency
                 dynamic_states_proj = model.do_projection(states, with_grad=True)
@@ -504,11 +510,39 @@ class Agent:
                 if self.config.model.value_prefix and (step_i + 1) % self.config.model.lstm_horizon_len == 0:
                     reward_hidden = self.init_reward_hidden(batch_size)
 
+        # Optional STUDecoder auxiliary multi-step loss.
+        # In a single forward pass STUDecoder predicts the K-step trajectory
+        # from the initial latent + the action sequence. Each predicted step
+        # is compared to the same ground-truth latent the recurrent unroll
+        # already computed. The gradients from this loss flow back through
+        # the encoder (via initial_states_for_stu) and the STUDecoder side
+        # network. The standard recurrent dynamics is unaffected.
+        stu_decoder_loss = torch.zeros(batch_size).cuda()
+        if model.stu_decoder_aux is not None:
+            with autocast():
+                # Build action sequence: action_batch is [B, unroll_steps, 1] long.
+                # STUDecoder expects [B, K] discrete or [B, K, A] continuous.
+                if self.config.env.env in ['DMC', 'Gym']:
+                    stu_action_seq = action_batch[:, :unroll_steps]
+                else:
+                    stu_action_seq = action_batch[:, :unroll_steps].squeeze(-1).long()
+
+                stu_preds = model.do_stu_decoder(initial_states_for_stu, stu_action_seq)
+                # stu_preds: [B, K, C, H, W]; gt_next_states_list: K tensors of [B, C, H, W]
+                for step_i in range(unroll_steps):
+                    mask = mask_batch[:, step_i]
+                    pred_proj = model.do_projection(stu_preds[:, step_i], with_grad=True)
+                    gt_proj = model.do_projection(gt_next_states_list[step_i], with_grad=False)
+                    stu_decoder_loss += cosine_similarity_loss(pred_proj, gt_proj) * mask
+
+        stu_decoder_loss_coeff = self.config.train.get('stu_decoder_loss_coeff', 1.0)
+
         # total loss
         loss = (value_prefix_loss * self.config.train.reward_loss_coeff
                 + value_loss * self.config.train.value_loss_coeff
                 + policy_loss * self.config.train.policy_loss_coeff
-                + consistency_loss * self.config.train.consistency_coeff)
+                + consistency_loss * self.config.train.consistency_coeff
+                + stu_decoder_loss * stu_decoder_loss_coeff)
 
         if self.config.env.env in ['DMC', 'Gym']:
             loss += policy_entropy_loss * self.config.train.entropy_coeff
@@ -541,7 +575,7 @@ class Agent:
             'loss/consistency': consistency_loss.mean().item(), 'loss/value_prefix': value_prefix_loss.mean().item(),
             'loss/value': value_loss.mean().item(), 'loss/policy': policy_loss.mean().item(),
             'loss/entropy': policy_entropy_loss.mean().item(),
-
+            'loss/stu_decoder': stu_decoder_loss.mean().item(),
         })
 
         other_scalar.update({
