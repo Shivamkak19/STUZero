@@ -1,0 +1,744 @@
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+2026-04-14 20:03:27.571296: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+2026-04-14 20:03:28.119024: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+---  ___                           __   ______ ---
+--- |   \ _ _ ___ __ _ _ __  ___ _ \ \ / /__ / ---
+--- | |) | '_/ -_) _` | '  \/ -_) '/\ V / |_ \ ---
+--- |___/|_| \___\__,_|_|_|_\___|_|  \_/ |___/ ---
+Replica: 0 / 1
+Logdir: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele
+Run script: train
+Observations
+  reward           Space(float32, shape=(), low=-inf, high=inf)
+  is_first         Space(bool, shape=(), low=False, high=True)
+  is_last          Space(bool, shape=(), low=False, high=True)
+  is_terminal      Space(bool, shape=(), low=False, high=True)
+  orientations     Space(float32, shape=(14,), low=-inf, high=inf)
+  height           Space(float32, shape=(), low=-inf, high=inf)
+  velocity         Space(float32, shape=(9,), low=-inf, high=inf)
+Actions
+  action           Space(float32, shape=(6,), low=-1.0, high=1.0)
+Extras
+  consec           Space(int32, shape=(), low=-2147483648, high=2147483647)
+  stepid           Space(uint8, shape=(20,), low=0, high=255)
+  dyn/deter        Space(float32, shape=(512,), low=-inf, high=inf)
+  dyn/stoch        Space(float32, shape=(32, 4), low=-inf, high=inf)
+JAX devices (1): [cuda:0]
+Policy devices: cuda:0
+Train devices:  cuda:0
+Initializing parameters...
+Optimizer opt has 640,867 params:
+       364,416 dyn
+        66,111 val
+        57,663 rew
+        51,096 dec
+        50,316 pol
+        41,153 con
+        10,112 enc
+Done initializing!
+Compiling 1 checkpoint groups...
+Largest checkpoint group: 0 GB
+Compiling train and report...
+Train cost analysis:
+No available
+Report cost analysis:
+No available
+Done compiling!
+Did not find any checkpoint.
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T200317F380061
+Saved checkpoint.
+Start training loop
+Start JAX profiler: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele
+Stop JAX profiler
+
+--------------------[Agent Step 6_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.05 / train/loss/dyn 6.49 / train/loss/height 0.04 / train/loss/orientations 1.69 / train/loss/policy 0.82 / train/loss/rep 6.49 / train/loss/repval 4.44 / train/loss/rew 1.3 / train/loss/value 2.31 / train/loss/velocity 6.01 / replay/replay_ratio 860.94 / fps/policy 56.21 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 12_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.28 / train/loss/height 8.5e-3 / train/loss/orientations 0.62 / train/loss/policy 0.92 / train/loss/rep 6.28 / train/loss/repval 2 / train/loss/rew 0.39 / train/loss/value 1.21 / train/loss/velocity 1.84 / replay/replay_ratio 1040 / fps/policy 43.61 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 17_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 23.02 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.95 / train/loss/height 6.5e-3 / train/loss/orientations 0.56 / train/loss/policy 0.69 / train/loss/rep 5.95 / train/loss/repval 1.3 / train/loss/rew 0.39 / train/loss/value 0.99 / train/loss/velocity 1.54 / replay/replay_ratio 1040 / fps/policy 43.59 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 22_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.77 / train/loss/height 7.2e-3 / train/loss/orientations 0.52 / train/loss/policy 0.09 / train/loss/rep 5.77 / train/loss/repval 0.98 / train/loss/rew 0.4 / train/loss/value 0.9 / train/loss/velocity 1.48 / replay/replay_ratio 1040 / fps/policy 43.49 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 27_904]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.62 / train/loss/height 5.8e-3 / train/loss/orientations 0.44 / train/loss/policy -0.24 / train/loss/rep 5.62 / train/loss/repval 0.94 / train/loss/rew 0.4 / train/loss/value 0.68 / train/loss/velocity 1.36 / replay/replay_ratio 1040 / fps/policy 43.52 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 33_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 21.27 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.84 / train/loss/height 5.3e-3 / train/loss/orientations 0.44 / train/loss/policy -0.23 / train/loss/rep 5.84 / train/loss/repval 1.21 / train/loss/rew 0.41 / train/loss/value 1.01 / train/loss/velocity 1.35 / replay/replay_ratio 1040 / fps/policy 43.58 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 38_368]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.01 / train/loss/height 6.4e-3 / train/loss/orientations 0.46 / train/loss/policy -0.36 / train/loss/rep 6.01 / train/loss/repval 1.02 / train/loss/rew 0.41 / train/loss/value 0.95 / train/loss/velocity 1.35 / replay/replay_ratio 1040 / fps/policy 43.48 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T201820F289924
+Saved checkpoint.
+
+--------------------[Agent Step 43_600]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.26 / train/loss/height 6e-3 / train/loss/orientations 0.45 / train/loss/policy -0.18 / train/loss/rep 6.26 / train/loss/repval 1.18 / train/loss/rew 0.42 / train/loss/value 0.9 / train/loss/velocity 1.36 / replay/replay_ratio 1040 / fps/policy 43.55 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 48_832]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 31.21 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.24 / train/loss/height 5.6e-3 / train/loss/orientations 0.44 / train/loss/policy -0.07 / train/loss/rep 6.24 / train/loss/repval 1.11 / train/loss/rew 0.42 / train/loss/value 1 / train/loss/velocity 1.31 / replay/replay_ratio 1040 / fps/policy 43.6 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 54_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.19 / train/loss/height 5.4e-3 / train/loss/orientations 0.43 / train/loss/policy -0.17 / train/loss/rep 6.19 / train/loss/repval 1.26 / train/loss/rew 0.43 / train/loss/value 1.11 / train/loss/velocity 1.27 / replay/replay_ratio 1040 / fps/policy 43.49 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 59_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.22 / train/loss/height 5.2e-3 / train/loss/orientations 0.4 / train/loss/policy -0.09 / train/loss/rep 6.22 / train/loss/repval 1.14 / train/loss/rew 0.43 / train/loss/value 1.01 / train/loss/velocity 1.24 / replay/replay_ratio 1040 / fps/policy 43.52 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 64_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 45.83 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.33 / train/loss/height 5e-3 / train/loss/orientations 0.4 / train/loss/policy -0.08 / train/loss/rep 6.33 / train/loss/repval 1.03 / train/loss/rew 0.44 / train/loss/value 1.05 / train/loss/velocity 1.23 / replay/replay_ratio 1040 / fps/policy 43.55 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 69_760]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.43 / train/loss/height 5.2e-3 / train/loss/orientations 0.4 / train/loss/policy -0.12 / train/loss/rep 6.43 / train/loss/repval 0.88 / train/loss/rew 0.44 / train/loss/value 0.89 / train/loss/velocity 1.22 / replay/replay_ratio 1040 / fps/policy 43.5 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 75_008]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.49 / train/loss/height 4.9e-3 / train/loss/orientations 0.39 / train/loss/policy -0.11 / train/loss/rep 6.49 / train/loss/repval 0.8 / train/loss/rew 0.45 / train/loss/value 1.07 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 43.69 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T203320F469936
+Saved checkpoint.
+
+--------------------[Agent Step 80_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 77.05 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 4.8e-3 / train/loss/orientations 0.37 / train/loss/policy -0.16 / train/loss/rep 6.55 / train/loss/repval 0.79 / train/loss/rew 0.45 / train/loss/value 0.96 / train/loss/velocity 1.2 / replay/replay_ratio 1040 / fps/policy 43.71 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 85_472]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.61 / train/loss/height 4.8e-3 / train/loss/orientations 0.35 / train/loss/policy -0.13 / train/loss/rep 6.61 / train/loss/repval 1.19 / train/loss/rew 0.46 / train/loss/value 1.24 / train/loss/velocity 1.19 / replay/replay_ratio 1040 / fps/policy 43.46 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 90_720]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.57 / train/loss/height 4.6e-3 / train/loss/orientations 0.33 / train/loss/policy -0.15 / train/loss/rep 6.57 / train/loss/repval 1.14 / train/loss/rew 0.46 / train/loss/value 1.07 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 43.7 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 95_984]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.49 / train/loss/height 4.5e-3 / train/loss/orientations 0.32 / train/loss/policy -0.13 / train/loss/rep 6.49 / train/loss/repval 1.04 / train/loss/rew 0.45 / train/loss/value 1.02 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 43.75 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 101_216]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 85.85 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 4.4e-3 / train/loss/orientations 0.3 / train/loss/policy -0.14 / train/loss/rep 6.41 / train/loss/repval 0.99 / train/loss/rew 0.45 / train/loss/value 1.06 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 43.48 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 106_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.43 / train/loss/height 4.5e-3 / train/loss/orientations 0.3 / train/loss/policy -0.11 / train/loss/rep 6.43 / train/loss/repval 0.81 / train/loss/rew 0.45 / train/loss/value 1.04 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 43.58 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 111_680]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.36 / train/loss/height 4.4e-3 / train/loss/orientations 0.28 / train/loss/policy -0.11 / train/loss/rep 6.36 / train/loss/repval 1.03 / train/loss/rew 0.44 / train/loss/value 1.25 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 43.59 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 116_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 108.54 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.24 / train/loss/height 4.3e-3 / train/loss/orientations 0.27 / train/loss/policy -0.1 / train/loss/rep 6.24 / train/loss/repval 1.01 / train/loss/rew 0.44 / train/loss/value 1.27 / train/loss/velocity 1.04 / replay/replay_ratio 1040 / fps/policy 43.54 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T204820F629593
+Saved checkpoint.
+
+--------------------[Agent Step 122_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.09 / train/loss/height 4.1e-3 / train/loss/orientations 0.26 / train/loss/policy -0.11 / train/loss/rep 6.09 / train/loss/repval 1.13 / train/loss/rew 0.43 / train/loss/value 1.27 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 43.58 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 127_392]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.85 / train/loss/height 3.9e-3 / train/loss/orientations 0.24 / train/loss/policy -0.13 / train/loss/rep 5.85 / train/loss/repval 1.28 / train/loss/rew 0.42 / train/loss/value 1.13 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 43.64 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 132_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 155.97 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.79 / train/loss/height 3.9e-3 / train/loss/orientations 0.23 / train/loss/policy -0.16 / train/loss/rep 5.79 / train/loss/repval 1.19 / train/loss/rew 0.42 / train/loss/value 0.81 / train/loss/velocity 0.93 / replay/replay_ratio 1040 / fps/policy 43.6 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 137_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.8 / train/loss/height 3.7e-3 / train/loss/orientations 0.22 / train/loss/policy -0.18 / train/loss/rep 5.8 / train/loss/repval 0.94 / train/loss/rew 0.42 / train/loss/value 0.8 / train/loss/velocity 0.92 / replay/replay_ratio 1040 / fps/policy 43.69 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 143_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.82 / train/loss/height 3.6e-3 / train/loss/orientations 0.21 / train/loss/policy -0.14 / train/loss/rep 5.82 / train/loss/repval 1.07 / train/loss/rew 0.42 / train/loss/value 1.26 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 43.77 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 148_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 175.31 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.83 / train/loss/height 3.6e-3 / train/loss/orientations 0.21 / train/loss/policy -0.14 / train/loss/rep 5.83 / train/loss/repval 1.18 / train/loss/rew 0.42 / train/loss/value 0.9 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 43.66 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 153_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.87 / train/loss/height 3.5e-3 / train/loss/orientations 0.2 / train/loss/policy -0.16 / train/loss/rep 5.87 / train/loss/repval 0.94 / train/loss/rew 0.43 / train/loss/value 0.94 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 43.67 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T210320F658354
+Saved checkpoint.
+
+--------------------[Agent Step 158_896]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.88 / train/loss/height 3.4e-3 / train/loss/orientations 0.19 / train/loss/policy -0.12 / train/loss/rep 5.88 / train/loss/repval 0.93 / train/loss/rew 0.43 / train/loss/value 1.25 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 43.76 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 164_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 185.75 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.9 / train/loss/height 3.4e-3 / train/loss/orientations 0.19 / train/loss/policy -0.13 / train/loss/rep 5.9 / train/loss/repval 1.15 / train/loss/rew 0.43 / train/loss/value 1.26 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 43.69 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 169_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.91 / train/loss/height 3.3e-3 / train/loss/orientations 0.18 / train/loss/policy -0.13 / train/loss/rep 5.91 / train/loss/repval 1.22 / train/loss/rew 0.44 / train/loss/value 1.1 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 43.75 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 174_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.92 / train/loss/height 3.2e-3 / train/loss/orientations 0.18 / train/loss/policy -0.14 / train/loss/rep 5.92 / train/loss/repval 1.15 / train/loss/rew 0.44 / train/loss/value 0.83 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 179_920]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 185.14 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.96 / train/loss/height 3.1e-3 / train/loss/orientations 0.18 / train/loss/policy -0.17 / train/loss/rep 5.96 / train/loss/repval 1.02 / train/loss/rew 0.44 / train/loss/value 0.78 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 43.67 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 185_168]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.98 / train/loss/height 3.1e-3 / train/loss/orientations 0.17 / train/loss/policy -0.13 / train/loss/rep 5.98 / train/loss/repval 0.95 / train/loss/rew 0.45 / train/loss/value 0.87 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 43.63 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 190_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.98 / train/loss/height 3e-3 / train/loss/orientations 0.17 / train/loss/policy -0.14 / train/loss/rep 5.98 / train/loss/repval 0.93 / train/loss/rew 0.45 / train/loss/value 0.97 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 195_680]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 227.99 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.98 / train/loss/height 3e-3 / train/loss/orientations 0.16 / train/loss/policy -0.14 / train/loss/rep 5.98 / train/loss/repval 0.97 / train/loss/rew 0.45 / train/loss/value 1.22 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 43.72 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T211820F720258
+Saved checkpoint.
+
+--------------------[Agent Step 200_928]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.97 / train/loss/height 2.9e-3 / train/loss/orientations 0.16 / train/loss/policy -0.14 / train/loss/rep 5.97 / train/loss/repval 1.19 / train/loss/rew 0.45 / train/loss/value 1.17 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 43.71 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 206_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.96 / train/loss/height 2.8e-3 / train/loss/orientations 0.15 / train/loss/policy -0.13 / train/loss/rep 5.96 / train/loss/repval 1.17 / train/loss/rew 0.46 / train/loss/value 0.89 / train/loss/velocity 0.86 / replay/replay_ratio 1040 / fps/policy 43.77 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 211_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 242.86 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.95 / train/loss/height 2.7e-3 / train/loss/orientations 0.15 / train/loss/policy -0.15 / train/loss/rep 5.95 / train/loss/repval 1.07 / train/loss/rew 0.46 / train/loss/value 0.77 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 43.67 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 216_688]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.95 / train/loss/height 2.6e-3 / train/loss/orientations 0.14 / train/loss/policy -0.14 / train/loss/rep 5.95 / train/loss/repval 0.98 / train/loss/rew 0.46 / train/loss/value 0.86 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 43.67 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 221_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.92 / train/loss/height 2.5e-3 / train/loss/orientations 0.14 / train/loss/policy -0.14 / train/loss/rep 5.92 / train/loss/repval 0.94 / train/loss/rew 0.46 / train/loss/value 1.2 / train/loss/velocity 0.83 / replay/replay_ratio 1040 / fps/policy 43.73 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 227_184]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 263 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.9 / train/loss/height 2.5e-3 / train/loss/orientations 0.13 / train/loss/policy -0.13 / train/loss/rep 5.9 / train/loss/repval 1.03 / train/loss/rew 0.46 / train/loss/value 1.26 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 43.69 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 232_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.89 / train/loss/height 2.4e-3 / train/loss/orientations 0.13 / train/loss/policy -0.13 / train/loss/rep 5.89 / train/loss/repval 1.14 / train/loss/rew 0.46 / train/loss/value 1.22 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 43.72 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T213320F990836
+Saved checkpoint.
+
+--------------------[Agent Step 237_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.86 / train/loss/height 2.4e-3 / train/loss/orientations 0.13 / train/loss/policy -0.12 / train/loss/rep 5.86 / train/loss/repval 1.19 / train/loss/rew 0.46 / train/loss/value 1.06 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 43.77 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 242_944]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 289.45 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.83 / train/loss/height 2.3e-3 / train/loss/orientations 0.12 / train/loss/policy -0.12 / train/loss/rep 5.83 / train/loss/repval 1.15 / train/loss/rew 0.46 / train/loss/value 0.89 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 43.7 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 248_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.82 / train/loss/height 2.2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.13 / train/loss/rep 5.82 / train/loss/repval 1.06 / train/loss/rew 0.46 / train/loss/value 0.82 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 43.69 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 253_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.78 / train/loss/height 2.2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.11 / train/loss/rep 5.78 / train/loss/repval 0.98 / train/loss/rew 0.46 / train/loss/value 0.8 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 43.73 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 258_688]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 303 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.76 / train/loss/height 2.1e-3 / train/loss/orientations 0.11 / train/loss/policy -0.11 / train/loss/rep 5.76 / train/loss/repval 0.97 / train/loss/rew 0.46 / train/loss/value 0.79 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 43.69 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 263_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.75 / train/loss/height 2.1e-3 / train/loss/orientations 0.11 / train/loss/policy -0.1 / train/loss/rep 5.75 / train/loss/repval 0.97 / train/loss/rew 0.46 / train/loss/value 0.79 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 43.68 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 269_200]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.73 / train/loss/height 2e-3 / train/loss/orientations 0.11 / train/loss/policy -0.11 / train/loss/rep 5.73 / train/loss/repval 0.98 / train/loss/rew 0.46 / train/loss/value 0.82 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 43.76 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 274_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 320.48 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.68 / train/loss/height 1.9e-3 / train/loss/orientations 0.1 / train/loss/policy -0.11 / train/loss/rep 5.68 / train/loss/repval 0.98 / train/loss/rew 0.46 / train/loss/value 0.88 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 43.72 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T214821F272231
+Saved checkpoint.
+
+--------------------[Agent Step 279_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.65 / train/loss/height 1.9e-3 / train/loss/orientations 0.1 / train/loss/policy -0.11 / train/loss/rep 5.65 / train/loss/repval 0.98 / train/loss/rew 0.46 / train/loss/value 0.91 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 43.67 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 284_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.62 / train/loss/height 1.8e-3 / train/loss/orientations 0.1 / train/loss/policy -0.1 / train/loss/rep 5.62 / train/loss/repval 0.99 / train/loss/rew 0.46 / train/loss/value 1 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 290_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 331.93 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.6 / train/loss/height 1.8e-3 / train/loss/orientations 0.1 / train/loss/policy -0.11 / train/loss/rep 5.6 / train/loss/repval 0.99 / train/loss/rew 0.46 / train/loss/value 1 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 43.73 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 295_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.58 / train/loss/height 1.8e-3 / train/loss/orientations 0.1 / train/loss/policy -0.11 / train/loss/rep 5.58 / train/loss/repval 1 / train/loss/rew 0.46 / train/loss/value 1 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 43.68 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 300_720]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.55 / train/loss/height 1.7e-3 / train/loss/orientations 0.09 / train/loss/policy -0.11 / train/loss/rep 5.55 / train/loss/repval 1 / train/loss/rew 0.46 / train/loss/value 1.01 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 305_984]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 321.81 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.52 / train/loss/height 1.7e-3 / train/loss/orientations 0.09 / train/loss/policy -0.1 / train/loss/rep 5.52 / train/loss/repval 1 / train/loss/rew 0.46 / train/loss/value 1.01 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 43.74 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 311_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.5 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.11 / train/loss/rep 5.5 / train/loss/repval 1 / train/loss/rew 0.46 / train/loss/value 1.02 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 43.7 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T220321F484020
+Saved checkpoint.
+
+--------------------[Agent Step 316_496]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.45 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.1 / train/loss/rep 5.45 / train/loss/repval 1.01 / train/loss/rew 0.46 / train/loss/value 1.19 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 321_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 344.04 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.41 / train/loss/height 1.6e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.41 / train/loss/repval 1.07 / train/loss/rew 0.45 / train/loss/value 1.26 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 43.73 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 326_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.4 / train/loss/height 1.5e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.4 / train/loss/repval 1.07 / train/loss/rew 0.45 / train/loss/value 1.27 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 43.63 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 332_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.37 / train/loss/height 1.5e-3 / train/loss/orientations 0.08 / train/loss/policy -0.1 / train/loss/rep 5.37 / train/loss/repval 1.09 / train/loss/rew 0.45 / train/loss/value 1.27 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 43.81 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 337_520]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 336.92 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.36 / train/loss/height 1.5e-3 / train/loss/orientations 0.08 / train/loss/policy -0.1 / train/loss/rep 5.36 / train/loss/repval 1.13 / train/loss/rew 0.45 / train/loss/value 1.26 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 43.77 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 342_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.35 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.35 / train/loss/repval 1.15 / train/loss/rew 0.45 / train/loss/value 1.24 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 43.71 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 348_032]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.32 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.32 / train/loss/repval 1.16 / train/loss/rew 0.45 / train/loss/value 1.21 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 43.82 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 353_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 336.65 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.29 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.29 / train/loss/repval 1.16 / train/loss/rew 0.45 / train/loss/value 1.21 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 43.76 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T221821F746638
+Saved checkpoint.
+
+--------------------[Agent Step 358_544]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.28 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.28 / train/loss/repval 1.16 / train/loss/rew 0.45 / train/loss/value 1.2 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 43.68 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 363_808]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.26 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.09 / train/loss/rep 5.26 / train/loss/repval 1.16 / train/loss/rew 0.45 / train/loss/value 1.16 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 43.82 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 369_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 358.1 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.25 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.08 / train/loss/rep 5.25 / train/loss/repval 1.15 / train/loss/rew 0.45 / train/loss/value 1.1 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 43.57 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 374_288]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.23 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.08 / train/loss/rep 5.23 / train/loss/repval 1.13 / train/loss/rew 0.45 / train/loss/value 1.02 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 43.68 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 379_552]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.2 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.08 / train/loss/rep 5.2 / train/loss/repval 1.07 / train/loss/rew 0.45 / train/loss/value 0.9 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 384_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 348.81 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.18 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.08 / train/loss/rep 5.18 / train/loss/repval 1.01 / train/loss/rew 0.45 / train/loss/value 0.76 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 43.75 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 390_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.17 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.08 / train/loss/rep 5.17 / train/loss/repval 0.99 / train/loss/rew 0.45 / train/loss/value 0.73 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 43.67 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T223322F100017
+Saved checkpoint.
+
+--------------------[Agent Step 395_328]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.13 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.1 / train/loss/rep 5.13 / train/loss/repval 0.96 / train/loss/rew 0.45 / train/loss/value 0.81 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 43.74 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 400_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 352.02 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.13 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.07 / train/loss/rep 5.13 / train/loss/repval 0.93 / train/loss/rew 0.45 / train/loss/value 0.81 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 43.65 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 405_808]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.13 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.07 / train/loss/rep 5.13 / train/loss/repval 0.92 / train/loss/rew 0.45 / train/loss/value 0.75 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 43.5 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 411_056]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.1 / train/loss/height 1.2e-3 / train/loss/orientations 0.06 / train/loss/policy -0.08 / train/loss/rep 5.1 / train/loss/repval 0.93 / train/loss/rew 0.45 / train/loss/value 0.78 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 43.72 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 416_320]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.1 / train/loss/height 1.2e-3 / train/loss/orientations 0.06 / train/loss/policy -0.07 / train/loss/rep 5.1 / train/loss/repval 0.93 / train/loss/rew 0.46 / train/loss/value 0.82 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 43.79 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 421_552]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 377.14 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.09 / train/loss/height 1.2e-3 / train/loss/orientations 0.06 / train/loss/policy -0.08 / train/loss/rep 5.09 / train/loss/repval 0.94 / train/loss/rew 0.46 / train/loss/value 0.85 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 43.57 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 426_800]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.07 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.07 / train/loss/rep 5.07 / train/loss/repval 0.97 / train/loss/rew 0.46 / train/loss/value 0.91 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 43.65 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 432_048]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.07 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.07 / train/loss/rep 5.07 / train/loss/repval 0.99 / train/loss/rew 0.46 / train/loss/value 0.97 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 43.72 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T224822F310176
+Saved checkpoint.
+
+--------------------[Agent Step 437_280]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 383.34 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.05 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.07 / train/loss/rep 5.05 / train/loss/repval 1.05 / train/loss/rew 0.46 / train/loss/value 1.08 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 43.6 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 442_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.03 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.07 / train/loss/rep 5.03 / train/loss/repval 1.07 / train/loss/rew 0.46 / train/loss/value 1.11 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 43.73 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 447_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.03 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.07 / train/loss/rep 5.03 / train/loss/repval 1.09 / train/loss/rew 0.46 / train/loss/value 1.15 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 43.77 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 453_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 350.03 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.02 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.06 / train/loss/rep 5.02 / train/loss/repval 1.11 / train/loss/rew 0.46 / train/loss/value 1.21 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 43.65 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 458_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.01 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.04 / train/loss/rep 5.01 / train/loss/repval 1.14 / train/loss/rew 0.46 / train/loss/value 1.23 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 43.73 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 463_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.99 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.06 / train/loss/rep 4.99 / train/loss/repval 1.12 / train/loss/rew 0.46 / train/loss/value 1.24 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 43.75 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 468_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 409.72 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.98 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.06 / train/loss/rep 4.98 / train/loss/repval 1.12 / train/loss/rew 0.46 / train/loss/value 1.25 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 43.63 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/ckpt/20260414T230322F649969
+Saved checkpoint.
+
+--------------------[Agent Step 474_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.97 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.06 / train/loss/rep 4.97 / train/loss/repval 1.13 / train/loss/rew 0.46 / train/loss/value 1.25 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 43.62 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 479_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.95 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.06 / train/loss/rep 4.95 / train/loss/repval 1.13 / train/loss/rew 0.46 / train/loss/value 1.25 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 43.71 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 484_544]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 399.68 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.96 / train/loss/height 9.9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.07 / train/loss/rep 4.96 / train/loss/repval 1.13 / train/loss/rew 0.47 / train/loss/value 1.24 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 43.58 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 489_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.94 / train/loss/height 9.8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.07 / train/loss/rep 4.94 / train/loss/repval 1.14 / train/loss/rew 0.47 / train/loss/value 1.21 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 43.68 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+
+--------------------[Agent Step 495_056]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.93 / train/loss/height 9.7e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.93 / train/loss/repval 1.14 / train/loss/rew 0.47 / train/loss/value 1.16 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 43.78 / fps/train 4.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl
+
+--------------------[Agent Step 499_856]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 408.9 / episode/length 1001
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_walker_run_baseline_20260414_200239_della-adele/scores.jsonl

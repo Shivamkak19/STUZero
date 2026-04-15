@@ -1,0 +1,1275 @@
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+2026-04-14 20:03:35.601243: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+2026-04-14 20:03:36.567400: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+---  ___                           __   ______ ---
+--- |   \ _ _ ___ __ _ _ __  ___ _ \ \ / /__ / ---
+--- | |) | '_/ -_) _` | '  \/ -_) '/\ V / |_ \ ---
+--- |___/|_| \___\__,_|_|_|_\___|_|  \_/ |___/ ---
+Replica: 0 / 1
+Logdir: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato
+Run script: train
+Observations
+  reward           Space(float32, shape=(), low=-inf, high=inf)
+  is_first         Space(bool, shape=(), low=False, high=True)
+  is_last          Space(bool, shape=(), low=False, high=True)
+  is_terminal      Space(bool, shape=(), low=False, high=True)
+  position         Space(float32, shape=(6,), low=-inf, high=inf)
+  velocity         Space(float32, shape=(7,), low=-inf, high=inf)
+  touch            Space(float32, shape=(2,), low=-inf, high=inf)
+Actions
+  action           Space(float32, shape=(4,), low=-1.0, high=1.0)
+Extras
+  consec           Space(int32, shape=(), low=-2147483648, high=2147483647)
+  stepid           Space(uint8, shape=(20,), low=0, high=255)
+  dyn/deter        Space(float32, shape=(512,), low=-inf, high=inf)
+  dyn/stoch        Space(float32, shape=(32, 4), low=-inf, high=inf)
+JAX devices (1): [cuda:0]
+Policy devices: cuda:0
+Train devices:  cuda:0
+Initializing parameters...
+Optimizer opt has 713,814 params:
+       438,784 dyn
+        66,111 val
+        57,663 rew
+        50,511 dec
+        50,056 pol
+        41,153 con
+         9,536 enc
+Done initializing!
+Compiling 1 checkpoint groups...
+Largest checkpoint group: 0 GB
+Compiling train and report...
+Train cost analysis:
+No available
+Report cost analysis:
+No available
+Done compiling!
+Did not find any checkpoint.
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T200322F268948
+Saved checkpoint.
+Start training loop
+Start JAX profiler: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato
+Stop JAX profiler
+
+--------------------[Agent Step 4_784]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.08 / train/loss/dyn 3.93 / train/loss/policy -1.2e-3 / train/loss/position 0.87 / train/loss/rep 3.93 / train/loss/repval 3.51 / train/loss/rew 1.78 / train/loss/touch 0.54 / train/loss/value 2.07 / train/loss/velocity 2.28 / replay/replay_ratio 757.32 / fps/policy 38.18 / fps/train 2.2e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 7_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 3.68 / train/loss/policy -1.5e-3 / train/loss/position 0.11 / train/loss/rep 3.68 / train/loss/repval 0.03 / train/loss/rew 0.01 / train/loss/touch 0.21 / train/loss/value 0.02 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 24.64 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 10_704]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 3.16 / train/loss/policy -1.6e-3 / train/loss/position 0.08 / train/loss/rep 3.16 / train/loss/repval 0.04 / train/loss/rew 2.2e-3 / train/loss/touch 0.12 / train/loss/value 0.04 / train/loss/velocity 0.48 / replay/replay_ratio 1040 / fps/policy 24.65 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 13_664]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.93 / train/loss/policy -1.6e-3 / train/loss/position 0.06 / train/loss/rep 2.93 / train/loss/repval 0.05 / train/loss/rew 6.7e-4 / train/loss/touch 0.08 / train/loss/value 0.05 / train/loss/velocity 0.42 / replay/replay_ratio 1040 / fps/policy 24.62 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 16_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.86 / train/loss/policy -1.6e-3 / train/loss/position 0.06 / train/loss/rep 2.86 / train/loss/repval 0.04 / train/loss/rew 4.1e-4 / train/loss/touch 0.07 / train/loss/value 0.04 / train/loss/velocity 0.39 / replay/replay_ratio 1040 / fps/policy 24.61 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 19_584]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.92 / train/loss/policy -2.6e-4 / train/loss/position 0.07 / train/loss/rep 2.92 / train/loss/repval 0.29 / train/loss/rew 1.2e-3 / train/loss/touch 0.07 / train/loss/value 0.29 / train/loss/velocity 0.4 / replay/replay_ratio 1040 / fps/policy 24.58 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 22_544]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.91 / train/loss/policy 9.8e-4 / train/loss/position 0.06 / train/loss/rep 2.91 / train/loss/repval 0.69 / train/loss/rew 5.5e-4 / train/loss/touch 0.07 / train/loss/value 0.69 / train/loss/velocity 0.38 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T201826F044601
+Saved checkpoint.
+
+--------------------[Agent Step 25_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.94 / train/loss/policy 2.8e-3 / train/loss/position 0.06 / train/loss/rep 2.94 / train/loss/repval 1.15 / train/loss/rew 4.3e-4 / train/loss/touch 0.06 / train/loss/value 1.15 / train/loss/velocity 0.41 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 28_480]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.83 / train/loss/policy -1.6e-3 / train/loss/position 0.05 / train/loss/rep 2.83 / train/loss/repval 1.25 / train/loss/rew 3.3e-4 / train/loss/touch 0.06 / train/loss/value 1.24 / train/loss/velocity 0.38 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 31_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.77 / train/loss/policy -3.1e-3 / train/loss/position 0.05 / train/loss/rep 2.77 / train/loss/repval 0.92 / train/loss/rew 2.8e-4 / train/loss/touch 0.05 / train/loss/value 0.92 / train/loss/velocity 0.36 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 34_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.71 / train/loss/policy -2.1e-3 / train/loss/position 0.05 / train/loss/rep 2.71 / train/loss/repval 0.54 / train/loss/rew 3e-4 / train/loss/touch 0.05 / train/loss/value 0.55 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 37_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.75 / train/loss/policy -1.5e-3 / train/loss/position 0.05 / train/loss/rep 2.75 / train/loss/repval 0.44 / train/loss/rew 3.7e-4 / train/loss/touch 0.05 / train/loss/value 0.44 / train/loss/velocity 0.36 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 40_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.76 / train/loss/policy -1.7e-3 / train/loss/position 0.04 / train/loss/rep 2.76 / train/loss/repval 0.36 / train/loss/rew 3.2e-4 / train/loss/touch 0.05 / train/loss/value 0.36 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 43_360]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.78 / train/loss/policy -1.4e-3 / train/loss/position 0.04 / train/loss/rep 2.78 / train/loss/repval 0.29 / train/loss/rew 2.7e-4 / train/loss/touch 0.04 / train/loss/value 0.3 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T203326F113936
+Saved checkpoint.
+
+--------------------[Agent Step 46_336]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.8 / train/loss/policy -1.3e-3 / train/loss/position 0.04 / train/loss/rep 2.8 / train/loss/repval 0.33 / train/loss/rew 2.5e-4 / train/loss/touch 0.04 / train/loss/value 0.33 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 49_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.83 / train/loss/policy -1.8e-3 / train/loss/position 0.04 / train/loss/rep 2.83 / train/loss/repval 0.26 / train/loss/rew 3.3e-4 / train/loss/touch 0.04 / train/loss/value 0.26 / train/loss/velocity 0.36 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 52_288]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.86 / train/loss/policy -1.7e-3 / train/loss/position 0.04 / train/loss/rep 2.86 / train/loss/repval 0.15 / train/loss/rew 4.9e-4 / train/loss/touch 0.04 / train/loss/value 0.15 / train/loss/velocity 0.36 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 55_264]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.87 / train/loss/policy -1.4e-3 / train/loss/position 0.04 / train/loss/rep 2.87 / train/loss/repval 0.12 / train/loss/rew 3.4e-4 / train/loss/touch 0.04 / train/loss/value 0.12 / train/loss/velocity 0.36 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 58_240]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.88 / train/loss/policy 6.4e-3 / train/loss/position 0.04 / train/loss/rep 2.88 / train/loss/repval 0.31 / train/loss/rew 3.5e-4 / train/loss/touch 0.04 / train/loss/value 0.3 / train/loss/velocity 0.36 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 61_216]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.88 / train/loss/policy 0.01 / train/loss/position 0.04 / train/loss/rep 2.88 / train/loss/repval 1.12 / train/loss/rew 2.9e-4 / train/loss/touch 0.04 / train/loss/value 1.11 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 64_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0.32 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.86 / train/loss/policy -4.7e-3 / train/loss/position 0.04 / train/loss/rep 2.86 / train/loss/repval 0.92 / train/loss/rew 2.9e-4 / train/loss/touch 0.04 / train/loss/value 0.87 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 67_168]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.84 / train/loss/policy -6.2e-3 / train/loss/position 0.04 / train/loss/rep 2.84 / train/loss/repval 1.3 / train/loss/rew 1e-3 / train/loss/touch 0.04 / train/loss/value 1.26 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T204826F458613
+Saved checkpoint.
+
+--------------------[Agent Step 70_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.81 / train/loss/policy -3.9e-3 / train/loss/position 0.03 / train/loss/rep 2.81 / train/loss/repval 0.96 / train/loss/rew 7.8e-4 / train/loss/touch 0.04 / train/loss/value 0.96 / train/loss/velocity 0.35 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 73_120]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.77 / train/loss/policy 1.8e-4 / train/loss/position 0.03 / train/loss/rep 2.77 / train/loss/repval 0.82 / train/loss/rew 7e-4 / train/loss/touch 0.04 / train/loss/value 0.82 / train/loss/velocity 0.34 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 76_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.73 / train/loss/policy -3.4e-3 / train/loss/position 0.03 / train/loss/rep 2.73 / train/loss/repval 0.81 / train/loss/rew 6.1e-4 / train/loss/touch 0.04 / train/loss/value 0.8 / train/loss/velocity 0.33 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 79_072]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.71 / train/loss/policy -2.7e-3 / train/loss/position 0.03 / train/loss/rep 2.71 / train/loss/repval 0.52 / train/loss/rew 5.8e-4 / train/loss/touch 0.04 / train/loss/value 0.52 / train/loss/velocity 0.33 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 82_048]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.71 / train/loss/policy -2.2e-3 / train/loss/position 0.03 / train/loss/rep 2.71 / train/loss/repval 0.4 / train/loss/rew 5.9e-4 / train/loss/touch 0.04 / train/loss/value 0.4 / train/loss/velocity 0.32 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 85_024]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.73 / train/loss/policy -2.1e-3 / train/loss/position 0.03 / train/loss/rep 2.73 / train/loss/repval 0.22 / train/loss/rew 5.4e-4 / train/loss/touch 0.04 / train/loss/value 0.22 / train/loss/velocity 0.32 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 88_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.71 / train/loss/policy -2.2e-3 / train/loss/position 0.03 / train/loss/rep 2.71 / train/loss/repval 0.16 / train/loss/rew 5.8e-4 / train/loss/touch 0.04 / train/loss/value 0.16 / train/loss/velocity 0.32 / replay/replay_ratio 1040 / fps/policy 24.69 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T210326F587114
+Saved checkpoint.
+
+--------------------[Agent Step 90_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.7 / train/loss/policy -2.1e-3 / train/loss/position 0.03 / train/loss/rep 2.7 / train/loss/repval 0.21 / train/loss/rew 5.1e-4 / train/loss/touch 0.04 / train/loss/value 0.21 / train/loss/velocity 0.31 / replay/replay_ratio 1040 / fps/policy 24.69 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 93_952]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.69 / train/loss/policy -1.8e-3 / train/loss/position 0.02 / train/loss/rep 2.69 / train/loss/repval 0.31 / train/loss/rew 4.7e-4 / train/loss/touch 0.04 / train/loss/value 0.3 / train/loss/velocity 0.31 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 96_880]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.66 / train/loss/policy -2.1e-3 / train/loss/position 0.02 / train/loss/rep 2.66 / train/loss/repval 0.34 / train/loss/rew 4.9e-4 / train/loss/touch 0.04 / train/loss/value 0.33 / train/loss/velocity 0.3 / replay/replay_ratio 1040 / fps/policy 24.32 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 99_712]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.66 / train/loss/policy -1.9e-3 / train/loss/position 0.02 / train/loss/rep 2.66 / train/loss/repval 0.29 / train/loss/rew 5.5e-4 / train/loss/touch 0.04 / train/loss/value 0.29 / train/loss/velocity 0.3 / replay/replay_ratio 1040 / fps/policy 23.57 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 102_640]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.64 / train/loss/policy -2e-3 / train/loss/position 0.02 / train/loss/rep 2.64 / train/loss/repval 0.22 / train/loss/rew 5.8e-4 / train/loss/touch 0.04 / train/loss/value 0.22 / train/loss/velocity 0.3 / replay/replay_ratio 1040 / fps/policy 24.3 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 105_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.61 / train/loss/policy -2.1e-3 / train/loss/position 0.02 / train/loss/rep 2.61 / train/loss/repval 0.14 / train/loss/rew 4.8e-4 / train/loss/touch 0.04 / train/loss/value 0.14 / train/loss/velocity 0.29 / replay/replay_ratio 1040 / fps/policy 23.8 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 108_352]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.59 / train/loss/policy -2.1e-3 / train/loss/position 0.02 / train/loss/rep 2.59 / train/loss/repval 0.08 / train/loss/rew 4.9e-4 / train/loss/touch 0.04 / train/loss/value 0.08 / train/loss/velocity 0.29 / replay/replay_ratio 1040 / fps/policy 23.68 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 111_168]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -2.2e-3 / train/loss/position 0.02 / train/loss/rep 2.57 / train/loss/repval 0.05 / train/loss/rew 4.9e-4 / train/loss/touch 0.04 / train/loss/value 0.05 / train/loss/velocity 0.28 / replay/replay_ratio 1040 / fps/policy 23.47 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T211826F792176
+Saved checkpoint.
+
+--------------------[Agent Step 113_968]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.56 / train/loss/policy -2e-3 / train/loss/position 0.02 / train/loss/rep 2.56 / train/loss/repval 0.04 / train/loss/rew 4.8e-4 / train/loss/touch 0.04 / train/loss/value 0.04 / train/loss/velocity 0.28 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 116_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.55 / train/loss/policy -2e-3 / train/loss/position 0.02 / train/loss/rep 2.55 / train/loss/repval 0.03 / train/loss/rew 4.5e-4 / train/loss/touch 0.04 / train/loss/value 0.03 / train/loss/velocity 0.28 / replay/replay_ratio 1040 / fps/policy 23.24 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 119_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.54 / train/loss/policy -1.9e-3 / train/loss/position 0.02 / train/loss/rep 2.54 / train/loss/repval 0.03 / train/loss/rew 5.3e-4 / train/loss/touch 0.04 / train/loss/value 0.03 / train/loss/velocity 0.28 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 122_368]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.53 / train/loss/policy -1.9e-3 / train/loss/position 0.02 / train/loss/rep 2.53 / train/loss/repval 0.03 / train/loss/rew 5e-4 / train/loss/touch 0.04 / train/loss/value 0.03 / train/loss/velocity 0.28 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 125_168]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.52 / train/loss/policy -1.9e-3 / train/loss/position 0.02 / train/loss/rep 2.52 / train/loss/repval 0.03 / train/loss/rew 4.4e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.27 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 127_968]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.53 / train/loss/policy -2e-3 / train/loss/position 0.02 / train/loss/rep 2.53 / train/loss/repval 0.02 / train/loss/rew 4.1e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.27 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 130_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.54 / train/loss/policy -1.8e-3 / train/loss/position 0.02 / train/loss/rep 2.54 / train/loss/repval 0.02 / train/loss/rew 4.3e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.27 / replay/replay_ratio 1040 / fps/policy 23.32 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T213327F209894
+Saved checkpoint.
+
+--------------------[Agent Step 133_584]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.54 / train/loss/policy -1.8e-3 / train/loss/position 0.02 / train/loss/rep 2.54 / train/loss/repval 0.02 / train/loss/rew 4.6e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.27 / replay/replay_ratio 1040 / fps/policy 23.39 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 136_464]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.54 / train/loss/policy -1.7e-3 / train/loss/position 0.02 / train/loss/rep 2.54 / train/loss/repval 0.02 / train/loss/rew 4.3e-4 / train/loss/touch 0.04 / train/loss/value 0.01 / train/loss/velocity 0.27 / replay/replay_ratio 1040 / fps/policy 23.88 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 139_264]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.55 / train/loss/policy -1.7e-3 / train/loss/position 0.02 / train/loss/rep 2.55 / train/loss/repval 0.02 / train/loss/rew 4.4e-4 / train/loss/touch 0.04 / train/loss/value 0.01 / train/loss/velocity 0.27 / replay/replay_ratio 1040 / fps/policy 23.23 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 142_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.55 / train/loss/policy -1.7e-3 / train/loss/position 0.02 / train/loss/rep 2.55 / train/loss/repval 0.01 / train/loss/rew 3.9e-4 / train/loss/touch 0.04 / train/loss/value 0.01 / train/loss/velocity 0.26 / replay/replay_ratio 1040 / fps/policy 23.5 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 144_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.55 / train/loss/policy -1.9e-3 / train/loss/position 0.02 / train/loss/rep 2.55 / train/loss/repval 0.02 / train/loss/rew 4.2e-4 / train/loss/touch 0.04 / train/loss/value 0.01 / train/loss/velocity 0.26 / replay/replay_ratio 1040 / fps/policy 23.45 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 147_728]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -1.7e-3 / train/loss/position 0.02 / train/loss/rep 2.57 / train/loss/repval 0.02 / train/loss/rew 6.8e-4 / train/loss/touch 0.04 / train/loss/value 0.01 / train/loss/velocity 0.26 / replay/replay_ratio 1040 / fps/policy 23.34 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 150_592]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -1.8e-3 / train/loss/position 0.02 / train/loss/rep 2.57 / train/loss/repval 0.02 / train/loss/rew 6.1e-4 / train/loss/touch 0.04 / train/loss/value 0.01 / train/loss/velocity 0.26 / replay/replay_ratio 1040 / fps/policy 23.78 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 153_392]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -1.8e-3 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.02 / train/loss/rew 6e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.26 / replay/replay_ratio 1040 / fps/policy 23.24 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T214827F409126
+Saved checkpoint.
+
+--------------------[Agent Step 156_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -2e-3 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.02 / train/loss/rew 5.3e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.48 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 159_024]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -2e-3 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.02 / train/loss/rew 5.2e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 161_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -1.9e-3 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.02 / train/loss/rew 5.6e-4 / train/loss/touch 0.04 / train/loss/value 0.02 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.35 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 164_656]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -2.6e-3 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.03 / train/loss/rew 7.6e-4 / train/loss/touch 0.04 / train/loss/value 0.03 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.42 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 167_472]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.58 / train/loss/policy -1.8e-3 / train/loss/position 0.01 / train/loss/rep 2.58 / train/loss/repval 0.12 / train/loss/rew 6.4e-4 / train/loss/touch 0.04 / train/loss/value 0.12 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.46 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 170_288]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy -2.4e-3 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.31 / train/loss/rew 6.5e-4 / train/loss/touch 0.04 / train/loss/value 0.31 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.41 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 173_120]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.58 / train/loss/policy 0.03 / train/loss/position 0.01 / train/loss/rep 2.58 / train/loss/repval 0.51 / train/loss/rew 6e-4 / train/loss/touch 0.04 / train/loss/value 0.49 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 23.52 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T220328F022777
+Saved checkpoint.
+
+--------------------[Agent Step 176_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.58 / train/loss/policy -8.7e-3 / train/loss/position 0.01 / train/loss/rep 2.58 / train/loss/repval 0.57 / train/loss/rew 5.9e-4 / train/loss/touch 0.04 / train/loss/value 0.53 / train/loss/velocity 0.25 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 179_056]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0.03 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.57 / train/loss/policy 0.02 / train/loss/position 0.01 / train/loss/rep 2.57 / train/loss/repval 0.71 / train/loss/rew 8.2e-4 / train/loss/touch 0.04 / train/loss/value 0.71 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.65 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 182_032]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.56 / train/loss/policy 8.7e-3 / train/loss/position 0.01 / train/loss/rep 2.56 / train/loss/repval 0.9 / train/loss/rew 7.5e-4 / train/loss/touch 0.04 / train/loss/value 0.85 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 185_008]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.56 / train/loss/policy -1.9e-3 / train/loss/position 0.01 / train/loss/rep 2.56 / train/loss/repval 0.8 / train/loss/rew 7e-4 / train/loss/touch 0.04 / train/loss/value 0.75 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 187_984]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.54 / train/loss/policy 1.6e-3 / train/loss/position 0.01 / train/loss/rep 2.54 / train/loss/repval 0.76 / train/loss/rew 6.6e-4 / train/loss/touch 0.04 / train/loss/value 0.69 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 190_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.53 / train/loss/policy 0.01 / train/loss/position 0.01 / train/loss/rep 2.53 / train/loss/repval 0.63 / train/loss/rew 8.7e-4 / train/loss/touch 0.04 / train/loss/value 0.59 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 193_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0.04 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.53 / train/loss/policy 0.01 / train/loss/position 0.01 / train/loss/rep 2.53 / train/loss/repval 0.61 / train/loss/rew 1.1e-3 / train/loss/touch 0.04 / train/loss/value 0.53 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 196_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.52 / train/loss/policy 6.4e-3 / train/loss/position 0.01 / train/loss/rep 2.52 / train/loss/repval 0.56 / train/loss/rew 1.2e-3 / train/loss/touch 0.04 / train/loss/value 0.45 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T221828F417117
+Saved checkpoint.
+
+--------------------[Agent Step 199_888]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.52 / train/loss/policy 0.01 / train/loss/position 0.01 / train/loss/rep 2.52 / train/loss/repval 0.53 / train/loss/rew 1.6e-3 / train/loss/touch 0.04 / train/loss/value 0.48 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 202_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.51 / train/loss/policy 0.02 / train/loss/position 0.01 / train/loss/rep 2.51 / train/loss/repval 0.55 / train/loss/rew 2.3e-3 / train/loss/touch 0.04 / train/loss/value 0.53 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 205_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.51 / train/loss/policy 0.02 / train/loss/position 0.01 / train/loss/rep 2.51 / train/loss/repval 1.03 / train/loss/rew 2.7e-3 / train/loss/touch 0.04 / train/loss/value 0.93 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 208_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 24.38 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.51 / train/loss/policy 0.03 / train/loss/position 0.01 / train/loss/rep 2.51 / train/loss/repval 1.17 / train/loss/rew 3.3e-3 / train/loss/touch 0.04 / train/loss/value 1.11 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 211_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.52 / train/loss/policy 0.04 / train/loss/position 0.01 / train/loss/rep 2.52 / train/loss/repval 1.14 / train/loss/rew 4e-3 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 214_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.51 / train/loss/policy 0.03 / train/loss/position 0.01 / train/loss/rep 2.51 / train/loss/repval 1.11 / train/loss/rew 4.1e-3 / train/loss/touch 0.04 / train/loss/value 1.14 / train/loss/velocity 0.24 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 217_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.5 / train/loss/policy 0.02 / train/loss/position 0.01 / train/loss/rep 2.5 / train/loss/repval 1.06 / train/loss/rew 4.6e-3 / train/loss/touch 0.04 / train/loss/value 1.12 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T223328F569279
+Saved checkpoint.
+
+--------------------[Agent Step 220_720]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.48 / train/loss/policy 1e-3 / train/loss/position 0.01 / train/loss/rep 2.48 / train/loss/repval 1.15 / train/loss/rew 4.7e-3 / train/loss/touch 0.04 / train/loss/value 1.03 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 223_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.48 / train/loss/policy 3.3e-3 / train/loss/position 0.01 / train/loss/rep 2.48 / train/loss/repval 1.18 / train/loss/rew 5.1e-3 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 226_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 40.94 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.48 / train/loss/policy 0.04 / train/loss/position 0.01 / train/loss/rep 2.48 / train/loss/repval 1.27 / train/loss/rew 5.6e-3 / train/loss/touch 0.04 / train/loss/value 1.17 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 229_648]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.47 / train/loss/policy 0.03 / train/loss/position 0.01 / train/loss/rep 2.47 / train/loss/repval 1.18 / train/loss/rew 6.2e-3 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 232_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.46 / train/loss/policy 0.03 / train/loss/position 0.01 / train/loss/rep 2.46 / train/loss/repval 1.19 / train/loss/rew 6.3e-3 / train/loss/touch 0.04 / train/loss/value 1.07 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 235_600]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.45 / train/loss/policy 5.7e-3 / train/loss/position 0.01 / train/loss/rep 2.45 / train/loss/repval 1.15 / train/loss/rew 6.9e-3 / train/loss/touch 0.04 / train/loss/value 1.06 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 238_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.44 / train/loss/policy 9.2e-3 / train/loss/position 9.9e-3 / train/loss/rep 2.44 / train/loss/repval 1.28 / train/loss/rew 6.8e-3 / train/loss/touch 0.04 / train/loss/value 1.16 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 241_552]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 61.83 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.44 / train/loss/policy 2.9e-3 / train/loss/position 9.9e-3 / train/loss/rep 2.44 / train/loss/repval 1.14 / train/loss/rew 7.2e-3 / train/loss/touch 0.04 / train/loss/value 1.03 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T224828F951454
+Saved checkpoint.
+
+--------------------[Agent Step 244_512]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.43 / train/loss/policy 3.5e-3 / train/loss/position 9.8e-3 / train/loss/rep 2.43 / train/loss/repval 1.07 / train/loss/rew 7.2e-3 / train/loss/touch 0.04 / train/loss/value 1.03 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.65 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 247_488]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.42 / train/loss/policy 3.8e-3 / train/loss/position 9.7e-3 / train/loss/rep 2.42 / train/loss/repval 1.09 / train/loss/rew 7.8e-3 / train/loss/touch 0.04 / train/loss/value 1.03 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 250_464]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.4 / train/loss/policy 0.02 / train/loss/position 9.7e-3 / train/loss/rep 2.4 / train/loss/repval 1.4 / train/loss/rew 7.8e-3 / train/loss/touch 0.04 / train/loss/value 1.2 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 253_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.4 / train/loss/policy 7.3e-4 / train/loss/position 9.5e-3 / train/loss/rep 2.4 / train/loss/repval 1.18 / train/loss/rew 7.9e-3 / train/loss/touch 0.04 / train/loss/value 0.99 / train/loss/velocity 0.23 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 256_416]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.4 / train/loss/policy 4.2e-3 / train/loss/position 9.5e-3 / train/loss/rep 2.4 / train/loss/repval 1.12 / train/loss/rew 8e-3 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 259_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.39 / train/loss/policy 3e-3 / train/loss/position 9.3e-3 / train/loss/rep 2.39 / train/loss/repval 1.06 / train/loss/rew 8.5e-3 / train/loss/touch 0.04 / train/loss/value 1.06 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.64 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 262_352]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.38 / train/loss/policy 4.3e-3 / train/loss/position 9.3e-3 / train/loss/rep 2.38 / train/loss/repval 1.03 / train/loss/rew 8.6e-3 / train/loss/touch 0.04 / train/loss/value 1.03 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.69 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T230329F165450
+Saved checkpoint.
+
+--------------------[Agent Step 265_328]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.37 / train/loss/policy 9.4e-3 / train/loss/position 9e-3 / train/loss/rep 2.37 / train/loss/repval 1.37 / train/loss/rew 9.3e-3 / train/loss/touch 0.04 / train/loss/value 1.36 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 268_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.37 / train/loss/policy 3.6e-3 / train/loss/position 9e-3 / train/loss/rep 2.37 / train/loss/repval 1.19 / train/loss/rew 9.6e-3 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 271_280]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.36 / train/loss/policy 3.5e-3 / train/loss/position 8.8e-3 / train/loss/rep 2.36 / train/loss/repval 1.13 / train/loss/rew 0.01 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 274_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0.01 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.36 / train/loss/policy 9.3e-3 / train/loss/position 8.8e-3 / train/loss/rep 2.36 / train/loss/repval 1.26 / train/loss/rew 0.01 / train/loss/touch 0.04 / train/loss/value 1.11 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 277_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.36 / train/loss/policy 3.7e-3 / train/loss/position 8.8e-3 / train/loss/rep 2.36 / train/loss/repval 1.21 / train/loss/rew 0.01 / train/loss/touch 0.04 / train/loss/value 0.97 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 280_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.36 / train/loss/policy 7.3e-3 / train/loss/position 8.6e-3 / train/loss/rep 2.36 / train/loss/repval 1.24 / train/loss/rew 0.01 / train/loss/touch 0.04 / train/loss/value 1.06 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 283_184]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.35 / train/loss/policy 2.4e-3 / train/loss/position 8.5e-3 / train/loss/rep 2.35 / train/loss/repval 1.14 / train/loss/rew 0.01 / train/loss/touch 0.04 / train/loss/value 0.95 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 286_160]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.36 / train/loss/policy 9.7e-3 / train/loss/position 8.6e-3 / train/loss/rep 2.36 / train/loss/repval 1.27 / train/loss/rew 0.01 / train/loss/touch 0.04 / train/loss/value 1.15 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T231829F314846
+Saved checkpoint.
+
+--------------------[Agent Step 289_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.35 / train/loss/policy 2.3e-3 / train/loss/position 8.4e-3 / train/loss/rep 2.35 / train/loss/repval 1.06 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.06 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 292_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.34 / train/loss/policy 3.9e-3 / train/loss/position 8.4e-3 / train/loss/rep 2.34 / train/loss/repval 1.07 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.1 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 295_072]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.34 / train/loss/policy 0.01 / train/loss/position 8.6e-3 / train/loss/rep 2.34 / train/loss/repval 1.39 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.29 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 298_048]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.33 / train/loss/policy 3.4e-4 / train/loss/position 8.2e-3 / train/loss/rep 2.33 / train/loss/repval 1.17 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 301_024]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.33 / train/loss/policy 8.2e-3 / train/loss/position 8.3e-3 / train/loss/rep 2.33 / train/loss/repval 1.27 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.17 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 304_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.33 / train/loss/policy 2.1e-3 / train/loss/position 8.3e-3 / train/loss/rep 2.33 / train/loss/repval 1.31 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.1 / train/loss/velocity 0.22 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 306_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 66.26 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.32 / train/loss/policy 6.9e-4 / train/loss/position 8.1e-3 / train/loss/rep 2.32 / train/loss/repval 1.21 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 0.99 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T233329F341975
+Saved checkpoint.
+
+--------------------[Agent Step 309_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.31 / train/loss/policy 0.01 / train/loss/position 8.2e-3 / train/loss/rep 2.31 / train/loss/repval 1.39 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.18 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 312_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.31 / train/loss/policy -2.3e-3 / train/loss/position 8e-3 / train/loss/rep 2.31 / train/loss/repval 1.27 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 315_888]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.3 / train/loss/policy 2e-3 / train/loss/position 7.9e-3 / train/loss/rep 2.3 / train/loss/repval 1.17 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 0.96 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 318_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 3.4e-3 / train/loss/position 7.8e-3 / train/loss/rep 2.29 / train/loss/repval 1.22 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 321_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4.5e-3 / train/loss/position 7.8e-3 / train/loss/rep 2.29 / train/loss/repval 1.16 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 0.99 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 324_800]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 5e-3 / train/loss/position 7.8e-3 / train/loss/rep 2.29 / train/loss/repval 1.2 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.07 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 327_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 3.5e-3 / train/loss/position 7.8e-3 / train/loss/rep 2.28 / train/loss/repval 1.15 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 0.99 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 330_752]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.27 / train/loss/policy 9.6e-3 / train/loss/position 7.6e-3 / train/loss/rep 2.27 / train/loss/repval 1.14 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.1 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260414T234829F749834
+Saved checkpoint.
+
+--------------------[Agent Step 333_728]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 1.2e-3 / train/loss/position 7.7e-3 / train/loss/rep 2.28 / train/loss/repval 1.14 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 336_704]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.26 / train/loss/policy 2.6e-3 / train/loss/position 7.4e-3 / train/loss/rep 2.26 / train/loss/repval 1.06 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.09 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 339_664]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 0.02 / train/loss/position 7.5e-3 / train/loss/rep 2.28 / train/loss/repval 1.44 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.4 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.64 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 342_640]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 9e-3 / train/loss/position 7.5e-3 / train/loss/rep 2.28 / train/loss/repval 1.11 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.13 / train/loss/velocity 0.21 / replay/replay_ratio 1040 / fps/policy 24.69 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 345_616]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.27 / train/loss/policy 3e-4 / train/loss/position 7.4e-3 / train/loss/rep 2.27 / train/loss/repval 1.1 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.1 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 348_592]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 9.2e-3 / train/loss/position 7.5e-3 / train/loss/rep 2.28 / train/loss/repval 1.25 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.24 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 351_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 1.6e-3 / train/loss/position 7.6e-3 / train/loss/rep 2.28 / train/loss/repval 1.11 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.12 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T000329F777272
+Saved checkpoint.
+
+--------------------[Agent Step 354_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 0 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 5.3e-3 / train/loss/position 7.6e-3 / train/loss/rep 2.28 / train/loss/repval 1.16 / train/loss/rew 0.02 / train/loss/touch 0.04 / train/loss/value 1.14 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 357_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 8.9e-3 / train/loss/position 7.6e-3 / train/loss/rep 2.28 / train/loss/repval 1.17 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.1 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 360_480]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4e-3 / train/loss/position 7.5e-3 / train/loss/rep 2.29 / train/loss/repval 1.18 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.02 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 363_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 6.6e-3 / train/loss/position 7.4e-3 / train/loss/rep 2.29 / train/loss/repval 1.11 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.06 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.77 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 366_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 5.4e-3 / train/loss/position 7.4e-3 / train/loss/rep 2.28 / train/loss/repval 1.1 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.14 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 369_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 106.8 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 3.8e-3 / train/loss/position 7.4e-3 / train/loss/rep 2.29 / train/loss/repval 1.14 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.09 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 372_368]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 3.6e-3 / train/loss/position 7.3e-3 / train/loss/rep 2.29 / train/loss/repval 1.14 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.13 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.65 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 375_344]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.3 / train/loss/policy 5.7e-3 / train/loss/position 7.3e-3 / train/loss/rep 2.3 / train/loss/repval 1.17 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T001830F223242
+Saved checkpoint.
+
+--------------------[Agent Step 378_320]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 5.2e-3 / train/loss/position 7.2e-3 / train/loss/rep 2.29 / train/loss/repval 1.17 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 381_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.3 / train/loss/policy 3.3e-3 / train/loss/position 7.1e-3 / train/loss/rep 2.3 / train/loss/repval 1.11 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 0.93 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.77 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 384_272]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4.9e-3 / train/loss/position 7e-3 / train/loss/rep 2.29 / train/loss/repval 1.04 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.77 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 387_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 114.33 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4.5e-3 / train/loss/position 7e-3 / train/loss/rep 2.29 / train/loss/repval 1.14 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.07 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.64 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 390_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4e-3 / train/loss/position 7e-3 / train/loss/rep 2.29 / train/loss/repval 1.13 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 393_184]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4.1e-3 / train/loss/position 6.9e-3 / train/loss/rep 2.29 / train/loss/repval 1.15 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.06 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 396_160]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 3.6e-3 / train/loss/position 6.9e-3 / train/loss/rep 2.29 / train/loss/repval 1.1 / train/loss/rew 0.03 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.77 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T003330F685760
+Saved checkpoint.
+
+--------------------[Agent Step 399_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4e-3 / train/loss/position 6.8e-3 / train/loss/rep 2.29 / train/loss/repval 1.24 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.19 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.77 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 402_112]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 128.74 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4.1e-3 / train/loss/position 6.7e-3 / train/loss/rep 2.29 / train/loss/repval 1.11 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.02 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.69 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 405_072]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 4.7e-3 / train/loss/position 6.7e-3 / train/loss/rep 2.29 / train/loss/repval 1.15 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.04 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 408_048]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 5.1e-3 / train/loss/position 6.7e-3 / train/loss/rep 2.29 / train/loss/repval 1.11 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.07 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 411_024]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 5e-3 / train/loss/position 6.7e-3 / train/loss/rep 2.29 / train/loss/repval 1.14 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 0.99 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.78 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 414_016]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 5.9e-3 / train/loss/position 6.5e-3 / train/loss/rep 2.29 / train/loss/repval 1.16 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 0.97 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.8 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 416_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 8.33 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 7.1e-3 / train/loss/position 6.5e-3 / train/loss/rep 2.29 / train/loss/repval 1.18 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 0.95 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 419_952]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 6.9e-3 / train/loss/position 6.5e-3 / train/loss/rep 2.29 / train/loss/repval 1.12 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 0.98 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.64 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T004830F847119
+Saved checkpoint.
+
+--------------------[Agent Step 422_928]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 8.2e-3 / train/loss/position 6.5e-3 / train/loss/rep 2.29 / train/loss/repval 1.09 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.01 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.68 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 425_904]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 8.4e-3 / train/loss/position 6.4e-3 / train/loss/rep 2.29 / train/loss/repval 1.08 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.08 / train/loss/velocity 0.2 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 428_880]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 7.3e-3 / train/loss/position 6.4e-3 / train/loss/rep 2.29 / train/loss/repval 1.13 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.18 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 431_856]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 9.9e-3 / train/loss/position 6.3e-3 / train/loss/rep 2.29 / train/loss/repval 1.12 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.11 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 434_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 136.79 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 0.01 / train/loss/position 6.3e-3 / train/loss/rep 2.29 / train/loss/repval 1.14 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.16 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.65 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 437_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 0.01 / train/loss/position 6.3e-3 / train/loss/rep 2.29 / train/loss/repval 1.22 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.14 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 440_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 0.02 / train/loss/position 6.2e-3 / train/loss/rep 2.29 / train/loss/repval 1.16 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.09 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T010331F362268
+Saved checkpoint.
+
+--------------------[Agent Step 443_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 0.02 / train/loss/position 6.2e-3 / train/loss/rep 2.29 / train/loss/repval 1.18 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.1 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 446_720]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.29 / train/loss/policy 0.02 / train/loss/position 6.1e-3 / train/loss/rep 2.29 / train/loss/repval 1.13 / train/loss/rew 0.04 / train/loss/touch 0.04 / train/loss/value 1.07 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 449_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 98.52 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 0.02 / train/loss/position 6.1e-3 / train/loss/rep 2.28 / train/loss/repval 1.13 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.02 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 452_656]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 0.02 / train/loss/position 6.1e-3 / train/loss/rep 2.28 / train/loss/repval 1.04 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.01 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 455_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.28 / train/loss/policy 0.02 / train/loss/position 6e-3 / train/loss/rep 2.28 / train/loss/repval 1.08 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 0.92 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.71 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 458_608]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.27 / train/loss/policy 0.02 / train/loss/position 6e-3 / train/loss/rep 2.27 / train/loss/repval 0.92 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.07 / train/loss/velocity 0.19 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 461_584]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.26 / train/loss/policy 0.02 / train/loss/position 5.9e-3 / train/loss/rep 2.26 / train/loss/repval 0.92 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.17 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.76 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 464_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 127.47 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.26 / train/loss/policy 0.02 / train/loss/position 5.9e-3 / train/loss/rep 2.26 / train/loss/repval 1.04 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.18 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T011831F637653
+Saved checkpoint.
+
+--------------------[Agent Step 467_520]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.25 / train/loss/policy 0.02 / train/loss/position 5.8e-3 / train/loss/rep 2.25 / train/loss/repval 1.08 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.17 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.63 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 470_496]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.25 / train/loss/policy 0.02 / train/loss/position 5.8e-3 / train/loss/rep 2.25 / train/loss/repval 1.13 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.15 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 473_472]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.25 / train/loss/policy 0.02 / train/loss/position 5.8e-3 / train/loss/rep 2.25 / train/loss/repval 1.22 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.05 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 476_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.25 / train/loss/policy 0.01 / train/loss/position 5.7e-3 / train/loss/rep 2.25 / train/loss/repval 1.24 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.05 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.74 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 479_424]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.24 / train/loss/policy 0.01 / train/loss/position 5.7e-3 / train/loss/rep 2.24 / train/loss/repval 1.22 / train/loss/rew 0.05 / train/loss/touch 0.04 / train/loss/value 1.01 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.73 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 482_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 144.96 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.24 / train/loss/policy 0.01 / train/loss/position 5.6e-3 / train/loss/rep 2.24 / train/loss/repval 1.19 / train/loss/rew 0.06 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.67 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 485_344]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.24 / train/loss/policy 0.01 / train/loss/position 5.7e-3 / train/loss/rep 2.24 / train/loss/repval 1.16 / train/loss/rew 0.06 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.66 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/ckpt/20260415T013332F210849
+Saved checkpoint.
+
+--------------------[Agent Step 488_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.23 / train/loss/policy 0.01 / train/loss/position 5.6e-3 / train/loss/rep 2.23 / train/loss/repval 1.14 / train/loss/rew 0.06 / train/loss/touch 0.04 / train/loss/value 0.99 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.64 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 491_280]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.24 / train/loss/policy 0.01 / train/loss/position 5.6e-3 / train/loss/rep 2.24 / train/loss/repval 1.14 / train/loss/rew 0.06 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.18 / replay/replay_ratio 1040 / fps/policy 24.72 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+
+--------------------[Agent Step 494_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 2.23 / train/loss/policy 0.01 / train/loss/position 5.5e-3 / train/loss/rep 2.23 / train/loss/repval 1.08 / train/loss/rew 0.06 / train/loss/touch 0.04 / train/loss/value 1.02 / train/loss/velocity 0.17 / replay/replay_ratio 1040 / fps/policy 24.75 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 497_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 154.25 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 2.22 / train/loss/policy 0.01 / train/loss/position 5.5e-3 / train/loss/rep 2.22 / train/loss/repval 1.03 / train/loss/rew 0.06 / train/loss/touch 0.04 / train/loss/value 1 / train/loss/velocity 0.17 / replay/replay_ratio 1040 / fps/policy 24.7 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/loginnode_hopper_hop_stuplus_20260414_200239_della-stellato/scores.jsonl
