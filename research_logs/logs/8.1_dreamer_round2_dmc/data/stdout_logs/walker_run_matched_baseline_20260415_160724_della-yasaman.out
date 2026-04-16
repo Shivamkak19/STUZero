@@ -1,0 +1,809 @@
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+2026-04-15 16:08:18.130424: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+2026-04-15 16:08:18.733848: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+---  ___                           __   ______ ---
+--- |   \ _ _ ___ __ _ _ __  ___ _ \ \ / /__ / ---
+--- | |) | '_/ -_) _` | '  \/ -_) '/\ V / |_ \ ---
+--- |___/|_| \___\__,_|_|_|_\___|_|  \_/ |___/ ---
+Replica: 0 / 1
+Logdir: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman
+Run script: train
+Observations
+  reward           Space(float32, shape=(), low=-inf, high=inf)
+  is_first         Space(bool, shape=(), low=False, high=True)
+  is_last          Space(bool, shape=(), low=False, high=True)
+  is_terminal      Space(bool, shape=(), low=False, high=True)
+  orientations     Space(float32, shape=(14,), low=-inf, high=inf)
+  height           Space(float32, shape=(), low=-inf, high=inf)
+  velocity         Space(float32, shape=(9,), low=-inf, high=inf)
+Actions
+  action           Space(float32, shape=(6,), low=-1.0, high=1.0)
+Extras
+  consec           Space(int32, shape=(), low=-2147483648, high=2147483647)
+  stepid           Space(uint8, shape=(20,), low=0, high=255)
+  dyn/deter        Space(float32, shape=(576,), low=-inf, high=inf)
+  dyn/stoch        Space(float32, shape=(32, 4), low=-inf, high=inf)
+JAX devices (1): [cuda:0]
+Policy devices: cuda:0
+Train devices:  cuda:0
+Initializing parameters...
+Optimizer opt has 795,755 params:
+       457,168 dyn
+        80,103 val
+        69,447 rew
+        63,240 dec
+        62,364 pol
+        50,905 con
+        12,528 enc
+Done initializing!
+Compiling 1 checkpoint groups...
+Largest checkpoint group: 0 GB
+Compiling train and report...
+Train cost analysis:
+No available
+Report cost analysis:
+No available
+Done compiling!
+Did not find any checkpoint.
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T160808F447712
+Saved checkpoint.
+Start training loop
+Start JAX profiler: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman
+Stop JAX profiler
+
+--------------------[Agent Step 6_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.04 / train/loss/dyn 5.91 / train/loss/height 0.04 / train/loss/orientations 1.74 / train/loss/policy 0.79 / train/loss/rep 5.91 / train/loss/repval 4.42 / train/loss/rew 1.31 / train/loss/value 2.37 / train/loss/velocity 5.92 / replay/replay_ratio 848.56 / fps/policy 53.05 / fps/train 3.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 11_360]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.42 / train/loss/height 8.1e-3 / train/loss/orientations 0.64 / train/loss/policy 0.94 / train/loss/rep 5.42 / train/loss/repval 1.93 / train/loss/rew 0.39 / train/loss/value 1.19 / train/loss/velocity 1.79 / replay/replay_ratio 1040 / fps/policy 39.8 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 16_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 34.26 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.31 / train/loss/height 8.6e-3 / train/loss/orientations 0.6 / train/loss/policy 0.46 / train/loss/rep 5.31 / train/loss/repval 1.33 / train/loss/rew 0.42 / train/loss/value 1.06 / train/loss/velocity 1.66 / replay/replay_ratio 1040 / fps/policy 39.83 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 20_928]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.75 / train/loss/height 9.5e-3 / train/loss/orientations 0.61 / train/loss/policy -0.25 / train/loss/rep 5.75 / train/loss/repval 1.06 / train/loss/rew 0.45 / train/loss/value 0.88 / train/loss/velocity 1.59 / replay/replay_ratio 1040 / fps/policy 39.78 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 25_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.06 / train/loss/height 7.9e-3 / train/loss/orientations 0.56 / train/loss/policy -0.16 / train/loss/rep 6.06 / train/loss/repval 1.11 / train/loss/rew 0.46 / train/loss/value 0.91 / train/loss/velocity 1.49 / replay/replay_ratio 1040 / fps/policy 39.68 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 30_480]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.33 / train/loss/height 7.2e-3 / train/loss/orientations 0.53 / train/loss/policy -0.19 / train/loss/rep 6.33 / train/loss/repval 1.16 / train/loss/rew 0.46 / train/loss/value 0.99 / train/loss/velocity 1.44 / replay/replay_ratio 1040 / fps/policy 39.85 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 35_280]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 38.02 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.26 / train/loss/height 7e-3 / train/loss/orientations 0.49 / train/loss/policy -0.14 / train/loss/rep 6.26 / train/loss/repval 1.1 / train/loss/rew 0.45 / train/loss/value 0.89 / train/loss/velocity 1.35 / replay/replay_ratio 1040 / fps/policy 39.87 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T162311F460876
+Saved checkpoint.
+
+--------------------[Agent Step 40_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.27 / train/loss/height 7.1e-3 / train/loss/orientations 0.47 / train/loss/policy -0.13 / train/loss/rep 6.27 / train/loss/repval 1.14 / train/loss/rew 0.46 / train/loss/value 1.14 / train/loss/velocity 1.3 / replay/replay_ratio 1040 / fps/policy 39.87 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 44_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 6.6e-3 / train/loss/orientations 0.45 / train/loss/policy -0.16 / train/loss/rep 6.41 / train/loss/repval 1.07 / train/loss/rew 0.45 / train/loss/value 1.15 / train/loss/velocity 1.28 / replay/replay_ratio 1040 / fps/policy 39.89 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 49_648]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 43.52 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 6.3e-3 / train/loss/orientations 0.43 / train/loss/policy -0.09 / train/loss/rep 6.55 / train/loss/repval 1.03 / train/loss/rew 0.45 / train/loss/value 1.11 / train/loss/velocity 1.27 / replay/replay_ratio 1040 / fps/policy 39.82 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 54_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.6 / train/loss/height 6.5e-3 / train/loss/orientations 0.42 / train/loss/policy -0.05 / train/loss/rep 6.6 / train/loss/repval 1.09 / train/loss/rew 0.45 / train/loss/value 1.03 / train/loss/velocity 1.26 / replay/replay_ratio 1040 / fps/policy 39.83 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 59_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.62 / train/loss/height 6.2e-3 / train/loss/orientations 0.4 / train/loss/policy -0.18 / train/loss/rep 6.62 / train/loss/repval 1.1 / train/loss/rew 0.45 / train/loss/value 1.14 / train/loss/velocity 1.23 / replay/replay_ratio 1040 / fps/policy 39.9 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 64_032]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.69 / train/loss/height 5.9e-3 / train/loss/orientations 0.39 / train/loss/policy -0.12 / train/loss/rep 6.69 / train/loss/repval 1.02 / train/loss/rew 0.46 / train/loss/value 1.11 / train/loss/velocity 1.22 / replay/replay_ratio 1040 / fps/policy 39.89 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 68_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 56.93 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.77 / train/loss/height 6.2e-3 / train/loss/orientations 0.37 / train/loss/policy -0.12 / train/loss/rep 6.77 / train/loss/repval 1.12 / train/loss/rew 0.47 / train/loss/value 1.21 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 39.78 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T163811F657635
+Saved checkpoint.
+
+--------------------[Agent Step 73_600]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.82 / train/loss/height 5.9e-3 / train/loss/orientations 0.36 / train/loss/policy -0.15 / train/loss/rep 6.82 / train/loss/repval 1.19 / train/loss/rew 0.47 / train/loss/value 1.22 / train/loss/velocity 1.2 / replay/replay_ratio 1040 / fps/policy 39.81 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 78_400]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.88 / train/loss/height 5.6e-3 / train/loss/orientations 0.34 / train/loss/policy -0.12 / train/loss/rep 6.88 / train/loss/repval 1.19 / train/loss/rew 0.47 / train/loss/value 1.22 / train/loss/velocity 1.18 / replay/replay_ratio 1040 / fps/policy 39.91 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 83_184]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 87.75 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.96 / train/loss/height 5.5e-3 / train/loss/orientations 0.34 / train/loss/policy -0.14 / train/loss/rep 6.96 / train/loss/repval 1.27 / train/loss/rew 0.48 / train/loss/value 1.11 / train/loss/velocity 1.18 / replay/replay_ratio 1040 / fps/policy 39.77 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 87_968]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.97 / train/loss/height 5.3e-3 / train/loss/orientations 0.32 / train/loss/policy -0.17 / train/loss/rep 6.97 / train/loss/repval 1.2 / train/loss/rew 0.48 / train/loss/value 0.98 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 39.77 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 92_752]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.96 / train/loss/height 5e-3 / train/loss/orientations 0.31 / train/loss/policy -0.12 / train/loss/rep 6.96 / train/loss/repval 1.03 / train/loss/rew 0.48 / train/loss/value 0.76 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 39.79 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 97_520]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 94.35 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 7 / train/loss/height 4.9e-3 / train/loss/orientations 0.3 / train/loss/policy -0.11 / train/loss/rep 7 / train/loss/repval 0.94 / train/loss/rew 0.48 / train/loss/value 0.83 / train/loss/velocity 1.14 / replay/replay_ratio 1040 / fps/policy 39.71 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 102_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 7.01 / train/loss/height 4.7e-3 / train/loss/orientations 0.29 / train/loss/policy -0.08 / train/loss/rep 7.01 / train/loss/repval 1.05 / train/loss/rew 0.48 / train/loss/value 0.77 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 39.75 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 107_088]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.98 / train/loss/height 4.5e-3 / train/loss/orientations 0.27 / train/loss/policy -0.12 / train/loss/rep 6.98 / train/loss/repval 1.19 / train/loss/rew 0.49 / train/loss/value 0.86 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 39.77 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T165311F895667
+Saved checkpoint.
+
+--------------------[Agent Step 111_856]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.93 / train/loss/height 4.3e-3 / train/loss/orientations 0.26 / train/loss/policy -0.12 / train/loss/rep 6.93 / train/loss/repval 0.93 / train/loss/rew 0.49 / train/loss/value 0.87 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 39.67 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 116_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 123.35 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.95 / train/loss/height 4.3e-3 / train/loss/orientations 0.25 / train/loss/policy -0.11 / train/loss/rep 6.95 / train/loss/repval 0.89 / train/loss/rew 0.49 / train/loss/value 0.9 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 39.67 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 121_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.91 / train/loss/height 4.1e-3 / train/loss/orientations 0.24 / train/loss/policy -0.14 / train/loss/rep 6.91 / train/loss/repval 0.87 / train/loss/rew 0.49 / train/loss/value 1.02 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 39.76 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 126_160]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.91 / train/loss/height 3.9e-3 / train/loss/orientations 0.23 / train/loss/policy -0.17 / train/loss/rep 6.91 / train/loss/repval 1.26 / train/loss/rew 0.49 / train/loss/value 1.18 / train/loss/velocity 1.08 / replay/replay_ratio 1040 / fps/policy 39.58 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 130_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 122.97 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.9 / train/loss/height 3.8e-3 / train/loss/orientations 0.23 / train/loss/policy -0.15 / train/loss/rep 6.9 / train/loss/repval 1.25 / train/loss/rew 0.49 / train/loss/value 0.92 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 39.58 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 135_680]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.86 / train/loss/height 3.7e-3 / train/loss/orientations 0.22 / train/loss/policy -0.14 / train/loss/rep 6.86 / train/loss/repval 1.22 / train/loss/rew 0.49 / train/loss/value 0.87 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 39.69 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 140_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.83 / train/loss/height 3.6e-3 / train/loss/orientations 0.21 / train/loss/policy -0.12 / train/loss/rep 6.83 / train/loss/repval 1.16 / train/loss/rew 0.49 / train/loss/value 0.79 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 39.55 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T170812F296186
+Saved checkpoint.
+
+--------------------[Agent Step 145_152]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 126.12 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.78 / train/loss/height 3.5e-3 / train/loss/orientations 0.2 / train/loss/policy -0.12 / train/loss/rep 6.78 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 0.69 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 39.27 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 149_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.76 / train/loss/height 3.4e-3 / train/loss/orientations 0.2 / train/loss/policy -0.13 / train/loss/rep 6.76 / train/loss/repval 0.92 / train/loss/rew 0.49 / train/loss/value 0.71 / train/loss/velocity 1.04 / replay/replay_ratio 1040 / fps/policy 39.27 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 154_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.73 / train/loss/height 3.2e-3 / train/loss/orientations 0.19 / train/loss/policy -0.13 / train/loss/rep 6.73 / train/loss/repval 0.88 / train/loss/rew 0.49 / train/loss/value 0.95 / train/loss/velocity 1.03 / replay/replay_ratio 1040 / fps/policy 39.5 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 159_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.68 / train/loss/height 3.1e-3 / train/loss/orientations 0.18 / train/loss/policy -0.13 / train/loss/rep 6.68 / train/loss/repval 0.97 / train/loss/rew 0.49 / train/loss/value 1.19 / train/loss/velocity 1.02 / replay/replay_ratio 1040 / fps/policy 39.51 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 164_112]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 170.02 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.66 / train/loss/height 3e-3 / train/loss/orientations 0.18 / train/loss/policy -0.12 / train/loss/rep 6.66 / train/loss/repval 1.1 / train/loss/rew 0.49 / train/loss/value 1.26 / train/loss/velocity 1.01 / replay/replay_ratio 1040 / fps/policy 39.35 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 168_848]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.64 / train/loss/height 2.9e-3 / train/loss/orientations 0.17 / train/loss/policy -0.12 / train/loss/rep 6.64 / train/loss/repval 1.21 / train/loss/rew 0.49 / train/loss/value 1.08 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 39.45 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 173_616]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.61 / train/loss/height 2.8e-3 / train/loss/orientations 0.17 / train/loss/policy -0.13 / train/loss/rep 6.61 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 0.75 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 178_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 196.81 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.58 / train/loss/height 2.7e-3 / train/loss/orientations 0.16 / train/loss/policy -0.11 / train/loss/rep 6.58 / train/loss/repval 0.9 / train/loss/rew 0.49 / train/loss/value 0.85 / train/loss/velocity 0.99 / replay/replay_ratio 1040 / fps/policy 39.62 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T172312F644196
+Saved checkpoint.
+
+--------------------[Agent Step 183_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.54 / train/loss/height 2.6e-3 / train/loss/orientations 0.15 / train/loss/policy -0.1 / train/loss/rep 6.54 / train/loss/repval 0.95 / train/loss/rew 0.49 / train/loss/value 0.98 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 39.51 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 187_904]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.47 / train/loss/height 2.5e-3 / train/loss/orientations 0.15 / train/loss/policy -0.1 / train/loss/rep 6.47 / train/loss/repval 1 / train/loss/rew 0.49 / train/loss/value 1.09 / train/loss/velocity 0.97 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 192_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 205.98 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.42 / train/loss/height 2.4e-3 / train/loss/orientations 0.14 / train/loss/policy -0.1 / train/loss/rep 6.42 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 1.21 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 39.69 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 197_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.4 / train/loss/height 2.3e-3 / train/loss/orientations 0.14 / train/loss/policy -0.09 / train/loss/rep 6.4 / train/loss/repval 1.13 / train/loss/rew 0.49 / train/loss/value 1.23 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 202_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.36 / train/loss/height 2.2e-3 / train/loss/orientations 0.14 / train/loss/policy -0.1 / train/loss/rep 6.36 / train/loss/repval 1.17 / train/loss/rew 0.49 / train/loss/value 1.03 / train/loss/velocity 0.95 / replay/replay_ratio 1040 / fps/policy 39.75 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 207_008]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.33 / train/loss/height 2.2e-3 / train/loss/orientations 0.13 / train/loss/policy -0.12 / train/loss/rep 6.33 / train/loss/repval 1.09 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 39.75 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 211_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 189.54 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.32 / train/loss/height 2.1e-3 / train/loss/orientations 0.13 / train/loss/policy -0.11 / train/loss/rep 6.32 / train/loss/repval 0.91 / train/loss/rew 0.49 / train/loss/value 0.88 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T173812F714435
+Saved checkpoint.
+
+--------------------[Agent Step 216_544]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.28 / train/loss/height 2.1e-3 / train/loss/orientations 0.13 / train/loss/policy -0.1 / train/loss/rep 6.28 / train/loss/repval 0.93 / train/loss/rew 0.49 / train/loss/value 0.95 / train/loss/velocity 0.93 / replay/replay_ratio 1040 / fps/policy 39.68 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 221_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.23 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.1 / train/loss/rep 6.23 / train/loss/repval 1.02 / train/loss/rew 0.49 / train/loss/value 1.12 / train/loss/velocity 0.92 / replay/replay_ratio 1040 / fps/policy 39.73 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 226_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 257.88 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.18 / train/loss/height 1.9e-3 / train/loss/orientations 0.12 / train/loss/policy -0.1 / train/loss/rep 6.18 / train/loss/repval 1.12 / train/loss/rew 0.49 / train/loss/value 1.22 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 230_848]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.17 / train/loss/height 1.9e-3 / train/loss/orientations 0.12 / train/loss/policy -0.1 / train/loss/rep 6.17 / train/loss/repval 1.16 / train/loss/rew 0.49 / train/loss/value 1.11 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 39.66 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 235_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.13 / train/loss/height 1.8e-3 / train/loss/orientations 0.11 / train/loss/policy -0.1 / train/loss/rep 6.13 / train/loss/repval 1.16 / train/loss/rew 0.49 / train/loss/value 1 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 39.75 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 240_400]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 238.04 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.09 / train/loss/height 1.8e-3 / train/loss/orientations 0.11 / train/loss/policy -0.1 / train/loss/rep 6.09 / train/loss/repval 1.13 / train/loss/rew 0.49 / train/loss/value 0.89 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 39.73 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 245_152]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.06 / train/loss/height 1.7e-3 / train/loss/orientations 0.11 / train/loss/policy -0.12 / train/loss/rep 6.06 / train/loss/repval 1.01 / train/loss/rew 0.49 / train/loss/value 0.84 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 39.6 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 249_920]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.02 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.1 / train/loss/rep 6.02 / train/loss/repval 0.93 / train/loss/rew 0.49 / train/loss/value 0.88 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 39.69 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T175313F080108
+Saved checkpoint.
+
+--------------------[Agent Step 254_688]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.98 / train/loss/height 1.6e-3 / train/loss/orientations 0.1 / train/loss/policy -0.1 / train/loss/rep 5.98 / train/loss/repval 0.96 / train/loss/rew 0.49 / train/loss/value 0.99 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 39.68 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 259_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 270.7 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.95 / train/loss/height 1.6e-3 / train/loss/orientations 0.1 / train/loss/policy -0.1 / train/loss/rep 5.95 / train/loss/repval 1.02 / train/loss/rew 0.49 / train/loss/value 1.11 / train/loss/velocity 0.86 / replay/replay_ratio 1040 / fps/policy 39.62 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 264_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.91 / train/loss/height 1.5e-3 / train/loss/orientations 0.1 / train/loss/policy -0.1 / train/loss/rep 5.91 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 1.2 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 39.68 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 268_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.87 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.1 / train/loss/rep 5.87 / train/loss/repval 1.12 / train/loss/rew 0.49 / train/loss/value 1.2 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 273_760]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 304.23 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.84 / train/loss/height 1.4e-3 / train/loss/orientations 0.09 / train/loss/policy -0.1 / train/loss/rep 5.84 / train/loss/repval 1.15 / train/loss/rew 0.5 / train/loss/value 1.07 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 278_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.82 / train/loss/height 1.4e-3 / train/loss/orientations 0.09 / train/loss/policy -0.11 / train/loss/rep 5.82 / train/loss/repval 1.12 / train/loss/rew 0.5 / train/loss/value 0.93 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 39.63 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 283_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.8 / train/loss/height 1.4e-3 / train/loss/orientations 0.09 / train/loss/policy -0.1 / train/loss/rep 5.8 / train/loss/repval 0.98 / train/loss/rew 0.5 / train/loss/value 0.83 / train/loss/velocity 0.83 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T180813F402381
+Saved checkpoint.
+
+--------------------[Agent Step 288_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.78 / train/loss/height 1.4e-3 / train/loss/orientations 0.09 / train/loss/policy -0.08 / train/loss/rep 5.78 / train/loss/repval 0.96 / train/loss/rew 0.49 / train/loss/value 0.74 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 39.73 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 292_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 286.45 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.76 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.08 / train/loss/rep 5.76 / train/loss/repval 0.97 / train/loss/rew 0.5 / train/loss/value 0.72 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 39.58 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 297_584]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.74 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.74 / train/loss/repval 0.95 / train/loss/rew 0.5 / train/loss/value 0.75 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 39.68 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 302_352]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.72 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.72 / train/loss/repval 0.94 / train/loss/rew 0.5 / train/loss/value 0.8 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 39.71 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 307_104]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 307.01 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.7 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.09 / train/loss/rep 5.7 / train/loss/repval 0.94 / train/loss/rew 0.5 / train/loss/value 0.91 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 39.6 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 311_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.68 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.1 / train/loss/rep 5.68 / train/loss/repval 0.99 / train/loss/rew 0.5 / train/loss/value 1.06 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 39.65 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 316_640]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.65 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.11 / train/loss/rep 5.65 / train/loss/repval 1.11 / train/loss/rew 0.5 / train/loss/value 1.21 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 39.73 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 321_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 322.62 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.64 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.11 / train/loss/rep 5.64 / train/loss/repval 1.16 / train/loss/rew 0.49 / train/loss/value 1.02 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 39.66 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T182313F701477
+Saved checkpoint.
+
+--------------------[Agent Step 326_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.63 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.12 / train/loss/rep 5.63 / train/loss/repval 1.08 / train/loss/rew 0.5 / train/loss/value 0.83 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 39.6 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 330_944]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.62 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.11 / train/loss/rep 5.62 / train/loss/repval 0.98 / train/loss/rew 0.5 / train/loss/value 1.02 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 335_712]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.59 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.1 / train/loss/rep 5.59 / train/loss/repval 1.02 / train/loss/rew 0.5 / train/loss/value 1.14 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 39.73 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 340_480]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 339.67 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.58 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.1 / train/loss/rep 5.58 / train/loss/repval 1.08 / train/loss/rew 0.5 / train/loss/value 1.22 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 39.6 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 345_248]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.55 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.12 / train/loss/rep 5.55 / train/loss/repval 1.12 / train/loss/rew 0.5 / train/loss/value 1.24 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 39.67 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 350_016]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.54 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.12 / train/loss/rep 5.54 / train/loss/repval 1.18 / train/loss/rew 0.5 / train/loss/value 1.11 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 354_784]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 379.3 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.52 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.11 / train/loss/rep 5.52 / train/loss/repval 1.17 / train/loss/rew 0.5 / train/loss/value 0.91 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 39.61 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T183813F977994
+Saved checkpoint.
+
+--------------------[Agent Step 359_552]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.49 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.13 / train/loss/rep 5.49 / train/loss/repval 1.07 / train/loss/rew 0.5 / train/loss/value 0.95 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 39.62 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 364_336]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.47 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.1 / train/loss/rep 5.47 / train/loss/repval 0.99 / train/loss/rew 0.5 / train/loss/value 1.12 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 39.73 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 369_104]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 425.26 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.43 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.1 / train/loss/rep 5.43 / train/loss/repval 1.01 / train/loss/rew 0.5 / train/loss/value 1.16 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 39.67 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 373_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.41 / train/loss/height 9.9e-4 / train/loss/orientations 0.07 / train/loss/policy -0.1 / train/loss/rep 5.41 / train/loss/repval 1.04 / train/loss/rew 0.5 / train/loss/value 1.22 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 39.4 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 378_608]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.37 / train/loss/height 9.7e-4 / train/loss/orientations 0.06 / train/loss/policy -0.1 / train/loss/rep 5.37 / train/loss/repval 1.08 / train/loss/rew 0.5 / train/loss/value 1.23 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 383_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.34 / train/loss/height 9.6e-4 / train/loss/orientations 0.06 / train/loss/policy -0.09 / train/loss/rep 5.34 / train/loss/repval 1.13 / train/loss/rew 0.5 / train/loss/value 1.21 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 388_128]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 476.32 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.31 / train/loss/height 9.5e-4 / train/loss/orientations 0.06 / train/loss/policy -0.1 / train/loss/rep 5.31 / train/loss/repval 1.15 / train/loss/rew 0.5 / train/loss/value 1.11 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 39.58 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 392_896]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.29 / train/loss/height 9.4e-4 / train/loss/orientations 0.06 / train/loss/policy -0.1 / train/loss/rep 5.29 / train/loss/repval 1.16 / train/loss/rew 0.5 / train/loss/value 0.94 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 39.68 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T185314F016460
+Saved checkpoint.
+
+--------------------[Agent Step 397_664]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.27 / train/loss/height 9.3e-4 / train/loss/orientations 0.06 / train/loss/policy -0.1 / train/loss/rep 5.27 / train/loss/repval 0.96 / train/loss/rew 0.5 / train/loss/value 0.9 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 39.7 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 402_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 454.16 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.24 / train/loss/height 9.2e-4 / train/loss/orientations 0.06 / train/loss/policy -0.09 / train/loss/rep 5.24 / train/loss/repval 0.95 / train/loss/rew 0.5 / train/loss/value 0.9 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 39.62 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 407_200]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.21 / train/loss/height 9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.09 / train/loss/rep 5.21 / train/loss/repval 0.95 / train/loss/rew 0.5 / train/loss/value 1.01 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 411_984]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.18 / train/loss/height 9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.09 / train/loss/rep 5.18 / train/loss/repval 0.97 / train/loss/rew 0.5 / train/loss/value 1.11 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 39.74 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 416_752]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 554.29 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.14 / train/loss/height 8.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.09 / train/loss/rep 5.14 / train/loss/repval 0.99 / train/loss/rew 0.5 / train/loss/value 1.17 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 39.69 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 421_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.12 / train/loss/height 8.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.08 / train/loss/rep 5.12 / train/loss/repval 1.03 / train/loss/rew 0.5 / train/loss/value 1.21 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 39.52 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 426_272]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.08 / train/loss/height 8.7e-4 / train/loss/orientations 0.06 / train/loss/policy -0.08 / train/loss/rep 5.08 / train/loss/repval 1.06 / train/loss/rew 0.5 / train/loss/value 1.22 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 39.7 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T190814F380207
+Saved checkpoint.
+
+--------------------[Agent Step 431_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.04 / train/loss/height 8.5e-4 / train/loss/orientations 0.06 / train/loss/policy -0.08 / train/loss/rep 5.04 / train/loss/repval 1.09 / train/loss/rew 0.49 / train/loss/value 1.17 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 39.69 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 435_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 604.3 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.01 / train/loss/height 8.5e-4 / train/loss/orientations 0.05 / train/loss/policy -0.08 / train/loss/rep 5.01 / train/loss/repval 1.11 / train/loss/rew 0.49 / train/loss/value 1.11 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 39.56 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 440_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.98 / train/loss/height 8.4e-4 / train/loss/orientations 0.05 / train/loss/policy -0.08 / train/loss/rep 4.98 / train/loss/repval 1.1 / train/loss/rew 0.49 / train/loss/value 1.07 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 39.66 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 445_328]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.96 / train/loss/height 8.3e-4 / train/loss/orientations 0.05 / train/loss/policy -0.07 / train/loss/rep 4.96 / train/loss/repval 1.09 / train/loss/rew 0.49 / train/loss/value 1.03 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 39.71 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 450_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 572.24 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.91 / train/loss/height 8.2e-4 / train/loss/orientations 0.05 / train/loss/policy -0.07 / train/loss/rep 4.91 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 0.96 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 39.62 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 454_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.89 / train/loss/height 8.3e-4 / train/loss/orientations 0.05 / train/loss/policy -0.08 / train/loss/rep 4.89 / train/loss/repval 1.09 / train/loss/rew 0.49 / train/loss/value 0.86 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 39.62 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 459_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.86 / train/loss/height 8.1e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.86 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 464_400]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.83 / train/loss/height 8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.83 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 39.72 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/ckpt/20260415T192314F427926
+Saved checkpoint.
+
+--------------------[Agent Step 469_152]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 525.47 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.8 / train/loss/height 7.9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.8 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 39.47 / fps/train 4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 473_920]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.77 / train/loss/height 7.9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.77 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 39.67 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 478_704]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.73 / train/loss/height 7.8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.73 / train/loss/repval 1.08 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 39.74 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 483_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 588.04 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.71 / train/loss/height 7.7e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.71 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 39.55 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 488_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.68 / train/loss/height 7.6e-4 / train/loss/orientations 0.05 / train/loss/policy -0.06 / train/loss/rep 4.68 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 39.63 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+
+--------------------[Agent Step 492_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.66 / train/loss/height 7.6e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.66 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 0.8 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 39.71 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+
+--------------------[Agent Step 497_760]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 630.3 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.62 / train/loss/height 7.5e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.62 / train/loss/repval 1.06 / train/loss/rew 0.49 / train/loss/value 0.81 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 39.64 / fps/train 4.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_matched_baseline_20260415_160724_della-yasaman/metrics.jsonl

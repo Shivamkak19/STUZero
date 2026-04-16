@@ -1,0 +1,1660 @@
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+2026-04-15 16:08:48.032533: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+2026-04-15 16:08:49.519190: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+---  ___                           __   ______ ---
+--- |   \ _ _ ___ __ _ _ __  ___ _ \ \ / /__ / ---
+--- | |) | '_/ -_) _` | '  \/ -_) '/\ V / |_ \ ---
+--- |___/|_| \___\__,_|_|_|_\___|_|  \_/ |___/ ---
+Replica: 0 / 1
+Logdir: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol
+Run script: train
+Observations
+  reward           Space(float32, shape=(), low=-inf, high=inf)
+  is_first         Space(bool, shape=(), low=False, high=True)
+  is_last          Space(bool, shape=(), low=False, high=True)
+  is_terminal      Space(bool, shape=(), low=False, high=True)
+  orientations     Space(float32, shape=(14,), low=-inf, high=inf)
+  height           Space(float32, shape=(), low=-inf, high=inf)
+  velocity         Space(float32, shape=(9,), low=-inf, high=inf)
+Actions
+  action           Space(float32, shape=(6,), low=-1.0, high=1.0)
+Extras
+  consec           Space(int32, shape=(), low=-2147483648, high=2147483647)
+  stepid           Space(uint8, shape=(20,), low=0, high=255)
+  dyn/deter        Space(float32, shape=(512,), low=-inf, high=inf)
+  dyn/stoch        Space(float32, shape=(32, 4), low=-inf, high=inf)
+JAX devices (1): [cuda:0]
+Policy devices: cuda:0
+Train devices:  cuda:0
+Initializing parameters...
+Optimizer opt has 715,619 params:
+       439,168 dyn
+        66,111 val
+        57,663 rew
+        51,096 dec
+        50,316 pol
+        41,153 con
+        10,112 enc
+Done initializing!
+Compiling 1 checkpoint groups...
+Largest checkpoint group: 0 GB
+Compiling train and report...
+Train cost analysis:
+No available
+Report cost analysis:
+No available
+Done compiling!
+Did not find any checkpoint.
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T160832F085502
+Saved checkpoint.
+Start training loop
+Start JAX profiler: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol
+Stop JAX profiler
+
+--------------------[Agent Step 4_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.09 / train/loss/dyn 5.66 / train/loss/height 0.07 / train/loss/orientations 2.82 / train/loss/policy 0.83 / train/loss/rep 5.66 / train/loss/repval 6.67 / train/loss/rew 2.63 / train/loss/value 3.72 / train/loss/velocity 10.97 / replay/replay_ratio 692.2 / fps/policy 32.22 / fps/train 1.6e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 6_320]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.57 / train/loss/height 0.01 / train/loss/orientations 0.88 / train/loss/policy 1.44 / train/loss/rep 6.57 / train/loss/repval 3.42 / train/loss/rew 0.54 / train/loss/value 1.71 / train/loss/velocity 2.66 / replay/replay_ratio 1040 / fps/policy 18.61 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 8_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.96 / train/loss/height 8.8e-3 / train/loss/orientations 0.64 / train/loss/policy 1.57 / train/loss/rep 5.96 / train/loss/repval 2.55 / train/loss/rew 0.49 / train/loss/value 1.39 / train/loss/velocity 2.03 / replay/replay_ratio 1040 / fps/policy 18.6 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 10_800]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.65 / train/loss/height 7.2e-3 / train/loss/orientations 0.63 / train/loss/policy 2.15 / train/loss/rep 5.65 / train/loss/repval 2.22 / train/loss/rew 0.48 / train/loss/value 1.44 / train/loss/velocity 1.79 / replay/replay_ratio 1040 / fps/policy 18.63 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 13_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.44 / train/loss/height 7.3e-3 / train/loss/orientations 0.63 / train/loss/policy 1.57 / train/loss/rep 5.44 / train/loss/repval 1.98 / train/loss/rew 0.49 / train/loss/value 1.43 / train/loss/velocity 1.71 / replay/replay_ratio 1040 / fps/policy 18.62 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 15_248]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.79 / train/loss/height 6.4e-3 / train/loss/orientations 0.55 / train/loss/policy 1.34 / train/loss/rep 4.79 / train/loss/repval 1.56 / train/loss/rew 0.48 / train/loss/value 1.22 / train/loss/velocity 1.47 / replay/replay_ratio 1040 / fps/policy 18.34 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 17_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 27.87 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.52 / train/loss/height 6.2e-3 / train/loss/orientations 0.49 / train/loss/policy 1.27 / train/loss/rep 4.52 / train/loss/repval 1.35 / train/loss/rew 0.48 / train/loss/value 1.16 / train/loss/velocity 1.31 / replay/replay_ratio 1040 / fps/policy 17.95 / fps/train 1.8e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T162337F449302
+Saved checkpoint.
+
+--------------------[Agent Step 19_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.9 / train/loss/height 7.9e-3 / train/loss/orientations 0.52 / train/loss/policy 0.6 / train/loss/rep 4.9 / train/loss/repval 1.24 / train/loss/rew 0.49 / train/loss/value 1.1 / train/loss/velocity 1.31 / replay/replay_ratio 1040 / fps/policy 18.51 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 21_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.18 / train/loss/height 7.6e-3 / train/loss/orientations 0.5 / train/loss/policy 0.15 / train/loss/rep 5.18 / train/loss/repval 1.05 / train/loss/rew 0.5 / train/loss/value 0.89 / train/loss/velocity 1.31 / replay/replay_ratio 1040 / fps/policy 18.58 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 24_112]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.38 / train/loss/height 6.9e-3 / train/loss/orientations 0.48 / train/loss/policy -0.05 / train/loss/rep 5.38 / train/loss/repval 1.06 / train/loss/rew 0.51 / train/loss/value 0.95 / train/loss/velocity 1.3 / replay/replay_ratio 1040 / fps/policy 18.64 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 26_352]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.46 / train/loss/height 6.4e-3 / train/loss/orientations 0.45 / train/loss/policy -0.33 / train/loss/rep 5.46 / train/loss/repval 0.98 / train/loss/rew 0.52 / train/loss/value 0.91 / train/loss/velocity 1.27 / replay/replay_ratio 1040 / fps/policy 18.61 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 28_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.5 / train/loss/height 5.8e-3 / train/loss/orientations 0.42 / train/loss/policy -0.59 / train/loss/rep 5.5 / train/loss/repval 1.08 / train/loss/rew 0.52 / train/loss/value 0.96 / train/loss/velocity 1.25 / replay/replay_ratio 1040 / fps/policy 18.47 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 30_848]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.45 / train/loss/height 5.3e-3 / train/loss/orientations 0.39 / train/loss/policy -0.51 / train/loss/rep 5.45 / train/loss/repval 0.98 / train/loss/rew 0.53 / train/loss/value 0.81 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 33_104]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 134.95 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.53 / train/loss/height 5.1e-3 / train/loss/orientations 0.36 / train/loss/policy -0.53 / train/loss/rep 5.53 / train/loss/repval 1.1 / train/loss/rew 0.53 / train/loss/value 0.67 / train/loss/velocity 1.2 / replay/replay_ratio 1040 / fps/policy 18.68 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T163838F220496
+Saved checkpoint.
+
+--------------------[Agent Step 35_360]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.69 / train/loss/height 5.5e-3 / train/loss/orientations 0.37 / train/loss/policy -0.51 / train/loss/rep 5.69 / train/loss/repval 1.07 / train/loss/rew 0.55 / train/loss/value 1 / train/loss/velocity 1.22 / replay/replay_ratio 1040 / fps/policy 18.75 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 37_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.74 / train/loss/height 5.3e-3 / train/loss/orientations 0.36 / train/loss/policy -0.43 / train/loss/rep 5.74 / train/loss/repval 0.95 / train/loss/rew 0.55 / train/loss/value 0.74 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 39_888]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.78 / train/loss/height 5e-3 / train/loss/orientations 0.34 / train/loss/policy -0.28 / train/loss/rep 5.78 / train/loss/repval 1.19 / train/loss/rew 0.56 / train/loss/value 0.86 / train/loss/velocity 1.19 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 42_160]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.82 / train/loss/height 4.7e-3 / train/loss/orientations 0.32 / train/loss/policy -0.12 / train/loss/rep 5.82 / train/loss/repval 0.9 / train/loss/rew 0.56 / train/loss/value 0.71 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 44_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.87 / train/loss/height 4.5e-3 / train/loss/orientations 0.31 / train/loss/policy -0.14 / train/loss/rep 5.87 / train/loss/repval 1.21 / train/loss/rew 0.56 / train/loss/value 1.01 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 46_704]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.02 / train/loss/height 4.7e-3 / train/loss/orientations 0.33 / train/loss/policy -0.06 / train/loss/rep 6.02 / train/loss/repval 1.26 / train/loss/rew 0.57 / train/loss/value 0.92 / train/loss/velocity 1.19 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 48_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 160.79 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.16 / train/loss/height 4.9e-3 / train/loss/orientations 0.35 / train/loss/policy -9.1e-3 / train/loss/rep 6.16 / train/loss/repval 1.18 / train/loss/rew 0.57 / train/loss/value 0.96 / train/loss/velocity 1.22 / replay/replay_ratio 1040 / fps/policy 18.78 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 51_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.22 / train/loss/height 5.1e-3 / train/loss/orientations 0.36 / train/loss/policy -5.8e-3 / train/loss/rep 6.22 / train/loss/repval 1.16 / train/loss/rew 0.57 / train/loss/value 0.88 / train/loss/velocity 1.22 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T165338F610901
+Saved checkpoint.
+
+--------------------[Agent Step 53_488]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.2 / train/loss/height 5.1e-3 / train/loss/orientations 0.37 / train/loss/policy -0.03 / train/loss/rep 6.2 / train/loss/repval 1.04 / train/loss/rew 0.56 / train/loss/value 1.07 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 18.79 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 55_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.2 / train/loss/height 5e-3 / train/loss/orientations 0.36 / train/loss/policy -0.12 / train/loss/rep 6.2 / train/loss/repval 1.09 / train/loss/rew 0.56 / train/loss/value 1.01 / train/loss/velocity 1.19 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 58_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.17 / train/loss/height 4.8e-3 / train/loss/orientations 0.35 / train/loss/policy -0.17 / train/loss/rep 6.17 / train/loss/repval 1.29 / train/loss/rew 0.56 / train/loss/value 0.97 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 60_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.2 / train/loss/height 4.6e-3 / train/loss/orientations 0.34 / train/loss/policy -0.04 / train/loss/rep 6.2 / train/loss/repval 1.11 / train/loss/rew 0.56 / train/loss/value 1.01 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 62_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.3 / train/loss/height 4.6e-3 / train/loss/orientations 0.34 / train/loss/policy -0.1 / train/loss/rep 6.3 / train/loss/repval 1.1 / train/loss/rew 0.56 / train/loss/value 1.08 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 64_784]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 86.83 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 4.7e-3 / train/loss/orientations 0.34 / train/loss/policy -0.11 / train/loss/rep 6.41 / train/loss/repval 1.17 / train/loss/rew 0.56 / train/loss/value 1.1 / train/loss/velocity 1.2 / replay/replay_ratio 1040 / fps/policy 18.77 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 67_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.47 / train/loss/height 5e-3 / train/loss/orientations 0.35 / train/loss/policy -0.06 / train/loss/rep 6.47 / train/loss/repval 1.14 / train/loss/rew 0.57 / train/loss/value 1.06 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 18.75 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T170838F728064
+Saved checkpoint.
+
+--------------------[Agent Step 69_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.45 / train/loss/height 4.9e-3 / train/loss/orientations 0.35 / train/loss/policy -0.08 / train/loss/rep 6.45 / train/loss/repval 1.16 / train/loss/rew 0.57 / train/loss/value 1.11 / train/loss/velocity 1.2 / replay/replay_ratio 1040 / fps/policy 18.78 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 71_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.36 / train/loss/height 4.9e-3 / train/loss/orientations 0.35 / train/loss/policy -0.12 / train/loss/rep 6.36 / train/loss/repval 1.15 / train/loss/rew 0.56 / train/loss/value 1.16 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 73_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.32 / train/loss/height 4.8e-3 / train/loss/orientations 0.34 / train/loss/policy -0.11 / train/loss/rep 6.32 / train/loss/repval 1.28 / train/loss/rew 0.56 / train/loss/value 1.03 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 76_112]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.38 / train/loss/height 4.8e-3 / train/loss/orientations 0.33 / train/loss/policy 0.02 / train/loss/rep 6.38 / train/loss/repval 1.16 / train/loss/rew 0.56 / train/loss/value 1.01 / train/loss/velocity 1.14 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 78_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 4.7e-3 / train/loss/orientations 0.33 / train/loss/policy -0.05 / train/loss/rep 6.41 / train/loss/repval 1.1 / train/loss/rew 0.55 / train/loss/value 1.05 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 80_640]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 44.92 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.46 / train/loss/height 4.6e-3 / train/loss/orientations 0.33 / train/loss/policy -0.07 / train/loss/rep 6.46 / train/loss/repval 1.11 / train/loss/rew 0.55 / train/loss/value 1.09 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.79 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 82_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 4.8e-3 / train/loss/orientations 0.33 / train/loss/policy -0.13 / train/loss/rep 6.55 / train/loss/repval 1.01 / train/loss/rew 0.55 / train/loss/value 1.08 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 85_184]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 4.9e-3 / train/loss/orientations 0.33 / train/loss/policy -0.08 / train/loss/rep 6.59 / train/loss/repval 1.12 / train/loss/rew 0.56 / train/loss/value 1.24 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T172339F437318
+Saved checkpoint.
+
+--------------------[Agent Step 87_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.63 / train/loss/height 4.9e-3 / train/loss/orientations 0.33 / train/loss/policy -0.07 / train/loss/rep 6.63 / train/loss/repval 1.05 / train/loss/rew 0.56 / train/loss/value 1.14 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 89_728]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.69 / train/loss/height 4.9e-3 / train/loss/orientations 0.33 / train/loss/policy -0.04 / train/loss/rep 6.69 / train/loss/repval 1.01 / train/loss/rew 0.56 / train/loss/value 1.12 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 92_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.68 / train/loss/height 4.9e-3 / train/loss/orientations 0.33 / train/loss/policy -0.04 / train/loss/rep 6.68 / train/loss/repval 1.08 / train/loss/rew 0.56 / train/loss/value 0.98 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 94_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.7 / train/loss/height 4.7e-3 / train/loss/orientations 0.32 / train/loss/policy -0.05 / train/loss/rep 6.7 / train/loss/repval 1.09 / train/loss/rew 0.56 / train/loss/value 0.99 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 96_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 88.68 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.71 / train/loss/height 4.7e-3 / train/loss/orientations 0.31 / train/loss/policy -0.07 / train/loss/rep 6.71 / train/loss/repval 1.06 / train/loss/rew 0.56 / train/loss/value 0.94 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 98_784]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.75 / train/loss/height 4.7e-3 / train/loss/orientations 0.31 / train/loss/policy -0.05 / train/loss/rep 6.75 / train/loss/repval 1.09 / train/loss/rew 0.57 / train/loss/value 0.93 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.77 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 101_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.81 / train/loss/height 4.6e-3 / train/loss/orientations 0.31 / train/loss/policy -0.05 / train/loss/rep 6.81 / train/loss/repval 1.11 / train/loss/rew 0.57 / train/loss/value 0.91 / train/loss/velocity 1.16 / replay/replay_ratio 1040 / fps/policy 18.79 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T173839F941852
+Saved checkpoint.
+
+--------------------[Agent Step 103_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.8 / train/loss/height 4.6e-3 / train/loss/orientations 0.31 / train/loss/policy -0.07 / train/loss/rep 6.8 / train/loss/repval 1.14 / train/loss/rew 0.57 / train/loss/value 0.91 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.78 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 105_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.81 / train/loss/height 4.5e-3 / train/loss/orientations 0.3 / train/loss/policy -0.06 / train/loss/rep 6.81 / train/loss/repval 1.15 / train/loss/rew 0.57 / train/loss/value 0.87 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 107_824]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.8 / train/loss/height 4.5e-3 / train/loss/orientations 0.3 / train/loss/policy -0.06 / train/loss/rep 6.8 / train/loss/repval 1.13 / train/loss/rew 0.57 / train/loss/value 0.84 / train/loss/velocity 1.14 / replay/replay_ratio 1040 / fps/policy 18.79 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 110_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.78 / train/loss/height 4.4e-3 / train/loss/orientations 0.29 / train/loss/policy -0.09 / train/loss/rep 6.78 / train/loss/repval 0.98 / train/loss/rew 0.57 / train/loss/value 0.92 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 112_336]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 171.64 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.81 / train/loss/height 4.4e-3 / train/loss/orientations 0.29 / train/loss/policy -0.09 / train/loss/rep 6.81 / train/loss/repval 0.84 / train/loss/rew 0.58 / train/loss/value 1.04 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 18.79 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 114_592]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.82 / train/loss/height 4.4e-3 / train/loss/orientations 0.29 / train/loss/policy -0.1 / train/loss/rep 6.82 / train/loss/repval 0.89 / train/loss/rew 0.58 / train/loss/value 1.17 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 18.77 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 116_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.82 / train/loss/height 4.3e-3 / train/loss/orientations 0.28 / train/loss/policy -0.11 / train/loss/rep 6.82 / train/loss/repval 1.15 / train/loss/rew 0.58 / train/loss/value 1.12 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 119_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.84 / train/loss/height 4.2e-3 / train/loss/orientations 0.28 / train/loss/policy -0.09 / train/loss/rep 6.84 / train/loss/repval 1.17 / train/loss/rew 0.58 / train/loss/value 0.93 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T175340F519581
+Saved checkpoint.
+
+--------------------[Agent Step 121_392]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.86 / train/loss/height 4.2e-3 / train/loss/orientations 0.28 / train/loss/policy -0.1 / train/loss/rep 6.86 / train/loss/repval 1.01 / train/loss/rew 0.59 / train/loss/value 1 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 18.78 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 123_664]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.88 / train/loss/height 4.2e-3 / train/loss/orientations 0.27 / train/loss/policy -0.1 / train/loss/rep 6.88 / train/loss/repval 1.03 / train/loss/rew 0.59 / train/loss/value 1.18 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 125_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.89 / train/loss/height 4.1e-3 / train/loss/orientations 0.27 / train/loss/policy -0.09 / train/loss/rep 6.89 / train/loss/repval 1.18 / train/loss/rew 0.59 / train/loss/value 1.2 / train/loss/velocity 1.11 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 128_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 258.32 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.91 / train/loss/height 4.1e-3 / train/loss/orientations 0.27 / train/loss/policy -0.09 / train/loss/rep 6.91 / train/loss/repval 1.23 / train/loss/rew 0.59 / train/loss/value 1.16 / train/loss/velocity 1.11 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 130_480]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.95 / train/loss/height 4.2e-3 / train/loss/orientations 0.27 / train/loss/policy -0.09 / train/loss/rep 6.95 / train/loss/repval 1.27 / train/loss/rew 0.59 / train/loss/value 1.11 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 132_752]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.95 / train/loss/height 4.1e-3 / train/loss/orientations 0.26 / train/loss/policy -0.09 / train/loss/rep 6.95 / train/loss/repval 1.29 / train/loss/rew 0.6 / train/loss/value 1.05 / train/loss/velocity 1.11 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 135_024]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.94 / train/loss/height 4e-3 / train/loss/orientations 0.26 / train/loss/policy -0.11 / train/loss/rep 6.94 / train/loss/repval 1.27 / train/loss/rew 0.6 / train/loss/value 0.9 / train/loss/velocity 1.11 / replay/replay_ratio 1040 / fps/policy 18.93 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T180840F922432
+Saved checkpoint.
+
+--------------------[Agent Step 137_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.93 / train/loss/height 3.9e-3 / train/loss/orientations 0.25 / train/loss/policy -0.1 / train/loss/rep 6.93 / train/loss/repval 1.21 / train/loss/rew 0.6 / train/loss/value 0.78 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 139_552]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.94 / train/loss/height 3.8e-3 / train/loss/orientations 0.25 / train/loss/policy -0.09 / train/loss/rep 6.94 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 0.71 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 18.79 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 141_824]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.94 / train/loss/height 3.9e-3 / train/loss/orientations 0.25 / train/loss/policy -0.12 / train/loss/rep 6.94 / train/loss/repval 0.99 / train/loss/rew 0.6 / train/loss/value 0.73 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 144_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.93 / train/loss/height 3.8e-3 / train/loss/orientations 0.24 / train/loss/policy -0.13 / train/loss/rep 6.93 / train/loss/repval 0.82 / train/loss/rew 0.6 / train/loss/value 1.08 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 146_352]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 378.03 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.95 / train/loss/height 3.9e-3 / train/loss/orientations 0.24 / train/loss/policy -0.11 / train/loss/rep 6.95 / train/loss/repval 0.95 / train/loss/rew 0.6 / train/loss/value 1.25 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 18.75 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 148_608]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.91 / train/loss/height 3.8e-3 / train/loss/orientations 0.24 / train/loss/policy -0.11 / train/loss/rep 6.91 / train/loss/repval 1.1 / train/loss/rew 0.6 / train/loss/value 1.27 / train/loss/velocity 1.08 / replay/replay_ratio 1040 / fps/policy 18.74 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 150_880]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.9 / train/loss/height 3.7e-3 / train/loss/orientations 0.23 / train/loss/policy -0.11 / train/loss/rep 6.9 / train/loss/repval 1.18 / train/loss/rew 0.6 / train/loss/value 1.26 / train/loss/velocity 1.08 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 153_168]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.88 / train/loss/height 3.7e-3 / train/loss/orientations 0.23 / train/loss/policy -0.11 / train/loss/rep 6.88 / train/loss/repval 1.22 / train/loss/rew 0.6 / train/loss/value 1.21 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 18.94 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T182341F141703
+Saved checkpoint.
+
+--------------------[Agent Step 155_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.88 / train/loss/height 3.5e-3 / train/loss/orientations 0.23 / train/loss/policy -0.12 / train/loss/rep 6.88 / train/loss/repval 1.25 / train/loss/rew 0.6 / train/loss/value 1.07 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 18.93 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 157_712]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.88 / train/loss/height 3.5e-3 / train/loss/orientations 0.22 / train/loss/policy -0.13 / train/loss/rep 6.88 / train/loss/repval 1.23 / train/loss/rew 0.6 / train/loss/value 0.91 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 159_968]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.87 / train/loss/height 3.5e-3 / train/loss/orientations 0.22 / train/loss/policy -0.13 / train/loss/rep 6.87 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 0.74 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 18.77 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 162_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 362.55 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.87 / train/loss/height 3.5e-3 / train/loss/orientations 0.22 / train/loss/policy -0.17 / train/loss/rep 6.87 / train/loss/repval 1 / train/loss/rew 0.6 / train/loss/value 0.8 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 18.66 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 164_464]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.86 / train/loss/height 3.5e-3 / train/loss/orientations 0.22 / train/loss/policy -0.16 / train/loss/rep 6.86 / train/loss/repval 0.89 / train/loss/rew 0.6 / train/loss/value 1.17 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 18.75 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 166_736]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.85 / train/loss/height 3.4e-3 / train/loss/orientations 0.21 / train/loss/policy -0.17 / train/loss/rep 6.85 / train/loss/repval 1.15 / train/loss/rew 0.6 / train/loss/value 1.21 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 169_008]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.83 / train/loss/height 3.3e-3 / train/loss/orientations 0.21 / train/loss/policy -0.17 / train/loss/rep 6.83 / train/loss/repval 1.24 / train/loss/rew 0.61 / train/loss/value 0.93 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T183841F176650
+Saved checkpoint.
+
+--------------------[Agent Step 171_280]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.82 / train/loss/height 3.3e-3 / train/loss/orientations 0.21 / train/loss/policy -0.24 / train/loss/rep 6.82 / train/loss/repval 0.98 / train/loss/rew 0.6 / train/loss/value 0.95 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 173_536]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.82 / train/loss/height 3.2e-3 / train/loss/orientations 0.21 / train/loss/policy -0.2 / train/loss/rep 6.82 / train/loss/repval 1.16 / train/loss/rew 0.61 / train/loss/value 1.15 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 18.78 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 175_808]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.8 / train/loss/height 3.2e-3 / train/loss/orientations 0.2 / train/loss/policy -0.16 / train/loss/rep 6.8 / train/loss/repval 1.25 / train/loss/rew 0.61 / train/loss/value 0.91 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 178_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 538.54 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.81 / train/loss/height 3.1e-3 / train/loss/orientations 0.2 / train/loss/policy -0.19 / train/loss/rep 6.81 / train/loss/repval 1.1 / train/loss/rew 0.61 / train/loss/value 0.83 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 180_352]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.79 / train/loss/height 3.1e-3 / train/loss/orientations 0.2 / train/loss/policy -0.14 / train/loss/rep 6.79 / train/loss/repval 0.91 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 182_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.77 / train/loss/height 3e-3 / train/loss/orientations 0.19 / train/loss/policy -0.12 / train/loss/rep 6.77 / train/loss/repval 0.93 / train/loss/rew 0.61 / train/loss/value 1.21 / train/loss/velocity 1.04 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 184_896]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.77 / train/loss/height 3e-3 / train/loss/orientations 0.19 / train/loss/policy -0.1 / train/loss/rep 6.77 / train/loss/repval 1.01 / train/loss/rew 0.61 / train/loss/value 1.24 / train/loss/velocity 1.04 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 187_168]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.72 / train/loss/height 2.9e-3 / train/loss/orientations 0.19 / train/loss/policy -0.1 / train/loss/rep 6.72 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 1.23 / train/loss/velocity 1.03 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T185341F354790
+Saved checkpoint.
+
+--------------------[Agent Step 189_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.73 / train/loss/height 2.9e-3 / train/loss/orientations 0.18 / train/loss/policy -0.1 / train/loss/rep 6.73 / train/loss/repval 1.13 / train/loss/rew 0.61 / train/loss/value 1.2 / train/loss/velocity 1.03 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 191_712]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.72 / train/loss/height 2.8e-3 / train/loss/orientations 0.18 / train/loss/policy -0.1 / train/loss/rep 6.72 / train/loss/repval 1.16 / train/loss/rew 0.6 / train/loss/value 1.19 / train/loss/velocity 1.03 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 193_984]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 577.64 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.7 / train/loss/height 2.8e-3 / train/loss/orientations 0.18 / train/loss/policy -0.09 / train/loss/rep 6.7 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 1.22 / train/loss/velocity 1.02 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 196_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.69 / train/loss/height 2.8e-3 / train/loss/orientations 0.18 / train/loss/policy -0.09 / train/loss/rep 6.69 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.22 / train/loss/velocity 1.02 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 198_464]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.68 / train/loss/height 2.7e-3 / train/loss/orientations 0.18 / train/loss/policy -0.1 / train/loss/rep 6.68 / train/loss/repval 1.16 / train/loss/rew 0.61 / train/loss/value 1.19 / train/loss/velocity 1.02 / replay/replay_ratio 1040 / fps/policy 18.34 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 200_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.66 / train/loss/height 2.7e-3 / train/loss/orientations 0.17 / train/loss/policy -0.09 / train/loss/rep 6.66 / train/loss/repval 1.19 / train/loss/rew 0.6 / train/loss/value 1.15 / train/loss/velocity 1.01 / replay/replay_ratio 1040 / fps/policy 17.44 / fps/train 1.8e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 202_704]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.64 / train/loss/height 2.7e-3 / train/loss/orientations 0.17 / train/loss/policy -0.09 / train/loss/rep 6.64 / train/loss/repval 1.19 / train/loss/rew 0.6 / train/loss/value 1.09 / train/loss/velocity 1.01 / replay/replay_ratio 1040 / fps/policy 17.79 / fps/train 1.8e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T190841F527362
+Saved checkpoint.
+
+--------------------[Agent Step 204_800]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.62 / train/loss/height 2.6e-3 / train/loss/orientations 0.17 / train/loss/policy -0.09 / train/loss/rep 6.62 / train/loss/repval 1.2 / train/loss/rew 0.6 / train/loss/value 1 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 17.38 / fps/train 1.8e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 206_832]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.62 / train/loss/height 2.6e-3 / train/loss/orientations 0.17 / train/loss/policy -0.09 / train/loss/rep 6.62 / train/loss/repval 1.19 / train/loss/rew 0.6 / train/loss/value 0.89 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 16.8 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 208_848]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 713.69 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 2.6e-3 / train/loss/orientations 0.16 / train/loss/policy -0.09 / train/loss/rep 6.59 / train/loss/repval 1.18 / train/loss/rew 0.6 / train/loss/value 0.83 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 16.68 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 210_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 2.6e-3 / train/loss/orientations 0.16 / train/loss/policy -0.09 / train/loss/rep 6.59 / train/loss/repval 1.17 / train/loss/rew 0.6 / train/loss/value 0.8 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 15.18 / fps/train 1.6e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 212_320]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 2.6e-3 / train/loss/orientations 0.16 / train/loss/policy -0.1 / train/loss/rep 6.59 / train/loss/repval 1.13 / train/loss/rew 0.6 / train/loss/value 0.75 / train/loss/velocity 0.99 / replay/replay_ratio 1040 / fps/policy 13.68 / fps/train 1.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 214_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.57 / train/loss/height 2.5e-3 / train/loss/orientations 0.16 / train/loss/policy -0.09 / train/loss/rep 6.57 / train/loss/repval 1.07 / train/loss/rew 0.6 / train/loss/value 0.76 / train/loss/velocity 0.99 / replay/replay_ratio 1040 / fps/policy 14.65 / fps/train 1.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 216_128]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.56 / train/loss/height 2.5e-3 / train/loss/orientations 0.16 / train/loss/policy -0.1 / train/loss/rep 6.56 / train/loss/repval 1 / train/loss/rew 0.6 / train/loss/value 0.84 / train/loss/velocity 0.99 / replay/replay_ratio 1040 / fps/policy 17.02 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 218_128]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 2.5e-3 / train/loss/orientations 0.16 / train/loss/policy -0.1 / train/loss/rep 6.55 / train/loss/repval 0.95 / train/loss/rew 0.6 / train/loss/value 0.97 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 16.61 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T192342F343856
+Saved checkpoint.
+
+--------------------[Agent Step 220_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 2.4e-3 / train/loss/orientations 0.16 / train/loss/policy -0.1 / train/loss/rep 6.55 / train/loss/repval 0.91 / train/loss/rew 0.6 / train/loss/value 1.1 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 16.13 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 222_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.53 / train/loss/height 2.4e-3 / train/loss/orientations 0.15 / train/loss/policy -0.1 / train/loss/rep 6.53 / train/loss/repval 0.89 / train/loss/rew 0.6 / train/loss/value 1.17 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 17.09 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 224_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 632.95 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.51 / train/loss/height 2.4e-3 / train/loss/orientations 0.15 / train/loss/policy -0.09 / train/loss/rep 6.51 / train/loss/repval 0.9 / train/loss/rew 0.61 / train/loss/value 1.18 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 17.24 / fps/train 1.8e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 226_240]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.51 / train/loss/height 2.4e-3 / train/loss/orientations 0.15 / train/loss/policy -0.09 / train/loss/rep 6.51 / train/loss/repval 0.92 / train/loss/rew 0.6 / train/loss/value 1.21 / train/loss/velocity 0.97 / replay/replay_ratio 1040 / fps/policy 16.74 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 228_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.49 / train/loss/height 2.3e-3 / train/loss/orientations 0.15 / train/loss/policy -0.09 / train/loss/rep 6.49 / train/loss/repval 0.96 / train/loss/rew 0.6 / train/loss/value 1.24 / train/loss/velocity 0.97 / replay/replay_ratio 1040 / fps/policy 16.46 / fps/train 1.7e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 230_336]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.48 / train/loss/height 2.3e-3 / train/loss/orientations 0.15 / train/loss/policy -0.09 / train/loss/rep 6.48 / train/loss/repval 0.99 / train/loss/rew 0.6 / train/loss/value 1.25 / train/loss/velocity 0.97 / replay/replay_ratio 1040 / fps/policy 17.54 / fps/train 1.8e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 232_608]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.46 / train/loss/height 2.3e-3 / train/loss/orientations 0.14 / train/loss/policy -0.09 / train/loss/rep 6.46 / train/loss/repval 1.06 / train/loss/rew 0.6 / train/loss/value 1.25 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T193842F706534
+Saved checkpoint.
+
+--------------------[Agent Step 234_880]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.44 / train/loss/height 2.3e-3 / train/loss/orientations 0.14 / train/loss/policy -0.09 / train/loss/rep 6.44 / train/loss/repval 1.11 / train/loss/rew 0.6 / train/loss/value 1.24 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 237_152]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.43 / train/loss/height 2.3e-3 / train/loss/orientations 0.14 / train/loss/policy -0.09 / train/loss/rep 6.43 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 1.22 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 239_424]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.42 / train/loss/height 2.2e-3 / train/loss/orientations 0.14 / train/loss/policy -0.09 / train/loss/rep 6.42 / train/loss/repval 1.15 / train/loss/rew 0.6 / train/loss/value 1.21 / train/loss/velocity 0.95 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 241_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 904.74 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 2.2e-3 / train/loss/orientations 0.14 / train/loss/policy -0.08 / train/loss/rep 6.41 / train/loss/repval 1.15 / train/loss/rew 0.6 / train/loss/value 1.19 / train/loss/velocity 0.95 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 243_968]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.37 / train/loss/height 2.1e-3 / train/loss/orientations 0.14 / train/loss/policy -0.08 / train/loss/rep 6.37 / train/loss/repval 1.16 / train/loss/rew 0.6 / train/loss/value 1.17 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 246_240]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.37 / train/loss/height 2.2e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 6.37 / train/loss/repval 1.16 / train/loss/rew 0.6 / train/loss/value 1.15 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 248_512]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.34 / train/loss/height 2.1e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 6.34 / train/loss/repval 1.16 / train/loss/rew 0.6 / train/loss/value 1.13 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 250_784]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.33 / train/loss/height 2.1e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 6.33 / train/loss/repval 1.16 / train/loss/rew 0.61 / train/loss/value 1.12 / train/loss/velocity 0.93 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T195343F443405
+Saved checkpoint.
+
+--------------------[Agent Step 253_056]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.33 / train/loss/height 2.1e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 6.33 / train/loss/repval 1.16 / train/loss/rew 0.61 / train/loss/value 1.11 / train/loss/velocity 0.93 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 255_328]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.28 / train/loss/height 2.1e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 6.28 / train/loss/repval 1.16 / train/loss/rew 0.6 / train/loss/value 1.1 / train/loss/velocity 0.92 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 257_600]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 934.73 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.27 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 6.27 / train/loss/repval 1.15 / train/loss/rew 0.61 / train/loss/value 1.08 / train/loss/velocity 0.92 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 259_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.25 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 6.25 / train/loss/repval 1.15 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 262_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.23 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 6.23 / train/loss/repval 1.15 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 264_416]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.21 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 6.21 / train/loss/repval 1.15 / train/loss/rew 0.61 / train/loss/value 1.06 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 266_688]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.18 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.07 / train/loss/rep 6.18 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.05 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T200844F149457
+Saved checkpoint.
+
+--------------------[Agent Step 268_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.17 / train/loss/height 2e-3 / train/loss/orientations 0.12 / train/loss/policy -0.07 / train/loss/rep 6.17 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 1.05 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 271_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.14 / train/loss/height 1.9e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.14 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.05 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 273_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 958.14 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.12 / train/loss/height 1.9e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.12 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 1.04 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 275_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.1 / train/loss/height 1.9e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.1 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 278_048]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.09 / train/loss/height 1.9e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.09 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 280_320]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.06 / train/loss/height 1.8e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.06 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.86 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 282_592]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.03 / train/loss/height 1.8e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.03 / train/loss/repval 1.14 / train/loss/rew 0.6 / train/loss/value 1.03 / train/loss/velocity 0.86 / replay/replay_ratio 1040 / fps/policy 18.93 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 284_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.01 / train/loss/height 1.8e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 6.01 / train/loss/repval 1.14 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T202344F175101
+Saved checkpoint.
+
+--------------------[Agent Step 287_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.99 / train/loss/height 1.8e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 5.99 / train/loss/repval 1.13 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 289_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 946.69 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.96 / train/loss/height 1.8e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.96 / train/loss/repval 1.13 / train/loss/rew 0.61 / train/loss/value 1.03 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 291_680]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.96 / train/loss/height 1.8e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.96 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 293_952]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.94 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.94 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 296_224]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.93 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.93 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.83 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 298_496]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.9 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.9 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.83 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 300_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.88 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.88 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.01 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T203844F514805
+Saved checkpoint.
+
+--------------------[Agent Step 303_040]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.86 / train/loss/height 1.6e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.86 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 305_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 981.07 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.85 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.85 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 307_584]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.84 / train/loss/height 1.7e-3 / train/loss/orientations 0.1 / train/loss/policy -0.07 / train/loss/rep 5.84 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 309_856]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.82 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.07 / train/loss/rep 5.82 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.05 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 312_128]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.81 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.07 / train/loss/rep 5.81 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.06 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 314_400]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.78 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.78 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.06 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 316_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.76 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.76 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 318_944]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.75 / train/loss/height 1.6e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.75 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T205344F771698
+Saved checkpoint.
+
+--------------------[Agent Step 321_216]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 955.73 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.73 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.73 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 323_488]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.72 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.72 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.08 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 325_760]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.71 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.71 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.08 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 328_032]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.7 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.7 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.09 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 330_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.69 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.69 / train/loss/repval 1.12 / train/loss/rew 0.61 / train/loss/value 1.09 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 332_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.66 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.66 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.07 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 334_848]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.65 / train/loss/height 1.5e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.65 / train/loss/repval 1.1 / train/loss/rew 0.61 / train/loss/value 1.03 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T210845F399207
+Saved checkpoint.
+
+--------------------[Agent Step 337_120]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 978.67 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.63 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.06 / train/loss/rep 5.63 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1.03 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 339_392]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.63 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.63 / train/loss/repval 1.1 / train/loss/rew 0.61 / train/loss/value 1.04 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 341_664]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.61 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.61 / train/loss/repval 1.1 / train/loss/rew 0.61 / train/loss/value 1.05 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 343_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.6 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.06 / train/loss/rep 5.6 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.06 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 346_208]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.6 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.6 / train/loss/repval 1.11 / train/loss/rew 0.61 / train/loss/value 1.05 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 348_480]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.57 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.57 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 350_752]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.56 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.56 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 353_024]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 956.07 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.54 / train/loss/height 1.4e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.54 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T212345F566680
+Saved checkpoint.
+
+--------------------[Agent Step 355_296]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.54 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.54 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1.01 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 357_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.52 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.52 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1.01 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 359_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.53 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.53 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 362_112]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.5 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.5 / train/loss/repval 1.09 / train/loss/rew 0.61 / train/loss/value 1.02 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 364_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.48 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.48 / train/loss/repval 1.08 / train/loss/rew 0.61 / train/loss/value 1 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 366_656]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.48 / train/loss/height 1.3e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.48 / train/loss/repval 1.07 / train/loss/rew 0.61 / train/loss/value 0.99 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 368_928]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 986.91 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.46 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.46 / train/loss/repval 1.07 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T213845F713309
+Saved checkpoint.
+
+--------------------[Agent Step 371_200]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.46 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.46 / train/loss/repval 1.07 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 373_472]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.44 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.44 / train/loss/repval 1.07 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 375_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.44 / train/loss/height 1.3e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.44 / train/loss/repval 1.07 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 378_016]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.41 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.41 / train/loss/repval 1.07 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 380_288]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.41 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.41 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 382_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.4 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.4 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 384_832]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 910.85 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.39 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.39 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 387_104]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.38 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.38 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T215346F141120
+Saved checkpoint.
+
+--------------------[Agent Step 389_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.36 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.36 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 391_648]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.36 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.36 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 393_920]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.35 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.35 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 396_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.33 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.33 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 398_464]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.33 / train/loss/height 1.2e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.33 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 400_736]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 936.79 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.31 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.31 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 403_008]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.3 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.3 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T220846F358301
+Saved checkpoint.
+
+--------------------[Agent Step 405_280]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.29 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.29 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 407_552]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.28 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.28 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 409_824]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.26 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.26 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 412_096]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.26 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.05 / train/loss/rep 5.26 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 414_368]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.24 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.24 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 416_640]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 965.1 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.22 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.22 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 418_912]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.22 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.22 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T222346F518025
+Saved checkpoint.
+
+--------------------[Agent Step 421_184]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.21 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.21 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 423_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.21 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.21 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 425_728]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.19 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.19 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 428_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.19 / train/loss/height 1.1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.19 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 430_272]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.18 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.18 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 18.9 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 432_544]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 966.3 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.15 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.15 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 434_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.15 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.15 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 437_088]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.13 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.13 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T223847F027909
+Saved checkpoint.
+
+--------------------[Agent Step 439_360]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.13 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.13 / train/loss/repval 1.06 / train/loss/rew 0.61 / train/loss/value 0.99 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 18.81 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 441_632]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.11 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.11 / train/loss/repval 1.05 / train/loss/rew 0.61 / train/loss/value 0.98 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 18.88 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 443_904]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.1 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.1 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 446_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.1 / train/loss/height 1e-3 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.1 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 448_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 952.24 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.08 / train/loss/height 9.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.08 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 450_704]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.08 / train/loss/height 9.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.08 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.96 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 18.73 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 452_960]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.08 / train/loss/height 9.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.08 / train/loss/repval 1.04 / train/loss/rew 0.61 / train/loss/value 0.97 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 18.7 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T225347F080942
+Saved checkpoint.
+
+--------------------[Agent Step 455_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.06 / train/loss/height 9.6e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.06 / train/loss/repval 1.03 / train/loss/rew 0.61 / train/loss/value 0.95 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 457_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.05 / train/loss/height 9.6e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.05 / train/loss/repval 1.03 / train/loss/rew 0.61 / train/loss/value 0.94 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 18.82 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 459_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.05 / train/loss/height 9.4e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.05 / train/loss/repval 1.03 / train/loss/rew 0.61 / train/loss/value 0.94 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 18.83 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 462_048]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.03 / train/loss/height 9.5e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.03 / train/loss/repval 1.03 / train/loss/rew 0.62 / train/loss/value 0.94 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 464_320]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.02 / train/loss/height 9.3e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5.02 / train/loss/repval 1.02 / train/loss/rew 0.61 / train/loss/value 0.93 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 18.93 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 466_592]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 981.77 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5 / train/loss/height 9.3e-4 / train/loss/orientations 0.06 / train/loss/policy -0.05 / train/loss/rep 5 / train/loss/repval 1.02 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 468_864]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.99 / train/loss/height 9.2e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.99 / train/loss/repval 1.02 / train/loss/rew 0.62 / train/loss/value 0.93 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 471_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.99 / train/loss/height 9.2e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.99 / train/loss/repval 1.02 / train/loss/rew 0.62 / train/loss/value 0.93 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 18.89 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T230847F089035
+Saved checkpoint.
+
+--------------------[Agent Step 473_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.99 / train/loss/height 9.3e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.99 / train/loss/repval 1.02 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 18.85 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 475_680]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.96 / train/loss/height 9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.96 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 18.84 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 477_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.97 / train/loss/height 9.1e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.97 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 18.68 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 480_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.95 / train/loss/height 9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.95 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.91 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 18.8 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 482_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 923.24 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.96 / train/loss/height 9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.96 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.91 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 18.77 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 484_720]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.95 / train/loss/height 8.9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.95 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+
+--------------------[Agent Step 486_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.93 / train/loss/height 8.8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.93 / train/loss/repval 1 / train/loss/rew 0.62 / train/loss/value 0.91 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/ckpt/20260415T232347F330277
+Saved checkpoint.
+
+--------------------[Agent Step 489_264]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.92 / train/loss/height 8.8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.92 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.91 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 18.87 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 491_536]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.92 / train/loss/height 8.8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.92 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 18.91 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 493_808]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.91 / train/loss/height 8.7e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.91 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 18.92 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 496_080]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.89 / train/loss/height 8.6e-4 / train/loss/orientations 0.05 / train/loss/policy -0.04 / train/loss/rep 4.89 / train/loss/repval 1 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 18.86 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+
+--------------------[Agent Step 498_336]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 967.09 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.9 / train/loss/height 8.7e-4 / train/loss/orientations 0.05 / train/loss/policy -0.05 / train/loss/rep 4.9 / train/loss/repval 1.01 / train/loss/rew 0.62 / train/loss/value 0.92 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 18.76 / fps/train 1.9e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_walk_stuplus_fourier_20260415_160724_della-mol/metrics.jsonl
