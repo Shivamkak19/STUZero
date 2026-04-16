@@ -1,0 +1,1312 @@
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+/home/sk3686/hazan/stu-dreamer-jax/.venv/lib/python3.13/site-packages/optax/_src/linear_algebra.py:44: DeprecationWarning: optax.global_norm is deprecated in favor of optax.tree.norm
+  warnings.warn(
+2026-04-15 16:08:25.709233: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+2026-04-15 16:08:26.686399: E external/xla/xla/python/profiler/internal/python_hooks.cc:412] Can't import tensorflow.python.profiler.trace
+---  ___                           __   ______ ---
+--- |   \ _ _ ___ __ _ _ __  ___ _ \ \ / /__ / ---
+--- | |) | '_/ -_) _` | '  \/ -_) '/\ V / |_ \ ---
+--- |___/|_| \___\__,_|_|_|_\___|_|  \_/ |___/ ---
+Replica: 0 / 1
+Logdir: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato
+Run script: train
+Observations
+  reward           Space(float32, shape=(), low=-inf, high=inf)
+  is_first         Space(bool, shape=(), low=False, high=True)
+  is_last          Space(bool, shape=(), low=False, high=True)
+  is_terminal      Space(bool, shape=(), low=False, high=True)
+  orientations     Space(float32, shape=(14,), low=-inf, high=inf)
+  height           Space(float32, shape=(), low=-inf, high=inf)
+  velocity         Space(float32, shape=(9,), low=-inf, high=inf)
+Actions
+  action           Space(float32, shape=(6,), low=-1.0, high=1.0)
+Extras
+  consec           Space(int32, shape=(), low=-2147483648, high=2147483647)
+  stepid           Space(uint8, shape=(20,), low=0, high=255)
+  dyn/deter        Space(float32, shape=(512,), low=-inf, high=inf)
+  dyn/stoch        Space(float32, shape=(32, 4), low=-inf, high=inf)
+JAX devices (1): [cuda:0]
+Policy devices: cuda:0
+Train devices:  cuda:0
+Initializing parameters...
+Optimizer opt has 715,619 params:
+       439,168 dyn
+        66,111 val
+        57,663 rew
+        51,096 dec
+        50,316 pol
+        41,153 con
+        10,112 enc
+Done initializing!
+Compiling 1 checkpoint groups...
+Largest checkpoint group: 0 GB
+Compiling train and report...
+Train cost analysis:
+No available
+Report cost analysis:
+No available
+Done compiling!
+Did not find any checkpoint.
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T160811F683455
+Saved checkpoint.
+Start training loop
+Start JAX profiler: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato
+Stop JAX profiler
+
+--------------------[Agent Step 4_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.07 / train/loss/dyn 5.8 / train/loss/height 0.06 / train/loss/orientations 2.36 / train/loss/policy 0.7 / train/loss/rep 5.8 / train/loss/repval 5.83 / train/loss/rew 2.08 / train/loss/value 3.27 / train/loss/velocity 8.41 / replay/replay_ratio 744.76 / fps/policy 36.8 / fps/train 2.1e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 7_408]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.29 / train/loss/height 0.01 / train/loss/orientations 0.74 / train/loss/policy 0.93 / train/loss/rep 6.29 / train/loss/repval 2.76 / train/loss/rew 0.4 / train/loss/value 1.37 / train/loss/velocity 2.31 / replay/replay_ratio 1040 / fps/policy 23.17 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 10_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.78 / train/loss/height 7.1e-3 / train/loss/orientations 0.63 / train/loss/policy 1.02 / train/loss/rep 5.78 / train/loss/repval 2.1 / train/loss/rew 0.38 / train/loss/value 1.21 / train/loss/velocity 1.85 / replay/replay_ratio 1040 / fps/policy 23.2 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 12_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.14 / train/loss/height 5.5e-3 / train/loss/orientations 0.54 / train/loss/policy 0.86 / train/loss/rep 5.14 / train/loss/repval 1.81 / train/loss/rew 0.4 / train/loss/value 1.17 / train/loss/velocity 1.58 / replay/replay_ratio 1040 / fps/policy 23.23 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 15_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.9 / train/loss/height 4.3e-3 / train/loss/orientations 0.46 / train/loss/policy 0.66 / train/loss/rep 4.9 / train/loss/repval 1.4 / train/loss/rew 0.41 / train/loss/value 1.04 / train/loss/velocity 1.43 / replay/replay_ratio 1040 / fps/policy 23.23 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 18_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 26.1 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.05 / train/loss/height 6e-3 / train/loss/orientations 0.49 / train/loss/policy 0.61 / train/loss/rep 5.05 / train/loss/repval 1.18 / train/loss/rew 0.43 / train/loss/value 0.94 / train/loss/velocity 1.44 / replay/replay_ratio 1040 / fps/policy 23.2 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 21_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.17 / train/loss/height 7.5e-3 / train/loss/orientations 0.53 / train/loss/policy 0.22 / train/loss/rep 5.17 / train/loss/repval 1 / train/loss/rew 0.44 / train/loss/value 0.92 / train/loss/velocity 1.5 / replay/replay_ratio 1040 / fps/policy 23.23 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T162316F512086
+Saved checkpoint.
+
+--------------------[Agent Step 24_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.35 / train/loss/height 8.5e-3 / train/loss/orientations 0.56 / train/loss/policy 0.08 / train/loss/rep 5.35 / train/loss/repval 0.96 / train/loss/rew 0.45 / train/loss/value 0.87 / train/loss/velocity 1.54 / replay/replay_ratio 1040 / fps/policy 23.22 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 26_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.63 / train/loss/height 8.8e-3 / train/loss/orientations 0.6 / train/loss/policy -0.26 / train/loss/rep 5.63 / train/loss/repval 1.03 / train/loss/rew 0.46 / train/loss/value 0.92 / train/loss/velocity 1.58 / replay/replay_ratio 1040 / fps/policy 23.21 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 29_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.86 / train/loss/height 7.9e-3 / train/loss/orientations 0.6 / train/loss/policy -0.2 / train/loss/rep 5.86 / train/loss/repval 1.09 / train/loss/rew 0.46 / train/loss/value 0.85 / train/loss/velocity 1.59 / replay/replay_ratio 1040 / fps/policy 23.23 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 32_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 43.51 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.09 / train/loss/height 7.1e-3 / train/loss/orientations 0.59 / train/loss/policy -0.17 / train/loss/rep 6.09 / train/loss/repval 1.11 / train/loss/rew 0.47 / train/loss/value 0.91 / train/loss/velocity 1.56 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 35_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.29 / train/loss/height 7.5e-3 / train/loss/orientations 0.58 / train/loss/policy -0.18 / train/loss/rep 6.29 / train/loss/repval 1.13 / train/loss/rew 0.47 / train/loss/value 0.98 / train/loss/velocity 1.53 / replay/replay_ratio 1040 / fps/policy 23.24 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 38_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.44 / train/loss/height 7.3e-3 / train/loss/orientations 0.55 / train/loss/policy -0.17 / train/loss/rep 6.44 / train/loss/repval 1.2 / train/loss/rew 0.46 / train/loss/value 0.95 / train/loss/velocity 1.5 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 40_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 7.1e-3 / train/loss/orientations 0.55 / train/loss/policy -0.03 / train/loss/rep 6.55 / train/loss/repval 1.17 / train/loss/rew 0.46 / train/loss/value 0.88 / train/loss/velocity 1.48 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T163816F625380
+Saved checkpoint.
+
+--------------------[Agent Step 43_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.43 / train/loss/height 6.8e-3 / train/loss/orientations 0.52 / train/loss/policy -0.03 / train/loss/rep 6.43 / train/loss/repval 1.1 / train/loss/rew 0.46 / train/loss/value 1.07 / train/loss/velocity 1.41 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 46_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.42 / train/loss/height 6.5e-3 / train/loss/orientations 0.48 / train/loss/policy 6.9e-3 / train/loss/rep 6.42 / train/loss/repval 1.03 / train/loss/rew 0.45 / train/loss/value 1.03 / train/loss/velocity 1.37 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 49_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 33.63 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.5 / train/loss/height 6.6e-3 / train/loss/orientations 0.46 / train/loss/policy 0.06 / train/loss/rep 6.5 / train/loss/repval 1.15 / train/loss/rew 0.45 / train/loss/value 1 / train/loss/velocity 1.36 / replay/replay_ratio 1040 / fps/policy 23.24 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 52_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.57 / train/loss/height 6.8e-3 / train/loss/orientations 0.45 / train/loss/policy -0.09 / train/loss/rep 6.57 / train/loss/repval 1.14 / train/loss/rew 0.46 / train/loss/value 1.02 / train/loss/velocity 1.36 / replay/replay_ratio 1040 / fps/policy 23.23 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 54_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.65 / train/loss/height 6.5e-3 / train/loss/orientations 0.43 / train/loss/policy -0.05 / train/loss/rep 6.65 / train/loss/repval 1.1 / train/loss/rew 0.46 / train/loss/value 1.06 / train/loss/velocity 1.34 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 57_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.72 / train/loss/height 6.2e-3 / train/loss/orientations 0.42 / train/loss/policy -0.15 / train/loss/rep 6.72 / train/loss/repval 1.2 / train/loss/rew 0.46 / train/loss/value 1.21 / train/loss/velocity 1.34 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 60_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.86 / train/loss/height 6.2e-3 / train/loss/orientations 0.42 / train/loss/policy -0.04 / train/loss/rep 6.86 / train/loss/repval 1.14 / train/loss/rew 0.46 / train/loss/value 1.21 / train/loss/velocity 1.35 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 63_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.87 / train/loss/height 6.1e-3 / train/loss/orientations 0.42 / train/loss/policy 0.05 / train/loss/rep 6.87 / train/loss/repval 1.09 / train/loss/rew 0.46 / train/loss/value 1.06 / train/loss/velocity 1.34 / replay/replay_ratio 1040 / fps/policy 23.25 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T165316F673482
+Saved checkpoint.
+
+--------------------[Agent Step 66_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 43.38 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.78 / train/loss/height 6.4e-3 / train/loss/orientations 0.43 / train/loss/policy -0.06 / train/loss/rep 6.78 / train/loss/repval 1.1 / train/loss/rew 0.46 / train/loss/value 1.09 / train/loss/velocity 1.31 / replay/replay_ratio 1040 / fps/policy 23.22 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 68_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.69 / train/loss/height 6.4e-3 / train/loss/orientations 0.42 / train/loss/policy -0.07 / train/loss/rep 6.69 / train/loss/repval 1.18 / train/loss/rew 0.46 / train/loss/value 0.89 / train/loss/velocity 1.29 / replay/replay_ratio 1040 / fps/policy 23.25 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 71_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.7 / train/loss/height 6.2e-3 / train/loss/orientations 0.4 / train/loss/policy -0.11 / train/loss/rep 6.7 / train/loss/repval 1.07 / train/loss/rew 0.46 / train/loss/value 1.06 / train/loss/velocity 1.27 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 74_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.69 / train/loss/height 6e-3 / train/loss/orientations 0.39 / train/loss/policy -0.1 / train/loss/rep 6.69 / train/loss/repval 1.18 / train/loss/rew 0.46 / train/loss/value 1.08 / train/loss/velocity 1.26 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 77_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.7 / train/loss/height 5.9e-3 / train/loss/orientations 0.38 / train/loss/policy -0.14 / train/loss/rep 6.7 / train/loss/repval 1.13 / train/loss/rew 0.47 / train/loss/value 0.81 / train/loss/velocity 1.25 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 80_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 89.81 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.68 / train/loss/height 5.6e-3 / train/loss/orientations 0.37 / train/loss/policy -0.11 / train/loss/rep 6.68 / train/loss/repval 0.84 / train/loss/rew 0.47 / train/loss/value 0.83 / train/loss/velocity 1.24 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 82_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.68 / train/loss/height 5.7e-3 / train/loss/orientations 0.36 / train/loss/policy -0.12 / train/loss/rep 6.68 / train/loss/repval 0.83 / train/loss/rew 0.47 / train/loss/value 0.93 / train/loss/velocity 1.23 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T170817F011802
+Saved checkpoint.
+
+--------------------[Agent Step 85_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.67 / train/loss/height 5.6e-3 / train/loss/orientations 0.35 / train/loss/policy -0.12 / train/loss/rep 6.67 / train/loss/repval 0.82 / train/loss/rew 0.47 / train/loss/value 1.1 / train/loss/velocity 1.22 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 88_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.67 / train/loss/height 5.4e-3 / train/loss/orientations 0.34 / train/loss/policy -0.1 / train/loss/rep 6.67 / train/loss/repval 0.91 / train/loss/rew 0.47 / train/loss/value 1.19 / train/loss/velocity 1.21 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 91_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.65 / train/loss/height 5.2e-3 / train/loss/orientations 0.33 / train/loss/policy -0.09 / train/loss/rep 6.65 / train/loss/repval 0.88 / train/loss/rew 0.47 / train/loss/value 1.15 / train/loss/velocity 1.2 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 94_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.66 / train/loss/height 5e-3 / train/loss/orientations 0.32 / train/loss/policy -0.1 / train/loss/rep 6.66 / train/loss/repval 0.94 / train/loss/rew 0.47 / train/loss/value 1.19 / train/loss/velocity 1.19 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 96_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 108.54 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.63 / train/loss/height 5e-3 / train/loss/orientations 0.32 / train/loss/policy -0.08 / train/loss/rep 6.63 / train/loss/repval 1.03 / train/loss/rew 0.47 / train/loss/value 1.22 / train/loss/velocity 1.18 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 99_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.64 / train/loss/height 5e-3 / train/loss/orientations 0.31 / train/loss/policy -0.07 / train/loss/rep 6.64 / train/loss/repval 1.07 / train/loss/rew 0.47 / train/loss/value 1.22 / train/loss/velocity 1.17 / replay/replay_ratio 1040 / fps/policy 23.25 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 102_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.58 / train/loss/height 4.8e-3 / train/loss/orientations 0.3 / train/loss/policy -0.07 / train/loss/rep 6.58 / train/loss/repval 1.07 / train/loss/rew 0.47 / train/loss/value 1.23 / train/loss/velocity 1.15 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 105_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.56 / train/loss/height 4.7e-3 / train/loss/orientations 0.29 / train/loss/policy -0.09 / train/loss/rep 6.56 / train/loss/repval 1.2 / train/loss/rew 0.47 / train/loss/value 1.15 / train/loss/velocity 1.14 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T172317F040396
+Saved checkpoint.
+
+--------------------[Agent Step 108_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.57 / train/loss/height 4.6e-3 / train/loss/orientations 0.29 / train/loss/policy -0.1 / train/loss/rep 6.57 / train/loss/repval 1.19 / train/loss/rew 0.47 / train/loss/value 0.87 / train/loss/velocity 1.14 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 110_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 4.5e-3 / train/loss/orientations 0.28 / train/loss/policy -0.09 / train/loss/rep 6.59 / train/loss/repval 1.06 / train/loss/rew 0.47 / train/loss/value 0.73 / train/loss/velocity 1.14 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 113_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 94.37 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 4.4e-3 / train/loss/orientations 0.28 / train/loss/policy -0.08 / train/loss/rep 6.59 / train/loss/repval 1.07 / train/loss/rew 0.48 / train/loss/value 0.71 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 116_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.62 / train/loss/height 4.4e-3 / train/loss/orientations 0.28 / train/loss/policy -0.09 / train/loss/rep 6.62 / train/loss/repval 0.99 / train/loss/rew 0.48 / train/loss/value 0.75 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 119_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.61 / train/loss/height 4.3e-3 / train/loss/orientations 0.27 / train/loss/policy -0.1 / train/loss/rep 6.61 / train/loss/repval 0.89 / train/loss/rew 0.48 / train/loss/value 0.83 / train/loss/velocity 1.13 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 122_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.59 / train/loss/height 4.3e-3 / train/loss/orientations 0.26 / train/loss/policy -0.11 / train/loss/rep 6.59 / train/loss/repval 0.93 / train/loss/rew 0.48 / train/loss/value 1.12 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 124_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.58 / train/loss/height 4.2e-3 / train/loss/orientations 0.26 / train/loss/policy -0.13 / train/loss/rep 6.58 / train/loss/repval 1.16 / train/loss/rew 0.48 / train/loss/value 1.27 / train/loss/velocity 1.12 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T173817F331978
+Saved checkpoint.
+
+--------------------[Agent Step 127_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.56 / train/loss/height 4.1e-3 / train/loss/orientations 0.26 / train/loss/policy -0.12 / train/loss/rep 6.56 / train/loss/repval 1.25 / train/loss/rew 0.48 / train/loss/value 1.13 / train/loss/velocity 1.11 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 130_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 140.81 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.57 / train/loss/height 4.1e-3 / train/loss/orientations 0.25 / train/loss/policy -0.13 / train/loss/rep 6.57 / train/loss/repval 1.2 / train/loss/rew 0.48 / train/loss/value 0.86 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 133_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.56 / train/loss/height 4e-3 / train/loss/orientations 0.25 / train/loss/policy -0.12 / train/loss/rep 6.56 / train/loss/repval 1.09 / train/loss/rew 0.48 / train/loss/value 0.74 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 136_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.54 / train/loss/height 3.9e-3 / train/loss/orientations 0.24 / train/loss/policy -0.15 / train/loss/rep 6.54 / train/loss/repval 0.93 / train/loss/rew 0.48 / train/loss/value 0.93 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 138_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 3.9e-3 / train/loss/orientations 0.24 / train/loss/policy -0.12 / train/loss/rep 6.55 / train/loss/repval 0.94 / train/loss/rew 0.48 / train/loss/value 1.17 / train/loss/velocity 1.1 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 141_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.55 / train/loss/height 3.9e-3 / train/loss/orientations 0.24 / train/loss/policy -0.13 / train/loss/rep 6.55 / train/loss/repval 1.17 / train/loss/rew 0.48 / train/loss/value 1.16 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 144_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 171.28 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.54 / train/loss/height 3.8e-3 / train/loss/orientations 0.23 / train/loss/policy -0.12 / train/loss/rep 6.54 / train/loss/repval 1.23 / train/loss/rew 0.48 / train/loss/value 0.97 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 147_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.54 / train/loss/height 3.9e-3 / train/loss/orientations 0.23 / train/loss/policy -0.14 / train/loss/rep 6.54 / train/loss/repval 1.07 / train/loss/rew 0.48 / train/loss/value 0.83 / train/loss/velocity 1.09 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T175317F609674
+Saved checkpoint.
+
+--------------------[Agent Step 150_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.52 / train/loss/height 3.8e-3 / train/loss/orientations 0.22 / train/loss/policy -0.11 / train/loss/rep 6.52 / train/loss/repval 0.93 / train/loss/rew 0.48 / train/loss/value 0.98 / train/loss/velocity 1.08 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 152_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.51 / train/loss/height 3.7e-3 / train/loss/orientations 0.22 / train/loss/policy -0.12 / train/loss/rep 6.51 / train/loss/repval 1 / train/loss/rew 0.48 / train/loss/value 1.19 / train/loss/velocity 1.08 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 155_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.5 / train/loss/height 3.6e-3 / train/loss/orientations 0.22 / train/loss/policy -0.11 / train/loss/rep 6.5 / train/loss/repval 1.15 / train/loss/rew 0.48 / train/loss/value 1.22 / train/loss/velocity 1.08 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 158_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.48 / train/loss/height 3.5e-3 / train/loss/orientations 0.21 / train/loss/policy -0.1 / train/loss/rep 6.48 / train/loss/repval 1.21 / train/loss/rew 0.49 / train/loss/value 1.09 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 161_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 205.06 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.48 / train/loss/height 3.5e-3 / train/loss/orientations 0.21 / train/loss/policy -0.1 / train/loss/rep 6.48 / train/loss/repval 1.21 / train/loss/rew 0.49 / train/loss/value 0.96 / train/loss/velocity 1.07 / replay/replay_ratio 1040 / fps/policy 23.21 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 164_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.47 / train/loss/height 3.4e-3 / train/loss/orientations 0.2 / train/loss/policy -0.11 / train/loss/rep 6.47 / train/loss/repval 1.09 / train/loss/rew 0.49 / train/loss/value 0.84 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 166_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.46 / train/loss/height 3.3e-3 / train/loss/orientations 0.2 / train/loss/policy -0.1 / train/loss/rep 6.46 / train/loss/repval 0.95 / train/loss/rew 0.49 / train/loss/value 1.03 / train/loss/velocity 1.06 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T180818F038715
+Saved checkpoint.
+
+--------------------[Agent Step 169_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.44 / train/loss/height 3.2e-3 / train/loss/orientations 0.2 / train/loss/policy -0.1 / train/loss/rep 6.44 / train/loss/repval 1.03 / train/loss/rew 0.49 / train/loss/value 1.21 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 172_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 3.1e-3 / train/loss/orientations 0.19 / train/loss/policy -0.1 / train/loss/rep 6.41 / train/loss/repval 1.17 / train/loss/rew 0.49 / train/loss/value 1.13 / train/loss/velocity 1.05 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 175_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.41 / train/loss/height 3.1e-3 / train/loss/orientations 0.19 / train/loss/policy -0.1 / train/loss/rep 6.41 / train/loss/repval 1.2 / train/loss/rew 0.49 / train/loss/value 0.97 / train/loss/velocity 1.04 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 178_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 256.65 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.37 / train/loss/height 3e-3 / train/loss/orientations 0.18 / train/loss/policy -0.14 / train/loss/rep 6.37 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 0.93 / train/loss/velocity 1.04 / replay/replay_ratio 1040 / fps/policy 23.27 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 180_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.38 / train/loss/height 3e-3 / train/loss/orientations 0.18 / train/loss/policy -0.1 / train/loss/rep 6.38 / train/loss/repval 0.97 / train/loss/rew 0.49 / train/loss/value 1.15 / train/loss/velocity 1.03 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 183_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.34 / train/loss/height 2.9e-3 / train/loss/orientations 0.18 / train/loss/policy -0.09 / train/loss/rep 6.34 / train/loss/repval 1.07 / train/loss/rew 0.49 / train/loss/value 1.21 / train/loss/velocity 1.03 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 186_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.31 / train/loss/height 2.8e-3 / train/loss/orientations 0.18 / train/loss/policy -0.09 / train/loss/rep 6.31 / train/loss/repval 1.18 / train/loss/rew 0.49 / train/loss/value 1.11 / train/loss/velocity 1.02 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 189_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.28 / train/loss/height 2.7e-3 / train/loss/orientations 0.17 / train/loss/policy -0.1 / train/loss/rep 6.28 / train/loss/repval 1.21 / train/loss/rew 0.49 / train/loss/value 0.96 / train/loss/velocity 1.02 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T182318F135983
+Saved checkpoint.
+
+--------------------[Agent Step 192_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.26 / train/loss/height 2.7e-3 / train/loss/orientations 0.17 / train/loss/policy -0.12 / train/loss/rep 6.26 / train/loss/repval 1.01 / train/loss/rew 0.49 / train/loss/value 0.96 / train/loss/velocity 1.01 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 194_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 324.74 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.25 / train/loss/height 2.6e-3 / train/loss/orientations 0.17 / train/loss/policy -0.09 / train/loss/rep 6.25 / train/loss/repval 0.93 / train/loss/rew 0.49 / train/loss/value 1.07 / train/loss/velocity 1.01 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 197_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.21 / train/loss/height 2.6e-3 / train/loss/orientations 0.16 / train/loss/policy -0.09 / train/loss/rep 6.21 / train/loss/repval 1 / train/loss/rew 0.49 / train/loss/value 1.2 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 23.28 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 200_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.2 / train/loss/height 2.5e-3 / train/loss/orientations 0.16 / train/loss/policy -0.09 / train/loss/rep 6.2 / train/loss/repval 1.13 / train/loss/rew 0.49 / train/loss/value 1.15 / train/loss/velocity 1 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 203_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.18 / train/loss/height 2.5e-3 / train/loss/orientations 0.16 / train/loss/policy -0.09 / train/loss/rep 6.18 / train/loss/repval 1.18 / train/loss/rew 0.49 / train/loss/value 1.05 / train/loss/velocity 0.99 / replay/replay_ratio 1040 / fps/policy 23.3 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 206_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.15 / train/loss/height 2.4e-3 / train/loss/orientations 0.16 / train/loss/policy -0.1 / train/loss/rep 6.15 / train/loss/repval 1.18 / train/loss/rew 0.49 / train/loss/value 0.96 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 23.31 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 208_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 262.22 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 6.13 / train/loss/height 2.4e-3 / train/loss/orientations 0.15 / train/loss/policy -0.12 / train/loss/rep 6.13 / train/loss/repval 1.09 / train/loss/rew 0.49 / train/loss/value 0.9 / train/loss/velocity 0.98 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T183818F217688
+Saved checkpoint.
+
+--------------------[Agent Step 211_776]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.12 / train/loss/height 2.4e-3 / train/loss/orientations 0.15 / train/loss/policy -0.1 / train/loss/rep 6.12 / train/loss/repval 0.96 / train/loss/rew 0.49 / train/loss/value 0.94 / train/loss/velocity 0.97 / replay/replay_ratio 1040 / fps/policy 23.26 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 214_576]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.07 / train/loss/height 2.3e-3 / train/loss/orientations 0.15 / train/loss/policy -0.1 / train/loss/rep 6.07 / train/loss/repval 0.92 / train/loss/rew 0.5 / train/loss/value 1.09 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 23.29 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 217_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.06 / train/loss/height 2.2e-3 / train/loss/orientations 0.14 / train/loss/policy -0.1 / train/loss/rep 6.06 / train/loss/repval 0.97 / train/loss/rew 0.5 / train/loss/value 1.21 / train/loss/velocity 0.96 / replay/replay_ratio 1040 / fps/policy 23.31 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 220_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 6.03 / train/loss/height 2.2e-3 / train/loss/orientations 0.14 / train/loss/policy -0.1 / train/loss/rep 6.03 / train/loss/repval 1.1 / train/loss/rew 0.5 / train/loss/value 1.18 / train/loss/velocity 0.95 / replay/replay_ratio 1040 / fps/policy 23.31 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 222_976]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.99 / train/loss/height 2.1e-3 / train/loss/orientations 0.14 / train/loss/policy -0.09 / train/loss/rep 5.99 / train/loss/repval 1.17 / train/loss/rew 0.5 / train/loss/value 1.03 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 23.31 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 225_792]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 412.06 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.98 / train/loss/height 2.1e-3 / train/loss/orientations 0.14 / train/loss/policy -0.11 / train/loss/rep 5.98 / train/loss/repval 1.19 / train/loss/rew 0.5 / train/loss/value 0.95 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 23.37 / fps/train 2.4e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 228_736]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.96 / train/loss/height 2.1e-3 / train/loss/orientations 0.14 / train/loss/policy -0.1 / train/loss/rep 5.96 / train/loss/repval 1.06 / train/loss/rew 0.5 / train/loss/value 0.92 / train/loss/velocity 0.94 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 231_680]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.95 / train/loss/height 2e-3 / train/loss/orientations 0.13 / train/loss/policy -0.07 / train/loss/rep 5.95 / train/loss/repval 1.02 / train/loss/rew 0.5 / train/loss/value 0.93 / train/loss/velocity 0.93 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T185318F575549
+Saved checkpoint.
+
+--------------------[Agent Step 234_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.92 / train/loss/height 2e-3 / train/loss/orientations 0.13 / train/loss/policy -0.07 / train/loss/rep 5.92 / train/loss/repval 1.03 / train/loss/rew 0.5 / train/loss/value 0.9 / train/loss/velocity 0.93 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 237_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.89 / train/loss/height 1.9e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 5.89 / train/loss/repval 1 / train/loss/rew 0.5 / train/loss/value 0.94 / train/loss/velocity 0.92 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 240_512]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 421.25 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.86 / train/loss/height 1.9e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 5.86 / train/loss/repval 0.99 / train/loss/rew 0.5 / train/loss/value 0.97 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 243_440]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.84 / train/loss/height 1.9e-3 / train/loss/orientations 0.13 / train/loss/policy -0.08 / train/loss/rep 5.84 / train/loss/repval 0.95 / train/loss/rew 0.5 / train/loss/value 1.05 / train/loss/velocity 0.91 / replay/replay_ratio 1040 / fps/policy 24.37 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 246_368]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.8 / train/loss/height 1.8e-3 / train/loss/orientations 0.12 / train/loss/policy -0.07 / train/loss/rep 5.8 / train/loss/repval 0.92 / train/loss/rew 0.5 / train/loss/value 1.14 / train/loss/velocity 0.9 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 249_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.77 / train/loss/height 1.8e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 5.77 / train/loss/repval 0.96 / train/loss/rew 0.5 / train/loss/value 1.2 / train/loss/velocity 0.89 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 252_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.73 / train/loss/height 1.8e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 5.73 / train/loss/repval 1.06 / train/loss/rew 0.5 / train/loss/value 1.14 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T190818F653273
+Saved checkpoint.
+
+--------------------[Agent Step 255_200]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.7 / train/loss/height 1.7e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 5.7 / train/loss/repval 1.1 / train/loss/rew 0.5 / train/loss/value 1.02 / train/loss/velocity 0.88 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 258_128]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 503.75 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.69 / train/loss/height 1.7e-3 / train/loss/orientations 0.12 / train/loss/policy -0.08 / train/loss/rep 5.69 / train/loss/repval 1.13 / train/loss/rew 0.5 / train/loss/value 0.96 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 261_056]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.67 / train/loss/height 1.7e-3 / train/loss/orientations 0.12 / train/loss/policy -0.07 / train/loss/rep 5.67 / train/loss/repval 1.16 / train/loss/rew 0.5 / train/loss/value 0.87 / train/loss/velocity 0.87 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 264_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.63 / train/loss/height 1.6e-3 / train/loss/orientations 0.11 / train/loss/policy -0.06 / train/loss/rep 5.63 / train/loss/repval 1.15 / train/loss/rew 0.5 / train/loss/value 0.84 / train/loss/velocity 0.86 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 266_944]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.59 / train/loss/height 1.6e-3 / train/loss/orientations 0.11 / train/loss/policy -0.06 / train/loss/rep 5.59 / train/loss/repval 1.14 / train/loss/rew 0.5 / train/loss/value 0.85 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 269_888]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.56 / train/loss/height 1.6e-3 / train/loss/orientations 0.11 / train/loss/policy -0.07 / train/loss/rep 5.56 / train/loss/repval 1.1 / train/loss/rew 0.5 / train/loss/value 0.91 / train/loss/velocity 0.85 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 272_832]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 424.19 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.53 / train/loss/height 1.6e-3 / train/loss/orientations 0.11 / train/loss/policy -0.06 / train/loss/rep 5.53 / train/loss/repval 1.01 / train/loss/rew 0.5 / train/loss/value 1.03 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 275_760]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.52 / train/loss/height 1.5e-3 / train/loss/orientations 0.11 / train/loss/policy -0.06 / train/loss/rep 5.52 / train/loss/repval 1.03 / train/loss/rew 0.5 / train/loss/value 1 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T192319F061321
+Saved checkpoint.
+
+--------------------[Agent Step 278_688]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.5 / train/loss/height 1.5e-3 / train/loss/orientations 0.11 / train/loss/policy -0.06 / train/loss/rep 5.5 / train/loss/repval 1.03 / train/loss/rew 0.5 / train/loss/value 1.03 / train/loss/velocity 0.84 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 281_616]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.48 / train/loss/height 1.5e-3 / train/loss/orientations 0.1 / train/loss/policy -0.06 / train/loss/rep 5.48 / train/loss/repval 0.96 / train/loss/rew 0.5 / train/loss/value 1.14 / train/loss/velocity 0.83 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 284_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.46 / train/loss/height 1.5e-3 / train/loss/orientations 0.1 / train/loss/policy -0.05 / train/loss/rep 5.46 / train/loss/repval 0.96 / train/loss/rew 0.5 / train/loss/value 1.17 / train/loss/velocity 0.83 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 287_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.43 / train/loss/height 1.5e-3 / train/loss/orientations 0.1 / train/loss/policy -0.05 / train/loss/rep 5.43 / train/loss/repval 0.96 / train/loss/rew 0.5 / train/loss/value 1.17 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 290_432]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 548.37 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.41 / train/loss/height 1.4e-3 / train/loss/orientations 0.1 / train/loss/policy -0.05 / train/loss/rep 5.41 / train/loss/repval 0.97 / train/loss/rew 0.5 / train/loss/value 1.16 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 293_360]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.4 / train/loss/height 1.4e-3 / train/loss/orientations 0.1 / train/loss/policy -0.05 / train/loss/rep 5.4 / train/loss/repval 0.98 / train/loss/rew 0.5 / train/loss/value 1.15 / train/loss/velocity 0.82 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 296_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.38 / train/loss/height 1.4e-3 / train/loss/orientations 0.1 / train/loss/policy -0.05 / train/loss/rep 5.38 / train/loss/repval 0.99 / train/loss/rew 0.5 / train/loss/value 1.11 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T193819F306269
+Saved checkpoint.
+
+--------------------[Agent Step 299_248]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.35 / train/loss/height 1.4e-3 / train/loss/orientations 0.1 / train/loss/policy -0.05 / train/loss/rep 5.35 / train/loss/repval 1.01 / train/loss/rew 0.5 / train/loss/value 1.07 / train/loss/velocity 0.81 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 302_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.35 / train/loss/height 1.4e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.35 / train/loss/repval 1 / train/loss/rew 0.5 / train/loss/value 1.04 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 305_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 533.74 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.32 / train/loss/height 1.3e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.32 / train/loss/repval 1.01 / train/loss/rew 0.5 / train/loss/value 1 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 308_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.32 / train/loss/height 1.3e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.32 / train/loss/repval 1 / train/loss/rew 0.5 / train/loss/value 0.97 / train/loss/velocity 0.8 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 311_008]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.3 / train/loss/height 1.3e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.3 / train/loss/repval 0.99 / train/loss/rew 0.5 / train/loss/value 0.97 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 313_952]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.28 / train/loss/height 1.3e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.28 / train/loss/repval 1 / train/loss/rew 0.5 / train/loss/value 0.94 / train/loss/velocity 0.79 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 316_896]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.26 / train/loss/height 1.3e-3 / train/loss/orientations 0.09 / train/loss/policy -0.06 / train/loss/rep 5.26 / train/loss/repval 1.16 / train/loss/rew 0.5 / train/loss/value 0.99 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 319_840]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.23 / train/loss/height 1.3e-3 / train/loss/orientations 0.09 / train/loss/policy -0.04 / train/loss/rep 5.23 / train/loss/repval 1.15 / train/loss/rew 0.5 / train/loss/value 0.93 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T195319F313523
+Saved checkpoint.
+
+--------------------[Agent Step 322_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 529.88 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.21 / train/loss/height 1.2e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.21 / train/loss/repval 1.15 / train/loss/rew 0.5 / train/loss/value 0.93 / train/loss/velocity 0.78 / replay/replay_ratio 1040 / fps/policy 24.35 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 325_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.21 / train/loss/height 1.2e-3 / train/loss/orientations 0.09 / train/loss/policy -0.05 / train/loss/rep 5.21 / train/loss/repval 1.15 / train/loss/rew 0.5 / train/loss/value 0.92 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 328_640]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.18 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.18 / train/loss/repval 1.16 / train/loss/rew 0.5 / train/loss/value 0.93 / train/loss/velocity 0.77 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 331_584]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.15 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.15 / train/loss/repval 1.14 / train/loss/rew 0.5 / train/loss/value 0.94 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 334_528]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.14 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.14 / train/loss/repval 1.14 / train/loss/rew 0.5 / train/loss/value 0.95 / train/loss/velocity 0.76 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 337_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 567.05 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.12 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.12 / train/loss/repval 1.13 / train/loss/rew 0.5 / train/loss/value 0.97 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 340_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.11 / train/loss/height 1.2e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.11 / train/loss/repval 1.13 / train/loss/rew 0.5 / train/loss/value 0.96 / train/loss/velocity 0.75 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T200819F872040
+Saved checkpoint.
+
+--------------------[Agent Step 343_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.07 / train/loss/height 1.1e-3 / train/loss/orientations 0.08 / train/loss/policy -0.04 / train/loss/rep 5.07 / train/loss/repval 1.14 / train/loss/rew 0.5 / train/loss/value 0.97 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 346_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.07 / train/loss/height 1.1e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.07 / train/loss/repval 1.12 / train/loss/rew 0.5 / train/loss/value 0.99 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 349_200]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.04 / train/loss/height 1.1e-3 / train/loss/orientations 0.08 / train/loss/policy -0.05 / train/loss/rep 5.04 / train/loss/repval 1.11 / train/loss/rew 0.5 / train/loss/value 1.01 / train/loss/velocity 0.74 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 352_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 5.01 / train/loss/height 1.1e-3 / train/loss/orientations 0.08 / train/loss/policy -0.04 / train/loss/rep 5.01 / train/loss/repval 1.1 / train/loss/rew 0.51 / train/loss/value 1.03 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 355_072]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 610.83 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 5.02 / train/loss/height 1.1e-3 / train/loss/orientations 0.08 / train/loss/policy -0.04 / train/loss/rep 5.02 / train/loss/repval 1.09 / train/loss/rew 0.51 / train/loss/value 1.05 / train/loss/velocity 0.73 / replay/replay_ratio 1040 / fps/policy 24.37 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 358_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.98 / train/loss/height 1.1e-3 / train/loss/orientations 0.08 / train/loss/policy -0.04 / train/loss/rep 4.98 / train/loss/repval 1.09 / train/loss/rew 0.51 / train/loss/value 1.05 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 360_944]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.97 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.04 / train/loss/rep 4.97 / train/loss/repval 1.08 / train/loss/rew 0.51 / train/loss/value 1.07 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 363_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.94 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.04 / train/loss/rep 4.94 / train/loss/repval 1.06 / train/loss/rew 0.51 / train/loss/value 1.09 / train/loss/velocity 0.72 / replay/replay_ratio 1040 / fps/policy 24.32 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T202319F980389
+Saved checkpoint.
+
+--------------------[Agent Step 366_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.92 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.04 / train/loss/rep 4.92 / train/loss/repval 1.05 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 369_744]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 686.32 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.91 / train/loss/height 1.1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.91 / train/loss/repval 1.04 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.71 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 372_672]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.91 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.91 / train/loss/repval 1.04 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 375_616]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.87 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.87 / train/loss/repval 1.04 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.7 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 378_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.85 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.85 / train/loss/repval 1.03 / train/loss/rew 0.51 / train/loss/value 1.11 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 381_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.83 / train/loss/height 1e-3 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.83 / train/loss/repval 1.02 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.69 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 384_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 646.77 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.81 / train/loss/height 9.9e-4 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.81 / train/loss/repval 1.02 / train/loss/rew 0.51 / train/loss/value 1.11 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T203820F227405
+Saved checkpoint.
+
+--------------------[Agent Step 387_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.81 / train/loss/height 9.9e-4 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.81 / train/loss/repval 1.01 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 24.37 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 390_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.79 / train/loss/height 9.9e-4 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.79 / train/loss/repval 1.01 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.68 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 393_248]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.77 / train/loss/height 9.8e-4 / train/loss/orientations 0.07 / train/loss/policy -0.03 / train/loss/rep 4.77 / train/loss/repval 1.01 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 396_192]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.75 / train/loss/height 9.7e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.75 / train/loss/repval 1 / train/loss/rew 0.51 / train/loss/value 1.1 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 399_136]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.74 / train/loss/height 9.7e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.74 / train/loss/repval 1 / train/loss/rew 0.52 / train/loss/value 1.09 / train/loss/velocity 0.67 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 402_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 685.27 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.71 / train/loss/height 9.4e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.71 / train/loss/repval 0.99 / train/loss/rew 0.52 / train/loss/value 1.09 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 404_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.72 / train/loss/height 9.5e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.72 / train/loss/repval 0.99 / train/loss/rew 0.52 / train/loss/value 1.08 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 407_936]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.69 / train/loss/height 9.4e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.69 / train/loss/repval 0.99 / train/loss/rew 0.52 / train/loss/value 1.08 / train/loss/velocity 0.66 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T205320F418224
+Saved checkpoint.
+
+--------------------[Agent Step 410_880]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.67 / train/loss/height 9.3e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.67 / train/loss/repval 1 / train/loss/rew 0.52 / train/loss/value 1.08 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 413_824]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.66 / train/loss/height 9.2e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.66 / train/loss/repval 0.99 / train/loss/rew 0.52 / train/loss/value 1.08 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 416_768]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 623.54 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.64 / train/loss/height 9.2e-4 / train/loss/orientations 0.06 / train/loss/policy -0.02 / train/loss/rep 4.64 / train/loss/repval 0.97 / train/loss/rew 0.52 / train/loss/value 1.06 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 419_696]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.64 / train/loss/height 9.2e-4 / train/loss/orientations 0.06 / train/loss/policy -0.02 / train/loss/rep 4.64 / train/loss/repval 0.96 / train/loss/rew 0.52 / train/loss/value 1.04 / train/loss/velocity 0.65 / replay/replay_ratio 1040 / fps/policy 24.37 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 422_624]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.63 / train/loss/height 9.2e-4 / train/loss/orientations 0.06 / train/loss/policy -0.02 / train/loss/rep 4.63 / train/loss/repval 0.95 / train/loss/rew 0.52 / train/loss/value 1.03 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 24.39 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 425_568]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.61 / train/loss/height 9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.61 / train/loss/repval 0.96 / train/loss/rew 0.52 / train/loss/value 1.04 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 428_512]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.61 / train/loss/height 9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.61 / train/loss/repval 0.96 / train/loss/rew 0.52 / train/loss/value 1.05 / train/loss/velocity 0.64 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T210820F591129
+Saved checkpoint.
+
+--------------------[Agent Step 431_456]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.57 / train/loss/height 8.9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.57 / train/loss/repval 0.96 / train/loss/rew 0.52 / train/loss/value 1.04 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 434_384]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 638.15 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.58 / train/loss/height 8.9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.58 / train/loss/repval 0.95 / train/loss/rew 0.52 / train/loss/value 1.03 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 437_312]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.56 / train/loss/height 8.9e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.56 / train/loss/repval 0.96 / train/loss/rew 0.52 / train/loss/value 1.03 / train/loss/velocity 0.63 / replay/replay_ratio 1040 / fps/policy 24.37 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 440_256]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.54 / train/loss/height 8.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.54 / train/loss/repval 0.94 / train/loss/rew 0.52 / train/loss/value 1.02 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 443_200]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.53 / train/loss/height 8.8e-4 / train/loss/orientations 0.06 / train/loss/policy -0.02 / train/loss/rep 4.53 / train/loss/repval 0.93 / train/loss/rew 0.52 / train/loss/value 1 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 24.41 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 446_144]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.53 / train/loss/height 8.7e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.53 / train/loss/repval 0.92 / train/loss/rew 0.52 / train/loss/value 0.99 / train/loss/velocity 0.62 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 449_072]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 646.65 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.49 / train/loss/height 8.6e-4 / train/loss/orientations 0.06 / train/loss/policy -0.03 / train/loss/rep 4.49 / train/loss/repval 0.91 / train/loss/rew 0.53 / train/loss/value 0.98 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 452_000]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.5 / train/loss/height 8.6e-4 / train/loss/orientations 0.06 / train/loss/policy -0.02 / train/loss/rep 4.5 / train/loss/repval 0.91 / train/loss/rew 0.52 / train/loss/value 0.97 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 24.36 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T212320F684747
+Saved checkpoint.
+
+--------------------[Agent Step 454_928]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.49 / train/loss/height 8.6e-4 / train/loss/orientations 0.06 / train/loss/policy -0.02 / train/loss/rep 4.49 / train/loss/repval 0.9 / train/loss/rew 0.53 / train/loss/value 0.96 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 457_872]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.47 / train/loss/height 8.5e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.47 / train/loss/repval 0.89 / train/loss/rew 0.53 / train/loss/value 0.95 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 460_816]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.47 / train/loss/height 8.5e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.47 / train/loss/repval 0.88 / train/loss/rew 0.53 / train/loss/value 0.94 / train/loss/velocity 0.61 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 463_760]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.46 / train/loss/height 8.5e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.46 / train/loss/repval 0.87 / train/loss/rew 0.53 / train/loss/value 0.93 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 466_688]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 713.88 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.43 / train/loss/height 8.3e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.43 / train/loss/repval 0.86 / train/loss/rew 0.53 / train/loss/value 0.91 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 469_616]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.44 / train/loss/height 8.4e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.44 / train/loss/repval 0.86 / train/loss/rew 0.53 / train/loss/value 0.9 / train/loss/velocity 0.6 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 472_560]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.42 / train/loss/height 8.3e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.42 / train/loss/repval 0.84 / train/loss/rew 0.53 / train/loss/value 0.88 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T213820F903343
+Saved checkpoint.
+
+--------------------[Agent Step 475_504]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.4 / train/loss/height 8.3e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.4 / train/loss/repval 0.84 / train/loss/rew 0.53 / train/loss/value 0.88 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 478_448]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.39 / train/loss/height 8.2e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.39 / train/loss/repval 0.83 / train/loss/rew 0.53 / train/loss/value 0.86 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 481_376]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 688.08 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.38 / train/loss/height 8.1e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.38 / train/loss/repval 0.82 / train/loss/rew 0.53 / train/loss/value 0.85 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 484_304]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.4 / train/loss/height 8.2e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.4 / train/loss/repval 0.82 / train/loss/rew 0.53 / train/loss/value 0.85 / train/loss/velocity 0.59 / replay/replay_ratio 1040 / fps/policy 24.38 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+
+--------------------[Agent Step 487_232]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.38 / train/loss/height 8.1e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.38 / train/loss/repval 0.82 / train/loss/rew 0.53 / train/loss/value 0.85 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 24.4 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 490_176]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.36 / train/loss/height 8.1e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.36 / train/loss/repval 0.81 / train/loss/rew 0.53 / train/loss/value 0.83 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 493_120]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.36 / train/loss/height 8.1e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.36 / train/loss/repval 0.81 / train/loss/rew 0.53 / train/loss/value 0.83 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+
+--------------------[Agent Step 496_064]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+train/loss/con 0.02 / train/loss/dyn 4.33 / train/loss/height 7.9e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.33 / train/loss/repval 0.8 / train/loss/rew 0.53 / train/loss/value 0.81 / train/loss/velocity 0.57 / replay/replay_ratio 1040 / fps/policy 24.42 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
+Saving checkpoint: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/ckpt/20260415T215320F986599
+Saved checkpoint.
+
+--------------------[Agent Step 498_992]--------------------
+Metrics filtered by: 'score|length|fps|ratio|train/loss/|train/rand/'
+episode/score 621.35 / episode/length 1001 / train/loss/con 0.02 / train/loss/dyn 4.35 / train/loss/height 8e-4 / train/loss/orientations 0.05 / train/loss/policy -0.02 / train/loss/rep 4.35 / train/loss/repval 0.79 / train/loss/rew 0.53 / train/loss/value 0.8 / train/loss/velocity 0.58 / replay/replay_ratio 1040 / fps/policy 24.36 / fps/train 2.5e4
+
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/metrics.jsonl
+Writing metrics: /home/sk3686/logdir/dreamer/round2_walker_run_stuplus_seed1_20260415_160724_della-stellato/scores.jsonl
