@@ -508,7 +508,7 @@ def verify_dataset(output_dir):
     return True
 
 
-@hydra.main(config_path="ez/config", config_name='config', version_base='1.1')
+@hydra.main(config_path="../ez/config", config_name='config', version_base='1.1')
 def main(config):
     if config.exp_config is not None:
         exp_config = OmegaConf.load(config.exp_config)

@@ -1,0 +1,84 @@
+run_name: mech-hankel-state_tracking-attn_stu_mamba
+seed: 42
+compute_dtype: bf16
+param_dtype: fp32
+optimizer_dtype: fp32
+remat: full
+max_steps: 4000
+log_every: 50
+
+model:
+  vocab_size: 64
+  d_model: 96
+  n_layers: 6
+  n_heads: 12
+  max_sequence_length: 256
+  mlp_ratio: 2.0
+  block_type: attn_stu_mamba
+  attn_ratio: 4.0
+  stu_ratio: 4.0
+  mamba_ratio: 4.0
+  rope: true
+  alibi: false
+  sliding_window: null
+  attention_dropout: 0.0
+  residual_dropout: 0.0
+  embedding_dropout: 0.0
+  tie_embeddings: true
+  stu_num_eigh: 16
+  stu_use_hankel_L: false
+  stu_use_approx: true
+  stu_random_filters: false
+  mamba_d_state: 64
+  mamba_expand: 2
+  mamba_d_conv: 4
+  mamba_version: 1
+  compute_dtype: bf16
+
+optimizer:
+  optimizer_type: adamw
+  learning_rate: 0.0003
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+
+scheduler:
+  scheduler_type: cosine
+  warmup_steps: 200
+  min_lr_ratio: 0.01
+
+data:
+  train_paths:
+    - /lambda/nfs/hazan/spectral-transformer-jax/data/mechanistic/state_tracking/train_raw.npy
+  eval_paths:
+    - /lambda/nfs/hazan/spectral-transformer-jax/data/mechanistic/state_tracking/eval_raw.npy
+  train_loss_mask_paths:
+    - /lambda/nfs/hazan/spectral-transformer-jax/data/mechanistic/state_tracking/train_loss_mask.npy
+  eval_loss_mask_paths:
+    - /lambda/nfs/hazan/spectral-transformer-jax/data/mechanistic/state_tracking/eval_loss_mask.npy
+  global_batch_size: 128
+  microbatch_size: 128
+  shuffle: true
+  seed: 42
+  memmap_dtype: uint16
+  save_data_indices: false
+  ignore_index: 0
+
+checkpoint:
+  save_dir: /lambda/nfs/hazan/spectral-transformer-jax/runs/random-filters/checkpoints/mech-hankel-state_tracking-attn_stu_mamba
+  save_every: 500
+  keep_last: 2
+
+partition:
+  mesh_shape: [1, 1]
+  axis_names: [data, model]
+
+eval:
+  eval_every: 500
+  max_batches: 20
+
+wandb:
+  enabled: false
+  mode: offline
+  dir: /lambda/nfs/hazan/spectral-transformer-jax/runs/random-filters/wandb
+  project: spectral-transformer-jax
+  tags: [state_tracking, attn_stu_mamba, mechanistic, medium]

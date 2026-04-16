@@ -61,9 +61,12 @@ from ez.agents.models.base_model import (
     DynamicsNetworkTemporalAttention,
     DynamicsNetworkSTUSequential,
     DynamicsNetworkMLPSequential,
+    DynamicsNetworkPureSTU,
+    DynamicsNetworkSTUDecoder,
     ProjectionNetwork,
     ProjectionHeadNetwork,
 )
+from ez.agents.models.stu_layer import MiniSTU
 from ez.utils.loss import cosine_similarity_loss
 
 
@@ -129,6 +132,86 @@ GAME_CONFIGS = {
         'data_subdir': 'battlezone_40K',
         'checkpoint': 'battlezone_40K/atari_battlezone_model_40000.p',
         'action_space_size': 18,
+    },
+    'amidar': {
+        'data_subdir': 'amidar_110K',
+        'checkpoint': 'amidar_110K/atari_amidar_model_110000.p',
+        'action_space_size': 10,
+    },
+    'boxing': {
+        'data_subdir': 'boxing_110K',
+        'checkpoint': 'boxing_110K/atari_boxing_model_110000.p',
+        'action_space_size': 18,
+    },
+    'breakout': {
+        'data_subdir': 'breakout_110K',
+        'checkpoint': 'breakout_110K/atari_breakout_model_110000.p',
+        'action_space_size': 4,
+    },
+    'choppercommand': {
+        'data_subdir': 'choppercommand_50K',
+        'checkpoint': 'choppercommand_50K/atari_choppercommand_model_50000.p',
+        'action_space_size': 18,
+    },
+    'crazyclimber': {
+        'data_subdir': 'crazyclimber_90K',
+        'checkpoint': 'crazyclimber_90K/atari_crazyclimber_model_90000.p',
+        'action_space_size': 9,
+    },
+    'demonattack': {
+        'data_subdir': 'demonattack_110K',
+        'checkpoint': 'demonattack_110K/atari_demonattack_model_110000.p',
+        'action_space_size': 6,
+    },
+    'freeway': {
+        'data_subdir': 'freeway_110K',
+        'checkpoint': 'freeway_110K/atari_freeway_model_110000.p',
+        'action_space_size': 3,
+    },
+    'frostbite': {
+        'data_subdir': 'frostbite_100K',
+        'checkpoint': 'frostbite_100K/atari_frostbite_model_100000.p',
+        'action_space_size': 18,
+    },
+    'gopher': {
+        'data_subdir': 'gopher_100K',
+        'checkpoint': 'gopher_100K/atari_gopher_model_100000.p',
+        'action_space_size': 8,
+    },
+    'hero': {
+        'data_subdir': 'hero_60K',
+        'checkpoint': 'hero_60K/atari_hero_model_60000.p',
+        'action_space_size': 18,
+    },
+    'jamesbond': {
+        'data_subdir': 'jamesbond_90K',
+        'checkpoint': 'jamesbond_90K/atari_jamesbond_model_90000.p',
+        'action_space_size': 18,
+    },
+    'kangaroo': {
+        'data_subdir': 'kangaroo_110K',
+        'checkpoint': 'kangaroo_110K/atari_kangaroo_model_110000.p',
+        'action_space_size': 18,
+    },
+    'krull': {
+        'data_subdir': 'krull_110K',
+        'checkpoint': 'krull_110K/atari_krull_model_110000.p',
+        'action_space_size': 18,
+    },
+    'privateeye': {
+        'data_subdir': 'privateeye_110K',
+        'checkpoint': 'privateeye_110K/atari_privateeye_model_110000.p',
+        'action_space_size': 18,
+    },
+    'qbert': {
+        'data_subdir': 'qbert_80K',
+        'checkpoint': 'qbert_80K/atari_qbert_model_80000.p',
+        'action_space_size': 6,
+    },
+    'upndown': {
+        'data_subdir': 'upndown_60K',
+        'checkpoint': 'upndown_60K/atari_upndown_model_60000.p',
+        'action_space_size': 6,
     },
 }
 
@@ -326,6 +409,11 @@ def build_dynamics_network(action_space_size, model_type='baseline',
                            attn_num_heads=4,
                            buffer_size=10,
                            stu_hidden_dim=512, stu_num_layers=2,
+                           pure_stu_d_model=128,
+                           pure_stu_num_layers=4,
+                           pure_stu_num_filters=8,
+                           pure_stu_mlp_ratio=2.0,
+                           stu_decoder_max_action_seq_len=64,
                            is_continuous=False):
     """Build dynamics network.
 
@@ -412,6 +500,32 @@ def build_dynamics_network(action_space_size, model_type='baseline',
             buffer_size=buffer_size,
             hidden_dim=stu_hidden_dim,
             num_mlp_layers=stu_num_layers,
+        )
+    elif model_type == 'pure_stu':
+        return DynamicsNetworkPureSTU(
+            num_channels=num_channels,
+            action_space_size=action_space_size,
+            buffer_size=buffer_size,
+            d_model=pure_stu_d_model,
+            num_stu_layers=pure_stu_num_layers,
+            num_filters=pure_stu_num_filters,
+            mlp_ratio=pure_stu_mlp_ratio,
+            is_continuous=is_continuous,
+            action_embedding=action_embedding,
+            action_embedding_dim=action_embedding_dim,
+        )
+    elif model_type == 'stu_decoder':
+        return DynamicsNetworkSTUDecoder(
+            num_channels=num_channels,
+            action_space_size=action_space_size,
+            max_action_seq_len=stu_decoder_max_action_seq_len,
+            d_model=pure_stu_d_model,
+            num_stu_layers=pure_stu_num_layers,
+            num_filters=pure_stu_num_filters,
+            mlp_ratio=pure_stu_mlp_ratio,
+            is_continuous=is_continuous,
+            action_embedding=action_embedding,
+            action_embedding_dim=action_embedding_dim,
         )
     else:
         return DynamicsNetwork(**common)
@@ -555,7 +669,8 @@ def verify_benchmark_predictions(dynamics_model, dataset, device,
 # ===========================================================================
 
 def compute_losses(dynamics_model, projection_model, projection_head_model,
-                   batch, device, consistency_weight=5.0, is_temporal=False):
+                   batch, device, consistency_weight=5.0, is_temporal=False,
+                   is_stu_decoder=False):
     """Compute MSE + consistency loss for a batch.
 
     Replicates the online consistency loss from ez/agents/base.py lines 474-477:
@@ -566,7 +681,24 @@ def compute_losses(dynamics_model, projection_model, projection_head_model,
     next_states = batch['next_state'].to(device)
 
     # Dynamics prediction — temporal models take history, spatial take single state
-    if is_temporal:
+    if is_stu_decoder:
+        # STUDecoder takes (s_0, action_sequence). Bypass _prepare_action and
+        # build a length-1 action sequence in the model's expected format:
+        # [B, K]   for discrete, [B, K, A] for continuous.
+        states = batch['state'].to(device)                             # [B, C, H, W]
+        raw_action = batch['action'].to(device)
+        if _IS_CONTINUOUS:
+            # raw_action: [B, A] -> [B, 1, A]
+            actions_seq = raw_action.unsqueeze(1)
+        else:
+            # raw_action: [B] -> [B, 1]
+            if raw_action.dim() == 1:
+                actions_seq = raw_action.unsqueeze(1)
+            else:
+                actions_seq = raw_action  # already [B, 1] or similar
+        preds = dynamics_model(states, actions_seq)                    # [B, 1, C, H, W]
+        pred_next = preds[:, 0]                                        # [B, C, H, W]
+    elif is_temporal:
         history = batch['history'].to(device)  # [B, N, C, H, W]
         result = dynamics_model(history, actions)
         # Some temporal models return (output, buffer_state) tuple
@@ -630,12 +762,17 @@ def train_one_epoch(dynamics_model, projection_model, projection_head_model,
 
 
 def train_one_epoch_multistep(dynamics_model, seq_loader, optimizer, device,
-                              grad_clip=5.0, is_temporal=False, buffer_size=10):
+                              grad_clip=5.0, is_temporal=False, buffer_size=10,
+                              is_stu_decoder=False):
     """Train for one epoch with multi-step autoregressive loss.
 
     Unrolls the dynamics model K steps, computing MSE at each step against
     ground truth and backpropagating through the full rollout chain.
     This gives the model gradient signal for composable multi-step predictions.
+
+    For is_stu_decoder=True the model takes (s_0, action_sequence) and
+    produces all K predictions in a SINGLE forward pass — no autoregressive
+    rollout, no access to intermediate ground-truth states.
     """
     dynamics_model.train()
 
@@ -650,6 +787,21 @@ def train_one_epoch_multistep(dynamics_model, seq_loader, optimizer, device,
 
         total_mse = 0.0
         num_steps = 0
+
+        if is_stu_decoder:
+            # Single-shot multistep prediction: model takes (s_0, action seq)
+            # and returns predicted s_1..s_K in one forward pass.
+            s0 = gt_states[:, 0]                                  # [B, C, H, W]
+            preds = dynamics_model(s0, actions)                   # [B, K, C, H, W]
+            target = gt_states[:, 1:]                             # [B, K, C, H, W]
+            loss = F.mse_loss(preds, target)
+            optimizer.zero_grad()
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(dynamics_model.parameters(), grad_clip)
+            optimizer.step()
+            epoch_metrics['mse'] += loss.item()
+            n_batches += 1
+            continue
 
         if is_temporal:
             # Initialize history buffer with ground-truth states
@@ -704,7 +856,8 @@ def train_one_epoch_multistep(dynamics_model, seq_loader, optimizer, device,
 
 @torch.no_grad()
 def evaluate(dynamics_model, projection_model, projection_head_model,
-             eval_loader, device, consistency_weight=5.0, is_temporal=False):
+             eval_loader, device, consistency_weight=5.0, is_temporal=False,
+             is_stu_decoder=False):
     """Evaluate on held-out episodes."""
     dynamics_model.eval()
 
@@ -715,6 +868,7 @@ def evaluate(dynamics_model, projection_model, projection_head_model,
         _, loss_dict = compute_losses(
             dynamics_model, projection_model, projection_head_model,
             batch, device, consistency_weight, is_temporal=is_temporal,
+            is_stu_decoder=is_stu_decoder,
         )
         for k, v in loss_dict.items():
             epoch_metrics[k] += v
@@ -725,7 +879,7 @@ def evaluate(dynamics_model, projection_model, projection_head_model,
 
 @torch.no_grad()
 def evaluate_multistep(dynamics_model, seq_dataset, device, is_temporal=False,
-                       buffer_size=10):
+                       buffer_size=10, is_stu_decoder=False):
     """Evaluate multi-step autoregressive rollout error.
 
     Starting from ground-truth s_0, repeatedly applies the dynamics model:
@@ -733,10 +887,10 @@ def evaluate_multistep(dynamics_model, seq_dataset, device, is_temporal=False,
     and measures MSE(s_hat_k, s_k) at each step.
 
     For temporal models, maintains a FIFO buffer of size buffer_size.
-    The buffer is warmed up with ground-truth states: the first
-    min(buffer_size, K+1) states from the rollout window are used to fill
-    the buffer. Autoregressive prediction starts after the warm-up period,
-    and only post-warm-up steps are measured.
+
+    For is_stu_decoder=True the model takes (s_0, action_sequence) and
+    returns all K predictions in a SINGLE forward pass — no autoregressive
+    rollout. We measure step-wise MSE on each predicted position.
 
     Returns dict mapping step number -> mean MSE.
     """
@@ -750,6 +904,16 @@ def evaluate_multistep(dynamics_model, seq_dataset, device, is_temporal=False,
         actions = batch['actions'].to(device)     # [B, K]
         K = actions.shape[1]
         B = gt_states.shape[0]
+
+        if is_stu_decoder:
+            s0 = gt_states[:, 0]                              # [B, C, H, W]
+            preds = dynamics_model(s0, actions)               # [B, K, C, H, W]
+            for step in range(K):
+                gt = gt_states[:, step + 1]
+                mse = F.mse_loss(preds[:, step], gt, reduction='none')
+                mse_per_sample = mse.reshape(B, -1).mean(dim=1)
+                step_errors[step + 1].extend(mse_per_sample.cpu().tolist())
+            continue
 
         current = gt_states[:, 0]  # start from ground truth
 
@@ -827,7 +991,8 @@ def parse_args():
                    choices=['baseline', 'stu', 'mamba', 'attention', 'baseline_only',
                             'temporal_baseline', 'spatiotemporal_stu',
                             'temporal_stu', 'temporal_mamba', 'temporal_attention',
-                            'stu_sequential', 'mlp_sequential'],
+                            'stu_sequential', 'mlp_sequential', 'pure_stu',
+                            'stu_decoder'],
                    help='Dynamics network variant')
     p.add_argument('--buffer_size', type=int, default=10,
                    help='History buffer size for temporal models (default: 10)')
@@ -841,6 +1006,15 @@ def parse_args():
     # STU-specific
     p.add_argument('--dynamics_stu_seq_len', type=int, default=36)
     p.add_argument('--dynamics_stu_num_filters', type=int, default=2)
+    p.add_argument('--filter_type', type=str, default='hankel',
+                   choices=['hankel', 'random', 'random_normalized', 'dct', 'dft', 'hankel_scaled'],
+                   help='STU filter basis (used by any model containing MiniSTU). '
+                        'hankel = top-K Hankel eigenvectors (default); '
+                        'random = i.i.d. Gaussian; '
+                        'random_normalized = Haar-orth columns with sigma^(1/4) scaling; '
+                        'dct = top-K DCT-II cosines with sigma^(1/4) scaling; '
+                        'dft = lowest-K Fourier modes (cos/sin) with sigma^(1/4) scaling; '
+                        'hankel_scaled = Hankel directions but column norms = sqrt(seq_len).')
     # Mamba-specific
     p.add_argument('--mamba_d_state', type=int, default=16)
     p.add_argument('--mamba_d_conv', type=int, default=4)
@@ -852,6 +1026,18 @@ def parse_args():
                    help='Hidden dimension for stu_sequential model')
     p.add_argument('--stu_num_layers', type=int, default=2,
                    help='Number of stacked STU layers for stu_sequential model')
+    # PureSTU-specific
+    p.add_argument('--pure_stu_d_model', type=int, default=128,
+                   help='Model dimension for pure_stu')
+    p.add_argument('--pure_stu_num_layers', type=int, default=4,
+                   help='Number of STUResBlock layers for pure_stu')
+    p.add_argument('--pure_stu_num_filters', type=int, default=8,
+                   help='num_filters per STU layer in pure_stu (K in Hankel eigenbasis)')
+    p.add_argument('--pure_stu_mlp_ratio', type=float, default=2.0,
+                   help='MLP hidden expansion ratio for pure_stu STUResBlock')
+    # STUDecoder-specific
+    p.add_argument('--stu_decoder_max_action_seq_len', type=int, default=64,
+                   help='Maximum action sequence length for stu_decoder model.')
 
     # Training
     p.add_argument('--epochs', type=int, default=50)
@@ -974,7 +1160,9 @@ def main():
     is_temporal = (args.model_type.startswith('temporal_')
                    or args.model_type == 'spatiotemporal_stu'
                    or args.model_type == 'stu_sequential'
-                   or args.model_type == 'mlp_sequential')
+                   or args.model_type == 'mlp_sequential'
+                   or args.model_type == 'pure_stu')
+    is_stu_decoder = (args.model_type == 'stu_decoder')
 
     if is_temporal:
         print(f"\nLoading temporal training data (buffer_size={args.buffer_size})...")
@@ -1063,6 +1251,11 @@ def main():
         buffer_size=args.buffer_size,
         stu_hidden_dim=args.stu_hidden_dim,
         stu_num_layers=args.stu_num_layers,
+        pure_stu_d_model=args.pure_stu_d_model,
+        pure_stu_num_layers=args.pure_stu_num_layers,
+        pure_stu_num_filters=args.pure_stu_num_filters,
+        pure_stu_mlp_ratio=args.pure_stu_mlp_ratio,
+        stu_decoder_max_action_seq_len=args.stu_decoder_max_action_seq_len,
         is_continuous=is_continuous,
     ).to(device)
 
@@ -1070,11 +1263,43 @@ def main():
         args.checkpoint, device,
     )
 
+    # Optionally swap the MiniSTU filter basis for an ablation variant.
+    # Filters are stored as non-persistent buffers at every MiniSTU.phi in the
+    # model. Walk all MiniSTU instances and overwrite in place — works for
+    # spatial-STU (one MiniSTU at model.stu) AND for pure_stu / temporal STU
+    # variants (multiple MiniSTU instances inside layers). No changes to
+    # base_model.py / stu_layer.py needed.
+    if args.filter_type != 'hankel':
+        from ez.agents.models.filter_factory import make_filters
+        stu_modules = [m for m in dynamics_model.modules() if isinstance(m, MiniSTU)]
+        if len(stu_modules) == 0:
+            print(f"  [filter_type={args.filter_type}] WARNING: model contains "
+                  f"no MiniSTU instances; --filter_type is a no-op for "
+                  f"model_type={model_type}")
+        for idx, mod in enumerate(stu_modules):
+            seq_len = mod.phi.shape[0]
+            K = mod.phi.shape[1]
+            # Use a per-layer-distinct seed so stacked layers don't share the
+            # exact same random basis (which would be a degenerate ablation).
+            new_phi = make_filters(
+                kind=args.filter_type,
+                seq_len=seq_len,
+                num_filters=K,
+                seed=args.seed + idx,
+            )
+            target = mod.phi
+            with torch.no_grad():
+                target.copy_(new_phi.to(device=target.device, dtype=target.dtype))
+            cn = torch.linalg.norm(target, dim=0).tolist()
+            cn_short = [round(v, 4) for v in cn[:4]]
+            print(f"  [filter_type={args.filter_type}] swapped MiniSTU[{idx}].phi  "
+                  f"shape={tuple(target.shape)}  col_norms[:4]={cn_short}")
+
     n_params = sum(p.numel() for p in dynamics_model.parameters()
                    if p.requires_grad)
     print(f"Dynamics model: {type(dynamics_model).__name__}, "
           f"{n_params:,} trainable params")
-    print(f"Model: {model_type}")
+    print(f"Model: {model_type}  filter_type: {args.filter_type if model_type == 'stu' else 'n/a'}")
 
     # Optimizer
     if args.optimizer == 'Adam':
@@ -1135,6 +1360,7 @@ def main():
                 dynamics_model, seq_train_loader, optimizer, device,
                 grad_clip=args.grad_clip,
                 is_temporal=is_temporal, buffer_size=args.buffer_size,
+                is_stu_decoder=is_stu_decoder,
             )
         else:
             train_metrics = train_one_epoch(
@@ -1164,10 +1390,12 @@ def main():
                 dynamics_model, projection_model, projection_head_model,
                 eval_loader, device, args.consistency_weight,
                 is_temporal=is_temporal,
+                is_stu_decoder=is_stu_decoder,
             )
             multistep = evaluate_multistep(
                 dynamics_model, seq_eval_dataset, device,
                 is_temporal=is_temporal, buffer_size=args.buffer_size,
+                is_stu_decoder=is_stu_decoder,
             )
 
             print(
